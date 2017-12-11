@@ -9,54 +9,98 @@
     <version>0.1</version>
 
     <properties>
-        <uriConstructorVersion>1.1.3</uriConstructorVersion>
-        <seleniumVersion>3.7.1</seleniumVersion>
-        <webDriverManagerVersion>1.7.2</webDriverManagerVersion>
-        <browserLibVersion>0.3</browserLibVersion>
-        <junitVersion>4.12</junitVersion>
-        <browser>chrome</browser>
-        <env>da</env>
+        <uri-constructor.version>1.2</uri-constructor.version>
+        <selenium.version>3.7.1</selenium.version>
+        <webdriver-manager.version>1.7.2</webdriver-manager.version>
+        <browser.version>0.4.1</browser.version>
+        <junit.version>4.12</junit.version>
+        <annotations.version>13.0</annotations.version>
+        <active-support.version>0.2.4</active-support.version>
+        <aws-maven.version>5.0.0.RELEASE</aws-maven.version>
+        <slf4j-nop.version>1.7.25</slf4j-nop.version>
     </properties>
+
+    <distributionManagement>
+        <repository>
+            <id>devappci-shd-pri-qarepo</id>
+            <url>s3://devappci-shd-pri-qarepo</url>
+        </repository>
+    </distributionManagement>
+
+    <build>
+        <extensions>
+            <extension>
+                <groupId>org.springframework.build</groupId>
+                <artifactId>aws-maven</artifactId>
+                <version>${aws-maven.version}</version>
+            </extension>
+        </extensions>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>${seleniumVersion}</version>
+            <version>${selenium.version}</version>
         </dependency>
 
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>${webDriverManagerVersion}</version>
+            <version>${webdriver-manager.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${junitVersion}</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.dvsa.testing.lib</groupId>
             <artifactId>uri-constructor</artifactId>
-            <version>${uriConstructorVersion}</version>
+            <version>${uri-constructor.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.dvsa.testing.lib</groupId>
             <artifactId>browser</artifactId>
-            <version>${browserLibVersion}</version>
+            <version>${browser.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.jetbrains/annotations -->
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>13.0</version>
+            <version>${annotations.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.dvsa.testing.lib</groupId>
+            <artifactId>active-support</artifactId>
+            <version>${active-support.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-nop -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-nop</artifactId>
+            <version>${slf4j-nop.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
