@@ -1,4 +1,4 @@
-package utils;
+package org.dvsa.testing.lib.pages.utils;
 
 import java.util.concurrent.ThreadLocalRandom;
 

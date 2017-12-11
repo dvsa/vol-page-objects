@@ -1,9 +1,9 @@
-package pages.external;
+package org.dvsa.testing.lib.pages.external;
 
-import enums.BusinessType;
-import enums.Choice;
+import org.dvsa.testing.lib.pages.enums.BusinessType;
+import org.dvsa.testing.lib.pages.enums.Choice;
 import org.jetbrains.annotations.NotNull;
-import pages.BasePage;
+import org.dvsa.testing.lib.pages.BasePage;
 
 public class RegisterPage extends BasePage {
     private static String USERNAME_FIELD_LOCATOR = createNameAttributeSelector("input", "fields[loginId] ");

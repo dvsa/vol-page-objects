@@ -1,4 +1,4 @@
-package enums;
+package org.dvsa.testing.lib.pages.enums;
 
 public enum BusinessType {
     LIMITED_COMPANY,

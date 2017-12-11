@@ -1,4 +1,4 @@
-package pages;
+package org.dvsa.testing.lib.pages;
 
 import org.dvsa.testing.lib.Browser;
 import org.jetbrains.annotations.NotNull;

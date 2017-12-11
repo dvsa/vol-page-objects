@@ -1,3 +1,5 @@
+package org.dvsa.testing.lib.pages;
+
 import activesupport.system.Properties;
 import org.dvsa.testing.lib.Browser;
 import org.dvsa.testing.lib.Environment;
