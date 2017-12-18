@@ -73,6 +73,14 @@ public class RegisterPage extends BasePage {
         click(String.format(BUSINESS_TYPE_BUTTON_TEMPLATE, position));
     }
 
+    public static void welshCorrespondence(boolean choice){
+        if ((choice)) {
+            selectWelshCorrespondence();
+        } else {
+            deselectWelshCorrespondence();
+        }
+    }
+
     public static void selectWelshCorrespondence(){
         select(WELSH_CORRESPONDENCE_CHECKBOX);
     }
