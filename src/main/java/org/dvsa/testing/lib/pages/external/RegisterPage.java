@@ -19,23 +19,23 @@ public class RegisterPage extends BasePage {
     private static String TERMS_AND_CONDITIONS_CHECKBOX = "fieldset > div:nth-of-type(9) input[type=\"checkbox\"]";
     private static String CREATE_ACCOUNT_BUTTON = "form > fieldset:nth-of-type(2) button[type=\"submit\"]";
 
-    private static void username(@NotNull String username){
+    public static void username(@NotNull String username){
         enterField(USERNAME_FIELD_LOCATOR, username);
     }
 
-    private static void firstName(@NotNull String firstName){
+    public static void firstName(@NotNull String firstName){
         enterField(FIRST_NAME_FIELD, firstName);
     }
 
-    private static void lastName(@NotNull String lastName){
+    public static void lastName(@NotNull String lastName){
         enterField(LAST_NAME_FIELD, lastName);
     }
 
-    private static void email(@NotNull String emailAddress){
+    public static void email(@NotNull String emailAddress){
         enterField(EMAIL_FIELD, emailAddress);
     }
 
-    private static void emailConfirmation(@NotNull String email){
+    public static void emailConfirmation(@NotNull String email){
         enterField(EMAIL_CONFIRM_FIELD, email);
     }
 
