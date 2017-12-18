@@ -1,7 +1,6 @@
 package org.dvsa.testing.lib.pages.external;
 
 import org.dvsa.testing.lib.pages.enums.BusinessType;
-import org.dvsa.testing.lib.pages.enums.Choice;
 import org.jetbrains.annotations.NotNull;
 import org.dvsa.testing.lib.pages.BasePage;
 
@@ -82,8 +81,8 @@ public class RegisterPage extends BasePage {
         deselect(WELSH_CORRESPONDENCE_CHECKBOX);
     }
 
-    public static void termsAndCondition(@NotNull Choice choice){
-        if (choice == Choice.ACCEPT) {
+    public static void termsAndCondition(boolean choice){
+        if ((choice)) {
             selectTermsAndCondition();
         } else {
             deselectTermsAndCondition();
