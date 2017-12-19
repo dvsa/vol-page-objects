@@ -5,13 +5,13 @@ import org.jetbrains.annotations.NotNull;
 import org.dvsa.testing.lib.pages.BasePage;
 
 public class RegisterPage extends BasePage {
-    private static String USERNAME_FIELD_LOCATOR = createNameAttributeSelector("input", "fields[loginId] ");
-    private static String FIRST_NAME_FIELD = createNameAttributeSelector("input", "fields[forename] ");
-    private static String LAST_NAME_FIELD = createNameAttributeSelector("input", "fields[familyName] ");
-    private static String EMAIL_FIELD = createNameAttributeSelector("input", "fields[emailAddress] ");
-    private static String EMAIL_CONFIRM_FIELD = createNameAttributeSelector("input", "fields[emailConfirm] ");
+    private static String USERNAME_FIELD_LOCATOR = createNameAttributeSelector("input", "fields[loginId]");
+    private static String FIRST_NAME_FIELD = createNameAttributeSelector("input", "fields[forename]");
+    private static String LAST_NAME_FIELD = createNameAttributeSelector("input", "fields[familyName]");
+    private static String EMAIL_FIELD = createNameAttributeSelector("input", "fields[emailAddress]");
+    private static String EMAIL_CONFIRM_FIELD = createNameAttributeSelector("input", "fields[emailConfirm]");
     private static String POSSESS_VOL_FIELDSET = "fieldset > fieldset:nth-of-type(1) ";
-    private static String ORGANISATION_NAME_FIELD = createNameAttributeSelector("input", "fields[organisationName] ");
+    private static String ORGANISATION_NAME_FIELD = createNameAttributeSelector("input", "fields[organisationName]");
     private static String BUSINESS_TYPE_FIELDSET = "fieldset > fieldset:nth-of-type(2) ";
     private static String BUSINESS_TYPE_BUTTON_TEMPLATE = BUSINESS_TYPE_FIELDSET + "> label:nth-of-type(%d) > input";
     private static String WELSH_CORRESPONDENCE_CHECKBOX = "fieldset > div:nth-of-type(8) input[type=\"checkbox\"]";
