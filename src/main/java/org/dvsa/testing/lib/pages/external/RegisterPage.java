@@ -10,7 +10,7 @@ public class RegisterPage extends BasePage {
     private static String LAST_NAME_FIELD = createNameAttributeSelector("input", "fields[familyName]");
     private static String EMAIL_FIELD = createNameAttributeSelector("input", "fields[emailAddress]");
     private static String EMAIL_CONFIRM_FIELD = createNameAttributeSelector("input", "fields[emailConfirm]");
-    private static String POSSESS_VOL_FIELDSET = "fieldset > fieldset:nth-of-type(1) ";
+    private static String POSSESS_VOL_FIELDSET = "fieldset > fieldset:nth-of-type(1)";
     private static String ORGANISATION_NAME_FIELD = createNameAttributeSelector("input", "fields[organisationName]");
     private static String BUSINESS_TYPE_FIELDSET = "fieldset > fieldset:nth-of-type(2) ";
     private static String BUSINESS_TYPE_BUTTON_TEMPLATE = BUSINESS_TYPE_FIELDSET + "> label:nth-of-type(%d) > input";
@@ -39,7 +39,7 @@ public class RegisterPage extends BasePage {
     }
 
     public static void possessVOL(boolean status){
-        String selector = (status) ? POSSESS_VOL_FIELDSET + "input:nth-child(1) " : "input:nth-child(2) ";
+        String selector = (status) ? POSSESS_VOL_FIELDSET + " input:nth-child(1)" : " input:nth-child(2)";
         click(selector);
     }
 
