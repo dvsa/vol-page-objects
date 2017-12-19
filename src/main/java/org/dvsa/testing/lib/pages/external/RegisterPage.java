@@ -39,8 +39,8 @@ public class RegisterPage extends BasePage {
     }
 
     public static void possessVOL(boolean status){
-        String selector = (status) ? POSSESS_VOL_FIELDSET + " input:nth-child(1)" : " input:nth-child(2)";
-        click(selector);
+        String childSelector = (status) ?  " input:nth-child(1)" : " input:nth-child(2)";
+        click(POSSESS_VOL_FIELDSET + childSelector);
     }
 
     public static void organisationName(@NotNull String name){
