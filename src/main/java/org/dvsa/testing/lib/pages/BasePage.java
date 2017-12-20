@@ -2,9 +2,10 @@ package org.dvsa.testing.lib.pages;
 
 import org.dvsa.testing.lib.Browser;
 import org.jetbrains.annotations.NotNull;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BasePage {
 
@@ -54,6 +55,34 @@ public class BasePage {
         if(isSelected(selector)){
             click(selector);
         }
+    }
+
+    public static void isNotPresent(@NotNull String selector, int timeToWait){
+        new WebDriverWait(getDriver(), timeToWait).until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(selector)));
+    }
+
+    public static void isNotInDOM(@NotNull String selector, int timeToWait){
+        new WebDriverWait(getDriver(), timeToWait).until(BasePage.absenceOfElementLocated(By.cssSelector(selector)));
+    }
+
+    private static ExpectedCondition<Boolean> absenceOfElementLocated(
+            final By locator) {
+        return new ExpectedCondition<Boolean>() {
+            @Override
+            public Boolean apply(WebDriver driver) {
+                try {
+                    driver.findElement(locator);
+                    return false;
+                } catch (NoSuchElementException | StaleElementReferenceException e) {
+                    return true;
+                }
+            }
+
+            @Override
+            public String toString() {
+                return "element to not being present: " + locator;
+            }
+        };
     }
 
 }
