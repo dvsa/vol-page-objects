@@ -1,5 +1,6 @@
 package org.dvsa.testing.lib.pages.external;
 
+import activesupport.system.out.Output;
 import org.dvsa.testing.lib.pages.enums.BusinessType;
 import org.jetbrains.annotations.NotNull;
 import org.dvsa.testing.lib.pages.BasePage;
@@ -39,12 +40,45 @@ public class RegisterPage extends BasePage {
     }
 
     public static void possessVOL(boolean status){
-        String childSelector = (status) ?  " input:nth-child(1)" : " input:nth-child(2)";
-        click(POSSESS_VOL_FIELDSET + childSelector);
+        int nthTypeSelector = (status) ?  2 : 1;
+        String selector = String.format("%s label:nth-of-type(%d) input[type=\"radio\"]", POSSESS_VOL_FIELDSET, nthTypeSelector);
+
+        click(selector);
     }
 
     public static void organisationName(@NotNull String name){
         enterField(ORGANISATION_NAME_FIELD, name);
+    }
+
+    public static void businessType(@NotNull String businessType){
+        businessType(enumBusinessType(businessType));
+    }
+
+    private static BusinessType enumBusinessType(@NotNull String businessType){
+        businessType = businessType.trim().toLowerCase();
+        BusinessType enumBusinessType;
+
+        switch(businessType){
+            case "limited company":
+                enumBusinessType = BusinessType.LIMITED_COMPANY;
+                break;
+            case "sole trader":
+                enumBusinessType = BusinessType.SOLE_TRADER;
+                break;
+            case "partnership":
+                enumBusinessType = BusinessType.PARTNERSHIP;
+                break;
+            case "limited liability company":
+                enumBusinessType = BusinessType.LIMITED_LIABILITY_COMPANY;
+                break;
+            case "other":
+                enumBusinessType = BusinessType.OTHER;
+                break;
+            default:
+                throw new IllegalArgumentException(Output.printColoredLog("[ERROR] Unable to convert " + businessType + " into a BusinessType enum"));
+        }
+
+        return enumBusinessType;
     }
 
     public static void businessType(@NotNull BusinessType businessType){
