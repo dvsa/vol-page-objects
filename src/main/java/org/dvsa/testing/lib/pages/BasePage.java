@@ -9,23 +9,23 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BasePage {
 
-    public static void enterField(@NotNull String selector, @NotNull String text){
+    static void enterField(@NotNull String selector, @NotNull String text){
         find(selector).sendKeys(text);
     }
 
-    public static void click(@NotNull String selector){
+    static void click(@NotNull String selector){
        find(selector).click();
     }
 
-    protected static WebDriver getDriver(){
+    static WebDriver getDriver(){
         return Browser.getDriver();
     }
 
-    protected static String createNameAttributeSelector(@NotNull String element, @NotNull String value){
+    static String createNameAttributeSelector(@NotNull String element, @NotNull String value){
         return createAttributeSelector(element, "name", value);
     }
 
-    protected static String createAttributeSelector(@NotNull String element, @NotNull String attribute, @NotNull String value){
+    static String createAttributeSelector(@NotNull String element, @NotNull String attribute, @NotNull String value){
         return String.format("%s[%s=\"%s\"]", element, attribute, value);
     }
 
@@ -33,35 +33,35 @@ public class BasePage {
         return Browser.getDriver().findElement(By.cssSelector(selector));
     }
 
-    protected static boolean isElementPresent(@NotNull String selector){
+    static boolean isElementPresent(@NotNull String selector){
         return getDriver().findElement(By.cssSelector(selector)) != null;
     }
 
-    protected static boolean isNotSelected(@NotNull String selector){
+    static boolean isNotSelected(@NotNull String selector){
         return !isSelected(selector);
     }
 
-    protected static boolean isSelected(@NotNull String selector){
+    static boolean isSelected(@NotNull String selector){
         return getDriver().findElement(By.cssSelector(selector)).isSelected();
     }
 
-    public static void select(@NotNull String selector){
+    static void select(@NotNull String selector){
         if(isNotSelected(selector)){
             click(selector);
         }
     }
 
-    public static void deselect(@NotNull String selector){
+    static void deselect(@NotNull String selector){
         if(isSelected(selector)){
             click(selector);
         }
     }
 
-    public static void isNotPresent(@NotNull String selector, int timeToWait){
+    static void isNotPresent(@NotNull String selector, int timeToWait){
         new WebDriverWait(getDriver(), timeToWait).until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(selector)));
     }
 
-    public static void isNotInDOM(@NotNull String selector, int timeToWait){
+    static void isNotInDOM(@NotNull String selector, int timeToWait){
         new WebDriverWait(getDriver(), timeToWait).until(BasePage.absenceOfElementLocated(By.cssSelector(selector)));
     }
 
