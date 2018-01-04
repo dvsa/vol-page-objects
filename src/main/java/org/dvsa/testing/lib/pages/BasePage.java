@@ -61,8 +61,16 @@ public class BasePage {
         new WebDriverWait(getDriver(), timeToWait).until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(selector)));
     }
 
+    protected static void isPresent(@NotNull String selector, int timeToWait){
+        new WebDriverWait(getDriver(), timeToWait).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(selector)));
+    }
+
     protected static void isNotInDOM(@NotNull String selector, int timeToWait){
         new WebDriverWait(getDriver(), timeToWait).until(BasePage.absenceOfElementLocated(By.cssSelector(selector)));
+    }
+
+    protected static void isInDOM(@NotNull String selector, int timeToWait){
+        new WebDriverWait(getDriver(), timeToWait).until(BasePage.presenceOfElementLocated(By.cssSelector(selector)));
     }
 
     private static ExpectedCondition<Boolean> absenceOfElementLocated(
@@ -81,6 +89,26 @@ public class BasePage {
             @Override
             public String toString() {
                 return "element to not being present: " + locator;
+            }
+        };
+    }
+
+    private static ExpectedCondition<Boolean> presenceOfElementLocated(
+            final By locator) {
+        return new ExpectedCondition<Boolean>() {
+            @Override
+            public Boolean apply(WebDriver driver) {
+                try {
+                    driver.findElement(locator);
+                    return true;
+                } catch (NoSuchElementException | StaleElementReferenceException e) {
+                    return false;
+                }
+            }
+
+            @Override
+            public String toString() {
+                return "element to being present: " + locator;
             }
         };
     }
