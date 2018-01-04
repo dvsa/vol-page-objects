@@ -91,19 +91,19 @@ public class BasePage {
     }
 
     protected static void isNotPresent(@NotNull String selector, int timeToWait){
-        new WebDriverWait(getDriver(), timeToWait).until(not(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(selector))));
+        new WebDriverWait(getDriver(), timeToWait).until(not(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(selector))));
     }
 
     protected static void isPresent(@NotNull String selector, int timeToWait){
-        new WebDriverWait(getDriver(), timeToWait).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(selector)));
+        new WebDriverWait(getDriver(), timeToWait).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(selector)));
     }
 
     protected static void isNotInDOM(@NotNull String selector, int timeToWait){
-        new WebDriverWait(getDriver(), timeToWait).until(not(ExpectedConditions.presenceOfElementLocated(By.cssSelector(selector))));
+        new WebDriverWait(getDriver(), timeToWait).until(not(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector(selector))));
     }
 
     protected static void isInDOM(@NotNull String selector, int timeToWait){
-        new WebDriverWait(getDriver(), timeToWait).until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(selector)));
+        new WebDriverWait(getDriver(), timeToWait).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector(selector)));
     }
 
     protected static boolean contains(@NotNull String selector, @NotNull String content){
