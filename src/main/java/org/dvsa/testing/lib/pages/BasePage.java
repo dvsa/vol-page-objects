@@ -9,6 +9,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BasePage {
 
+    protected static String PAGE_TITLE = "h1";
+
     protected static void enterField(@NotNull String selector, @NotNull String text){
         find(selector).sendKeys(text);
     }
@@ -104,6 +106,21 @@ public class BasePage {
 
     protected static boolean contains(@NotNull String selector, @NotNull String content){
         return find(selector).getText().contains(content);
+    }
+
+    protected static boolean isCurrentPage(@NotNull String selector, @NotNull String title){
+        long horizonMilliseconds = 3000;
+        return isCurrentPage(selector, title, horizonMilliseconds);
+    }
+
+    protected static boolean isCurrentPage(@NotNull String selector, @NotNull String title, long horizonMilliseconds){
+        boolean isCurrentPage = false;
+
+        if(isElementPresentWithin(selector, horizonMilliseconds)){
+            isCurrentPage = contains(selector, title);
+        }
+
+        return isCurrentPage;
     }
 
     private static ExpectedCondition<Boolean> absenceOfElementLocated(
