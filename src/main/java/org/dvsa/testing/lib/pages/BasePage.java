@@ -21,7 +21,7 @@ public class BasePage {
         return Browser.getDriver();
     }
 
-    protected static String createNameAttributeSelector(@NotNull String element, @NotNull String value){
+    protected static String nameAttribute(@NotNull String element, @NotNull String value){
         return createAttributeSelector(element, "name", value);
     }
 
