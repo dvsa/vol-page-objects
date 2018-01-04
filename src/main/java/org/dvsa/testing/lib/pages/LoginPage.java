@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 public class LoginPage extends BasePage {
 
     private static String EMAIL_FIELD_LOCATOR = nameAttribute("input", "username");
-    private static String PASSWORD_FIELD_LOCATOR = nameAttribute("input", "password");;
+    private static String PASSWORD_FIELD_LOCATOR = nameAttribute("input", "password");
     private static String SUBMIT_BUTTON = nameAttribute("input", "submit");
 
     public static void email(@NotNull String email) {
