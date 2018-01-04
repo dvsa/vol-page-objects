@@ -3,7 +3,7 @@ package org.dvsa.testing.lib.pages.external;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.jetbrains.annotations.NotNull;
 
-public class ChangeYourPassword extends BasePage{
+public class ChangeYourPasswordPage extends BasePage{
     private static String CURRENT_PASSWORD_FIELD = nameAttribute("input", "oldPassword");
     private static String NEW_PASSWORD_FIELD = nameAttribute("input", "newPassword");
     private static String CONFIRM_PASSWORD_FIELD = nameAttribute("input", "confirmPassword");
