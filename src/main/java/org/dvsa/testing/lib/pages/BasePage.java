@@ -24,10 +24,10 @@ public class BasePage {
     }
 
     protected static String nameAttribute(@NotNull String element, @NotNull String value){
-        return createAttributeSelector(element, "name", value);
+        return attributeSelector(element, "name", value);
     }
 
-    protected static String createAttributeSelector(@NotNull String element, @NotNull String attribute, @NotNull String value){
+    protected static String attributeSelector(@NotNull String element, @NotNull String attribute, @NotNull String value){
         return String.format("%s[%s=\"%s\"]", element, attribute, value);
     }
 
