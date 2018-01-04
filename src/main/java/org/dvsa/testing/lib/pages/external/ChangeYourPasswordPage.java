@@ -13,23 +13,23 @@ public class ChangeYourPasswordPage extends BasePage{
     // Page Attributes
     private static String PAGE_TITLE_TEXT = "Change your password";
 
-    public void setCurrentPasswordField(@NotNull String currentPasswordField){
+    public static void setCurrentPasswordField(@NotNull String currentPasswordField){
         enterField(CURRENT_PASSWORD_FIELD, currentPasswordField);
     }
 
-    public void setNewPasswordField(@NotNull String newPasswordField){
+    public static void setNewPasswordField(@NotNull String newPasswordField){
         enterField(NEW_PASSWORD_FIELD, newPasswordField);
     }
 
-    public void setConfirmPasswordField(@NotNull String confirmPasswordField){
+    public static void setConfirmPasswordField(@NotNull String confirmPasswordField){
         enterField(CONFIRM_PASSWORD_FIELD, confirmPasswordField);
     }
 
-    public void submit(){
+    public static void submit(){
         click(SUBMIT_BUTTON);
     }
 
-    public boolean isCurrentPage(){
+    public static boolean isCurrentPage(){
         return isCurrentPage(PAGE_TITLE, PAGE_TITLE_TEXT);
     }
 }
