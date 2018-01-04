@@ -34,7 +34,36 @@ public class BasePage {
     }
 
     protected static boolean isElementPresent(@NotNull String selector){
-        return getDriver().findElement(By.cssSelector(selector)) != null;
+        return find(selector) != null;
+    }
+
+    protected static boolean isElementPresentWithin(@NotNull String selector, long milliseconds){
+        final long WAIT_INTERVAL = 250;
+        long count = 0;
+        boolean found;
+
+        do {
+            found = isElementPresent(selector);
+
+            if(found || count >= milliseconds){
+                break;
+            }
+
+            try {
+                Thread.sleep(WAIT_INTERVAL);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            count += WAIT_INTERVAL;
+
+        } while (!found && count <= milliseconds);
+
+        return found;
+    }
+
+    protected static boolean isElementNotPresentWithin(@NotNull String selector, long milliseconds){
+        return !isElementPresentWithin(selector, milliseconds);
     }
 
     protected static boolean isNotSelected(@NotNull String selector){
@@ -71,6 +100,10 @@ public class BasePage {
 
     protected static void isInDOM(@NotNull String selector, int timeToWait){
         new WebDriverWait(getDriver(), timeToWait).until(BasePage.presenceOfElementLocated(By.cssSelector(selector)));
+    }
+
+    protected static boolean contains(@NotNull String selector, @NotNull String content){
+        return find(selector).getText().contains(content);
     }
 
     private static ExpectedCondition<Boolean> absenceOfElementLocated(
