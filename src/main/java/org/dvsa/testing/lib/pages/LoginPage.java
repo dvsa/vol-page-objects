@@ -26,7 +26,7 @@ public class LoginPage extends BasePage {
     }
 
     public static void untilNotOnPage(int seconds){
-        isNotPresent(SUBMIT_BUTTON, seconds);
+        isNotInDOM(SUBMIT_BUTTON, seconds);
     }
 
 }
