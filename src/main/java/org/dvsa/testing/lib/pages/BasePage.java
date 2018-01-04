@@ -7,6 +7,8 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.not;
+
 public class BasePage {
 
     protected static String PAGE_TITLE = "h1";
@@ -89,7 +91,7 @@ public class BasePage {
     }
 
     protected static void isNotPresent(@NotNull String selector, int timeToWait){
-        new WebDriverWait(getDriver(), timeToWait).until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(selector)));
+        new WebDriverWait(getDriver(), timeToWait).until(not(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(selector))));
     }
 
     protected static void isPresent(@NotNull String selector, int timeToWait){
@@ -97,11 +99,11 @@ public class BasePage {
     }
 
     protected static void isNotInDOM(@NotNull String selector, int timeToWait){
-        new WebDriverWait(getDriver(), timeToWait).until(BasePage.absenceOfElementLocated(By.cssSelector(selector)));
+        new WebDriverWait(getDriver(), timeToWait).until(not(ExpectedConditions.presenceOfElementLocated(By.cssSelector(selector))));
     }
 
     protected static void isInDOM(@NotNull String selector, int timeToWait){
-        new WebDriverWait(getDriver(), timeToWait).until(BasePage.presenceOfElementLocated(By.cssSelector(selector)));
+        new WebDriverWait(getDriver(), timeToWait).until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(selector)));
     }
 
     protected static boolean contains(@NotNull String selector, @NotNull String content){
@@ -121,46 +123,6 @@ public class BasePage {
         }
 
         return isCurrentPage;
-    }
-
-    private static ExpectedCondition<Boolean> absenceOfElementLocated(
-            final By locator) {
-        return new ExpectedCondition<Boolean>() {
-            @Override
-            public Boolean apply(WebDriver driver) {
-                try {
-                    driver.findElement(locator);
-                    return false;
-                } catch (NoSuchElementException | StaleElementReferenceException e) {
-                    return true;
-                }
-            }
-
-            @Override
-            public String toString() {
-                return "element to not being present: " + locator;
-            }
-        };
-    }
-
-    private static ExpectedCondition<Boolean> presenceOfElementLocated(
-            final By locator) {
-        return new ExpectedCondition<Boolean>() {
-            @Override
-            public Boolean apply(WebDriver driver) {
-                try {
-                    driver.findElement(locator);
-                    return true;
-                } catch (NoSuchElementException | StaleElementReferenceException e) {
-                    return false;
-                }
-            }
-
-            @Override
-            public String toString() {
-                return "element to being present: " + locator;
-            }
-        };
     }
 
 }
