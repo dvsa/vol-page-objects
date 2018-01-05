@@ -6,7 +6,7 @@
 
     <groupId>org.dvsa.testing.lib</groupId>
     <artifactId>page-objects</artifactId>
-    <version>0.4.2</version>
+    <version>0.4.2.1</version>
 
     <properties>
         <uri-constructor.version>1.3</uri-constructor.version>
