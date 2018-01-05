@@ -6,6 +6,8 @@ import org.jetbrains.annotations.NotNull;
 import org.dvsa.testing.lib.pages.BasePage;
 
 public class RegisterPage extends BasePage {
+
+    // Selectors
     private static String USERNAME_FIELD_LOCATOR = nameAttribute("input", "fields[loginId]");
     private static String FIRST_NAME_FIELD = nameAttribute("input", "fields[forename]");
     private static String LAST_NAME_FIELD = nameAttribute("input", "fields[familyName]");
@@ -19,6 +21,14 @@ public class RegisterPage extends BasePage {
     private static String TERMS_AND_CONDITIONS_CHECKBOX = "fieldset > div:nth-of-type(9) input[type=\"checkbox\"]";
     private static String CREATE_ACCOUNT_BUTTON = "form > fieldset:nth-of-type(2) button[type=\"submit\"]";
 
+    // Attributes
+    private static String RESOURCE_PATH = "register/";
+
+    public static String getResourcePath() {
+        return RESOURCE_PATH;
+    }
+
+    // Behaviour
     public static void username(@NotNull String username){
         enterField(USERNAME_FIELD_LOCATOR, username);
     }
