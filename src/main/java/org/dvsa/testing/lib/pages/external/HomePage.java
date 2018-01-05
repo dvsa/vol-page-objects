@@ -9,7 +9,7 @@ public class HomePage extends BasePage {
     // Attributes
     private static String PAGE_TITLE_TEXT = "Home";
 
-
+    // Behaviour
     public static void applyForLicenceButton(){
         click(APPLY_FOR_LICENCE_BUTTON);
     }
