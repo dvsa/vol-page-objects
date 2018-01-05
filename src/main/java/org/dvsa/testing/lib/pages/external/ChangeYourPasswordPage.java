@@ -5,14 +5,21 @@ import org.jetbrains.annotations.NotNull;
 
 public class ChangeYourPasswordPage extends BasePage{
 
+    // Selectors
     private static String CURRENT_PASSWORD_FIELD = nameAttribute("input", "oldPassword");
     private static String NEW_PASSWORD_FIELD = nameAttribute("input", "newPassword");
     private static String CONFIRM_PASSWORD_FIELD = nameAttribute("input", "confirmPassword");
     private static String SUBMIT_BUTTON = nameAttribute("input", "submit");
 
-    // Page Attributes
+    // Attributes
     private static String PAGE_TITLE_TEXT = "Change your password";
+    private static String RESOURCE_PATH = "auth/expired-password/";
 
+    public static String getResourcePath() {
+        return RESOURCE_PATH;
+    }
+
+    // Behaviour
     public static void setCurrentPasswordField(@NotNull String currentPasswordField){
         enterField(CURRENT_PASSWORD_FIELD, currentPasswordField);
     }
