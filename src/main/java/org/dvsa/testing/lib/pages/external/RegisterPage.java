@@ -1,10 +1,10 @@
 package org.dvsa.testing.lib.pages.external;
 
 import activesupport.system.out.Output;
+import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.BusinessType;
 import org.dvsa.testing.lib.pages.exception.IncorrectPageTitleException;
 import org.jetbrains.annotations.NotNull;
-import org.dvsa.testing.lib.pages.BasePage;
 
 public class RegisterPage extends BasePage {
 
