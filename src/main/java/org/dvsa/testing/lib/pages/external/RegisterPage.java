@@ -2,6 +2,7 @@ package org.dvsa.testing.lib.pages.external;
 
 import activesupport.system.out.Output;
 import org.dvsa.testing.lib.pages.enums.BusinessType;
+import org.dvsa.testing.lib.pages.exception.IncorrectPageTitleException;
 import org.jetbrains.annotations.NotNull;
 import org.dvsa.testing.lib.pages.BasePage;
 
@@ -22,6 +23,7 @@ public class RegisterPage extends BasePage {
     private static String CREATE_ACCOUNT_BUTTON = "form > fieldset:nth-of-type(2) button[type=\"submit\"]";
 
     // Attributes
+    private static String PAGE_TITLE_TEXT = "Create an account";
     private static String RESOURCE_PATH = "register/";
 
     public static String getResourcePath() {
@@ -152,4 +154,29 @@ public class RegisterPage extends BasePage {
     public static void submit(){
         click(CREATE_ACCOUNT_BUTTON);
     }
+
+    public static void untilExpectedPageTitle() throws IncorrectPageTitleException {
+        untilExpectedPageTitle(PAGE_TITLE_TEXT);
+    }
+
+    public static void untilExpectedPageTitle(long horizonMilliseconds) throws IncorrectPageTitleException {
+        untilExpectedPageTitle(PAGE_TITLE_TEXT, horizonMilliseconds);
+    }
+
+    public static boolean isExpectedPageTitle(){
+        return BasePage.isExpectedPageTitle(PAGE_TITLE_TEXT);
+    }
+
+    public static boolean isExpectedPageTitle(long horizonMilliseconds){
+        return BasePage.isExpectedPageTitle(PAGE_TITLE_TEXT, horizonMilliseconds);
+    }
+
+    public static boolean isNotExpectedPageTile(){
+        return BasePage.isNotExpectedPageTitle(PAGE_TITLE_TEXT);
+    }
+
+    public static boolean isNotExpectedPageTile(long horizonMilliseconds){
+        return BasePage.isNotExpectedPageTitle(PAGE_TITLE_TEXT, horizonMilliseconds);
+    }
+
 }

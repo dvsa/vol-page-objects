@@ -6,7 +6,7 @@
 
     <groupId>org.dvsa.testing.lib</groupId>
     <artifactId>page-objects</artifactId>
-    <version>0.4.2.1</version>
+    <version>0.4.3</version>
 
     <properties>
         <uri-constructor.version>1.3</uri-constructor.version>
@@ -15,7 +15,7 @@
         <browser.version>0.5.0</browser.version>
         <junit.version>4.12</junit.version>
         <annotations.version>13.0</annotations.version>
-        <active-support.version>0.2.4</active-support.version>
+        <active-support.version>0.8.2</active-support.version>
         <aws-maven.version>5.0.0.RELEASE</aws-maven.version>
         <slf4j-nop.version>1.7.25</slf4j-nop.version>
     </properties>
@@ -41,8 +41,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
         </plugins>
