@@ -11,11 +11,10 @@ public class LoginPage extends BasePage {
     private static String SUBMIT_BUTTON = nameAttribute("input", "submit") + "[value=\"Sign in\"]";
 
     // Attributes
-//    public static String RESOURCE_PATH = "auth/login/";
+    public static String RESOURCE_PATH = "auth/login/";
 
-    public  String getResourcePath() {
-//        return RESOURCE_PATH;
-        return "auth/login/";
+    public static String getResourcePath() {
+        return RESOURCE_PATH;
     }
 
     // Behaviour
