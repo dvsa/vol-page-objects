@@ -1,5 +1,6 @@
 package org.dvsa.testing.lib.pages;
 
+import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
 import org.jetbrains.annotations.NotNull;
 
 public class LoginPage extends BasePage {
@@ -10,31 +11,32 @@ public class LoginPage extends BasePage {
     private static String SUBMIT_BUTTON = nameAttribute("input", "submit") + "[value=\"Sign in\"]";
 
     // Attributes
-    private static String RESOURCE_PATH = "auth/login/";
+//    public static String RESOURCE_PATH = "auth/login/";
 
-    public static String getResourcePath() {
-        return RESOURCE_PATH;
+    public  String getResourcePath() {
+//        return RESOURCE_PATH;
+        return "auth/login/";
     }
 
     // Behaviour
-    public static void email(@NotNull String email) {
+    public static void email(@NotNull String email) throws UninitialisedDriverException {
         enterField(EMAIL_FIELD_LOCATOR, email);
     }
 
-    public static void password(@NotNull String password) {
+    public static void password(@NotNull String password) throws UninitialisedDriverException {
         enterField(PASSWORD_FIELD_LOCATOR, password);
     }
 
-    public static void submit(){
+    public static void submit() throws UninitialisedDriverException {
         click(SUBMIT_BUTTON);
     }
 
-    public static void untilNotOnPage(){
+    public static void untilNotOnPage() throws UninitialisedDriverException {
         int seconds = 30;
         untilNotOnPage(seconds);
     }
 
-    public static void untilNotOnPage(int seconds){
+    public static void untilNotOnPage(int seconds) throws UninitialisedDriverException {
         isNotInDOM(SUBMIT_BUTTON, seconds);
     }
 

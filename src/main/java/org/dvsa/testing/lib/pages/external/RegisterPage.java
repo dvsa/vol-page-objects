@@ -1,6 +1,7 @@
 package org.dvsa.testing.lib.pages.external;
 
 import activesupport.system.out.Output;
+import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.BusinessType;
 import org.dvsa.testing.lib.pages.exception.IncorrectPageTitleException;
@@ -31,38 +32,38 @@ public class RegisterPage extends BasePage {
     }
 
     // Behaviour
-    public static void username(@NotNull String username){
+    public static void username(@NotNull String username) throws UninitialisedDriverException {
         enterField(USERNAME_FIELD_LOCATOR, username);
     }
 
-    public static void firstName(@NotNull String firstName){
+    public static void firstName(@NotNull String firstName) throws UninitialisedDriverException {
         enterField(FIRST_NAME_FIELD, firstName);
     }
 
-    public static void lastName(@NotNull String lastName){
+    public static void lastName(@NotNull String lastName) throws UninitialisedDriverException {
         enterField(LAST_NAME_FIELD, lastName);
     }
 
-    public static void email(@NotNull String emailAddress){
+    public static void email(@NotNull String emailAddress) throws UninitialisedDriverException {
         enterField(EMAIL_FIELD, emailAddress);
     }
 
-    public static void emailConfirmation(@NotNull String email){
+    public static void emailConfirmation(@NotNull String email) throws UninitialisedDriverException {
         enterField(EMAIL_CONFIRM_FIELD, email);
     }
 
-    public static void possessVOL(boolean status){
+    public static void possessVOL(boolean status) throws UninitialisedDriverException {
         int nthTypeSelector = (status) ?  2 : 1;
         String selector = String.format("%s label:nth-of-type(%d) input[type=\"radio\"]", POSSESS_VOL_FIELDSET, nthTypeSelector);
 
         click(selector);
     }
 
-    public static void organisationName(@NotNull String name){
+    public static void organisationName(@NotNull String name) throws UninitialisedDriverException {
         enterField(ORGANISATION_NAME_FIELD, name);
     }
 
-    public static void businessType(@NotNull String businessType){
+    public static void businessType(@NotNull String businessType) throws UninitialisedDriverException {
         businessType(enumBusinessType(businessType));
     }
 
@@ -93,7 +94,7 @@ public class RegisterPage extends BasePage {
         return enumBusinessType;
     }
 
-    public static void businessType(@NotNull BusinessType businessType){
+    public static void businessType(@NotNull BusinessType businessType) throws UninitialisedDriverException {
         int position;
 
         switch(businessType){
@@ -119,7 +120,7 @@ public class RegisterPage extends BasePage {
         click(String.format(BUSINESS_TYPE_BUTTON_TEMPLATE, position));
     }
 
-    public static void welshCorrespondence(boolean choice){
+    public static void welshCorrespondence(boolean choice) throws UninitialisedDriverException {
         if ((choice)) {
             selectWelshCorrespondence();
         } else {
@@ -127,15 +128,15 @@ public class RegisterPage extends BasePage {
         }
     }
 
-    public static void selectWelshCorrespondence(){
+    public static void selectWelshCorrespondence() throws UninitialisedDriverException {
         select(WELSH_CORRESPONDENCE_CHECKBOX);
     }
 
-    public static void deselectWelshCorrespondence(){
+    public static void deselectWelshCorrespondence() throws UninitialisedDriverException {
         deselect(WELSH_CORRESPONDENCE_CHECKBOX);
     }
 
-    public static void termsAndCondition(boolean choice){
+    public static void termsAndCondition(boolean choice) throws UninitialisedDriverException {
         if ((choice)) {
             selectTermsAndCondition();
         } else {
@@ -143,39 +144,39 @@ public class RegisterPage extends BasePage {
         }
     }
 
-    public static void selectTermsAndCondition(){
+    public static void selectTermsAndCondition() throws UninitialisedDriverException {
         select(TERMS_AND_CONDITIONS_CHECKBOX);
     }
 
-    public static void deselectTermsAndCondition(){
+    public static void deselectTermsAndCondition() throws UninitialisedDriverException {
         deselect(TERMS_AND_CONDITIONS_CHECKBOX);
     }
 
-    public static void submit(){
+    public static void submit() throws UninitialisedDriverException {
         click(CREATE_ACCOUNT_BUTTON);
     }
 
-    public static void untilExpectedPageTitle() throws IncorrectPageTitleException {
+    public static void untilExpectedPageTitle() throws IncorrectPageTitleException, UninitialisedDriverException {
         untilExpectedPageTitle(PAGE_TITLE_TEXT);
     }
 
-    public static void untilExpectedPageTitle(long horizonMilliseconds) throws IncorrectPageTitleException {
+    public static void untilExpectedPageTitle(long horizonMilliseconds) throws IncorrectPageTitleException, UninitialisedDriverException {
         untilExpectedPageTitle(PAGE_TITLE_TEXT, horizonMilliseconds);
     }
 
-    public static boolean isExpectedPageTitle(){
+    public static boolean isExpectedPageTitle() throws UninitialisedDriverException {
         return BasePage.isExpectedPageTitle(PAGE_TITLE_TEXT);
     }
 
-    public static boolean isExpectedPageTitle(long horizonMilliseconds){
+    public static boolean isExpectedPageTitle(long horizonMilliseconds) throws UninitialisedDriverException {
         return BasePage.isExpectedPageTitle(PAGE_TITLE_TEXT, horizonMilliseconds);
     }
 
-    public static boolean isNotExpectedPageTile(){
+    public static boolean isNotExpectedPageTile() throws UninitialisedDriverException {
         return BasePage.isNotExpectedPageTitle(PAGE_TITLE_TEXT);
     }
 
-    public static boolean isNotExpectedPageTile(long horizonMilliseconds){
+    public static boolean isNotExpectedPageTile(long horizonMilliseconds) throws UninitialisedDriverException {
         return BasePage.isNotExpectedPageTitle(PAGE_TITLE_TEXT, horizonMilliseconds);
     }
 

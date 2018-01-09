@@ -40,7 +40,7 @@ public class LoginPageTest {
     @Test
     public void goToExternalLogonPage(){
         EnvironmentType environmentType = Environment.enumType(System.getProperty("env"));
-        String URL = URI.build(ApplicationType.EXTERNAL, environmentType, endPoint);
+        String URL = URI.build(ApplicationType.EXTERNAL, environmentType, (new LoginPage()).getResourcePath());
 
         Browser.open(URL);
         Assert.assertEquals(URL, Browser.getURL());
