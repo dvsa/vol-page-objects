@@ -1,0 +1,18 @@
+package org.dvsa.testing.lib.pages.enums;
+
+public enum AdminOption {
+    SCANNING,
+    PRINTING,
+    PUBLIC_HOLIDAY,
+    CONTINUATIONS,
+    YOUR_ACCOUNT,
+    SYSTEM_PARAMETERS,
+    TASK_ALLOCATION_RULE,
+    USER_MANAGEMENT,
+    FINANCIAL_STANDING_RATES,
+    PUBLICATIONS,
+    PAYMENT_PROCESSING,
+    REPORTS,
+    SYSTEM_MESSAGES,
+    DATA_RETENTION
+}
