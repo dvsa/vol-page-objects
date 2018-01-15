@@ -1,8 +1,12 @@
 package org.dvsa.testing.lib.pages;
 
+import activesupport.system.out.Output;
 import activesupport.url.URL;
 import org.dvsa.testing.lib.browser.Browser;
 import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
+import org.dvsa.testing.lib.pages.enums.SelectorType;
+import org.dvsa.testing.lib.pages.exception.ElementDidNotAppearWithinSpecifiedTimeException;
+import org.dvsa.testing.lib.pages.exception.ElementDidNotDisappearWithinSpecifiedTimeException;
 import org.dvsa.testing.lib.pages.exception.IncorrectPageTitleException;
 import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.By;
@@ -53,8 +57,25 @@ public class BasePage {
         find(selector).sendKeys(text);
     }
 
+    /**
+     * Clicks on the first element found using the passed in CSS selector.
+     * Note: There is an overloaded version of this method that allows you to specify which type of selector
+     * you'd like to use, this overloaded version supports both CSS and XPATH.
+     * @param selector This should be a css selector.
+     * @throws UninitialisedDriverException This is thrown in the event that the driver has not been initialised.
+     */
     protected static void click(@NotNull String selector) throws UninitialisedDriverException {
-       find(selector).click();
+        click(selector, SelectorType.CSS);
+    }
+
+    /**
+     * Clicks on the first element found using the passed in selector.
+     * @param selector This is the selector, this should be either CSS or XPATH.
+     * @param selectorType This specifies what type of selector the first argument, selector, is.
+     * @throws UninitialisedDriverException
+     */
+    protected static void click(@NotNull String selector, @NotNull SelectorType selectorType) throws UninitialisedDriverException {
+        find(selector, selectorType).click();
     }
 
     private static WebDriver getDriver() throws UninitialisedDriverException {
@@ -70,11 +91,62 @@ public class BasePage {
     }
 
     private static WebElement find(@NotNull String selector) throws UninitialisedDriverException {
-        return Browser.getDriver().findElement(By.cssSelector(selector));
+        return find(selector, SelectorType.CSS);
+    }
+
+    private static WebElement find(@NotNull String selector, @NotNull SelectorType selectorType) throws UninitialisedDriverException {
+        By bySelector;
+
+        switch (selectorType) {
+            case CSS:
+                bySelector = By.cssSelector(selector);
+            break;
+            case XPATH:
+                bySelector = By.xpath(selector);
+            break;
+            default:
+                throw new IllegalArgumentException("Only CSS and XPATH selector types are allowed");
+        }
+
+        return Browser.getDriver().findElement(bySelector);
     }
 
     protected static boolean isElementPresent(@NotNull String selector) throws UninitialisedDriverException {
-        return find(selector) != null;
+        return isElementPresent(selector, SelectorType.CSS);
+    }
+
+    protected static boolean isElementPresent(@NotNull String selector, SelectorType selectorType) throws UninitialisedDriverException {
+        return find(selector, selectorType) != null;
+    }
+
+    protected static void untilElementPresentWithin(@NotNull String selector, long milliseconds) throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException {
+        boolean elementFound = isElementPresentWithin(selector, milliseconds);
+        if(!elementFound){
+            throw new ElementDidNotAppearWithinSpecifiedTimeException(
+                    Output.printColoredLog(
+                            String.format(
+                                    "[ERROR] Element with the selector %s did not appear after %d milliseconds",
+                                    selector,
+                                    milliseconds
+                            )
+                    )
+            );
+        }
+    }
+
+    protected static void untilElementNotPresentWithin(@NotNull String selector, long milliseconds) throws ElementDidNotDisappearWithinSpecifiedTimeException, UninitialisedDriverException {
+        boolean elementFound = isElementNotPresentWithin(selector, milliseconds);
+        if(!elementFound){
+            throw new ElementDidNotDisappearWithinSpecifiedTimeException(
+                    Output.printColoredLog(
+                            String.format(
+                                    "[ERROR] Element with the selector %s did not appear after %d milliseconds",
+                                    selector,
+                                    milliseconds
+                            )
+                    )
+            );
+        }
     }
 
     protected static boolean isElementPresentWithin(@NotNull String selector, long milliseconds) throws UninitialisedDriverException {
@@ -203,6 +275,26 @@ public class BasePage {
     protected static void untilExpectedPageTitle(@NotNull String selector, @NotNull String pageTitle, long horizonMilliseconds) throws IncorrectPageTitleException, UninitialisedDriverException {
         if(!isExpectedPageTitle(selector, pageTitle, horizonMilliseconds)){
             throw new IncorrectPageTitleException(String.format("[ERROR] The page title for the current page should be %s but was %s", pageTitle, Browser.getPageTitle()));
+        }
+    }
+
+    protected static void untilNotExpectedPageTitle(@NotNull String selector, @NotNull String pageTitle) throws IncorrectPageTitleException, UninitialisedDriverException {
+        long horizonMilliseconds = 3000;
+        untilNotExpectedPageTitle(selector, pageTitle, horizonMilliseconds);
+    }
+
+    protected static void untilNotExpectedPageTitle(@NotNull String pageTitle) throws IncorrectPageTitleException, UninitialisedDriverException {
+        long horizonMilliseconds = 3000;
+        untilNotExpectedPageTitle(pageTitle, horizonMilliseconds);
+    }
+
+    protected static void untilNotExpectedPageTitle(@NotNull String pageTitle, long horizonMilliseconds) throws IncorrectPageTitleException, UninitialisedDriverException {
+        untilNotExpectedPageTitle(PAGE_TITLE_SELECTOR, pageTitle, horizonMilliseconds);
+    }
+
+    protected static void untilNotExpectedPageTitle(@NotNull String selector, @NotNull String pageTitle, long horizonMilliseconds) throws UninitialisedDriverException, IncorrectPageTitleException {
+        if(!isNotExpectedPageTitle(selector, pageTitle, horizonMilliseconds)){
+            throw new IncorrectPageTitleException(String.format("[ERROR] The page title for the page did not change asfter %d milliseconds", horizonMilliseconds));
         }
     }
 
