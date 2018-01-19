@@ -15,6 +15,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
+
 import static org.openqa.selenium.support.ui.ExpectedConditions.not;
 
 public class BasePage {
@@ -51,6 +53,17 @@ public class BasePage {
 
     protected static String getPageTitleSelector() {
         return PAGE_TITLE_SELECTOR;
+    }
+
+    /**
+     * This returns any text content that an element possesses.
+     * @param selector This should be a CSS or XPATH selector which is used to identify which elements text is to be retrieved.
+     * @param selectorType This is the type of selector that the argument selector is.
+     * @return The specified elements text contents.
+     * @throws UninitialisedDriverException
+     */
+    protected static String getText(@NotNull String selector, @NotNull SelectorType selectorType) throws UninitialisedDriverException {
+        return find(selector, selectorType).getText();
     }
 
     protected static void enterField(@NotNull String selector, @NotNull String text) throws UninitialisedDriverException {
@@ -95,20 +108,33 @@ public class BasePage {
     }
 
     private static WebElement find(@NotNull String selector, @NotNull SelectorType selectorType) throws UninitialisedDriverException {
+        By bySelector = by(selector, selectorType);
+        return Browser.getDriver().findElement(bySelector);
+    }
+
+    private static List<WebElement> findAll(@NotNull String selector, @NotNull SelectorType selectorType) throws UninitialisedDriverException {
+        By bySelector = by(selector, selectorType);
+        return Browser.getDriver().findElements(bySelector);
+    }
+
+    private static By by(@NotNull String selector, @NotNull SelectorType selectorType) {
         By bySelector;
 
         switch (selectorType) {
             case CSS:
                 bySelector = By.cssSelector(selector);
-            break;
+                break;
             case XPATH:
                 bySelector = By.xpath(selector);
-            break;
+                break;
             default:
                 throw new IllegalArgumentException("Only CSS and XPATH selector types are allowed");
         }
+        return bySelector;
+    }
 
-        return Browser.getDriver().findElement(bySelector);
+    protected static int size(@NotNull String selector, @NotNull SelectorType selectorType) throws UninitialisedDriverException {
+        return findAll(selector, selectorType).size();
     }
 
     protected static boolean isElementPresent(@NotNull String selector) throws UninitialisedDriverException {
