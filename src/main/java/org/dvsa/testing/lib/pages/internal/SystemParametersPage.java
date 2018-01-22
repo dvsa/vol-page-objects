@@ -3,7 +3,7 @@ package org.dvsa.testing.lib.pages.internal;
 import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
-import org.dvsa.testing.lib.pages.enums.SystemParameter;
+import org.dvsa.testing.lib.pages.enums.dataretention.SystemParameter;
 import org.dvsa.testing.lib.pages.exception.ElementDidNotAppearWithinSpecifiedTimeException;
 import org.dvsa.testing.lib.pages.exception.IncorrectPageTitleException;
 import org.dvsa.testing.lib.pages.exception.UnableToFindSystemParameter;

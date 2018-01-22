@@ -1,4 +1,4 @@
-package org.dvsa.testing.lib.pages.enums;
+package org.dvsa.testing.lib.pages.enums.dataretention;
 
 /**
  * This enum represents the options available under the rule admin tab on data retention.

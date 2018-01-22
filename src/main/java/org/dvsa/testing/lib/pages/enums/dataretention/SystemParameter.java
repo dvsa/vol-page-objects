@@ -1,4 +1,4 @@
-package org.dvsa.testing.lib.pages.enums;
+package org.dvsa.testing.lib.pages.enums.dataretention;
 
 public enum SystemParameter {
     DISABLE_DATA_RETENTION_DELETE,

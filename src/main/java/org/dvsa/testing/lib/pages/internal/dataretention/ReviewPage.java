@@ -1,7 +1,7 @@
 package org.dvsa.testing.lib.pages.internal.dataretention;
 
 import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
-import org.dvsa.testing.lib.pages.enums.DataRetentionRule;
+import org.dvsa.testing.lib.pages.enums.dataretention.DataRetentionRule;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
 import org.dvsa.testing.lib.pages.exception.IncorrectPageTitleException;
 import org.dvsa.testing.lib.pages.exception.UnableToFindDataRetentionRule;

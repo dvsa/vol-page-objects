@@ -4,7 +4,7 @@ import activesupport.string.Str;
 import activesupport.system.out.Output;
 import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
 import org.dvsa.testing.lib.pages.BasePage;
-import org.dvsa.testing.lib.pages.enums.DataRetentionAction;
+import org.dvsa.testing.lib.pages.enums.dataretention.DataRetentionAction;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
 import org.dvsa.testing.lib.pages.exception.InsufficientExistingDataException;
 import org.jetbrains.annotations.NotNull;
