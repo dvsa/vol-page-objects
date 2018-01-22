@@ -1,7 +1,9 @@
 package org.dvsa.testing.lib.pages.internal.dataretention;
 
+import activesupport.system.out.Output;
 import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
-import org.dvsa.testing.lib.pages.enums.DataRetentionRule;
+import org.dvsa.testing.lib.pages.enums.dataretention.ActionType;
+import org.dvsa.testing.lib.pages.enums.dataretention.DataRetentionRule;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
 import org.dvsa.testing.lib.pages.exception.UnableToFindDataRetentionRule;
 import org.jetbrains.annotations.NotNull;
@@ -14,7 +16,60 @@ public class RuleAdminPage extends DataRetentionPage {
     private static String NEXT_BUTTON = "//a[contains(text(),'Next')]";
 
     // Attributes
-    private class EditModel {
+    private static class EditModel {
+        private static String IS_ENABLED_NO = "input[name='ruleDetails[isEnabled]']:nth-of-type(1)";
+        private static String IS_ENABLED_YES = "input[name='ruleDetails[isEnabled]']:nth-of-type(2)";
+        private static String ACTION_TYPE = "select[name='ruleDetails[actionType]']";
+
+        // Added string interpolation so that an attribute checker can be inserted for checking which of
+        // the options are the selected one.
+        private static String ACTION_TYPE_AUTOMATE_TEMPLATE = ACTION_TYPE + " option%s:nth-of-type(1)";
+        private static String ACTION_TYPE_REVIEW_TEMPLATE = ACTION_TYPE + " option%s:nth-of-type(2)";
+
+        private static String SELECTED = ".selected ";
+
+        public static void enable(boolean enable) throws UninitialisedDriverException {
+            if (enable) {
+                EditModel.enable();
+            } else {
+                EditModel.disable();
+            }
+        }
+
+        public static void actionType(@NotNull ActionType actionType) throws UninitialisedDriverException {
+            switch (actionType) {
+                case AUTOMATE:
+                    if (isElementNotPresent(String.format(ACTION_TYPE_AUTOMATE_TEMPLATE, "[selected]"))) {
+                        click(String.format(ACTION_TYPE_AUTOMATE_TEMPLATE, ""));
+                    }
+                    break;
+                case REVIEW:
+                    if (isElementNotPresent(String.format(ACTION_TYPE_REVIEW_TEMPLATE, "[selected]"))) {
+                        click(String.format(ACTION_TYPE_REVIEW_TEMPLATE, ""));
+                    }
+                    break;
+                default:
+                    throw new IllegalArgumentException(
+                            Output.printColoredLog(
+                                    "[ERROR] Action type "
+                                            + actionType.name()
+                                            + " is not allowed, only automate and review are supported action types"
+                            )
+                    );
+            }
+        }
+
+        public static void disable() throws UninitialisedDriverException {
+            if (!isElementPresent(SELECTED + IS_ENABLED_NO)) {
+                click(IS_ENABLED_YES);
+            }
+        }
+
+        public static void enable() throws UninitialisedDriverException {
+            if (!isElementPresent(SELECTED + IS_ENABLED_YES)) {
+                click(IS_ENABLED_YES);
+            }
+        }
 
     }
 
