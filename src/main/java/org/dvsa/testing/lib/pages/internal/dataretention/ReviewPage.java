@@ -27,8 +27,8 @@ public class ReviewPage extends DataRetentionPage {
 
         do {
             if (isElementPresent(selector, SelectorType.XPATH)) {
-                click(selector, SelectorType.XPATH);
                 foundDataRetentionRule = true;
+                click(selector, SelectorType.XPATH);
             }
         } while (!isElementPresent(selector, SelectorType.XPATH) && isElementPresent(getNextPageButtonSelector(), SelectorType.XPATH));
 
