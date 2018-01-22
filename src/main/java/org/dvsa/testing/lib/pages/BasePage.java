@@ -137,6 +137,14 @@ public class BasePage {
         return findAll(selector, selectorType).size();
     }
 
+    protected static boolean isElementNotPresent(@NotNull String selector) throws UninitialisedDriverException {
+        return isElementNotPresent(selector, SelectorType.CSS);
+    }
+
+    protected static boolean isElementNotPresent(@NotNull String selector, SelectorType selectorType) throws UninitialisedDriverException {
+        return !isElementPresent(selector, selectorType);
+    }
+
     protected static boolean isElementPresent(@NotNull String selector) throws UninitialisedDriverException {
         return isElementPresent(selector, SelectorType.CSS);
     }
