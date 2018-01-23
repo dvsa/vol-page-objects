@@ -15,7 +15,6 @@ public class RuleAdminPage extends DataRetentionPage {
     private static String ACTION_TYPE_TEMPLATE_ROW = RULE_DESCRIPTION_ROW_TEMPLATE + "/../../td[6]";
     private static String NEXT_BUTTON = "//a[contains(text(),'Next')]";
 
-    // Attributes
     private static class EditModel {
         private static String IS_ENABLED_NO = "input[name='ruleDetails[isEnabled]']:nth-of-type(1)";
         private static String IS_ENABLED_YES = "input[name='ruleDetails[isEnabled]']:nth-of-type(2)";
@@ -70,7 +69,6 @@ public class RuleAdminPage extends DataRetentionPage {
                 click(IS_ENABLED_YES);
             }
         }
-
     }
 
     /**
