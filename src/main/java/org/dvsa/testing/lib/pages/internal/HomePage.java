@@ -49,8 +49,8 @@ public class HomePage extends BasePage {
     }
 
     public static void administratorList(@NotNull AdminOption option) throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException, IncorrectPageTitleException {
-        int listPosition = adminListMapper.get(option).get(1);
-        int listItemPosition = adminListMapper.get(option).get(2);
+        int listPosition = adminListMapper.get(option).get(0);
+        int listItemPosition = adminListMapper.get(option).get(1);
 
         administratorButton();
         untilElementPresentWithin(ADMIN_MENU, 1000);
