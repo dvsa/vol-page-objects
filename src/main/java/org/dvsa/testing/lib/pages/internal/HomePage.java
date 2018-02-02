@@ -16,6 +16,7 @@ public class HomePage extends BasePage {
     private static String ADMIN_BUTTON = "ul > li.admin__title";
     private static String ADMIN_MENU = "div.admin__menu";
     private static String ADMIN_MENU_OPTION_TEMPLATE = ADMIN_MENU + " ul.admin__submenu:nth-of-type(%d) > li:nth-of-type(%d) > a";
+    private static String APPLY_FOR_LICENCE_BUTTON = "//*/a[contains(text(), 'Apply for a licence')]";
 
     // Attributes
     private static String PAGE_TITLE_TEXT = "Home";
