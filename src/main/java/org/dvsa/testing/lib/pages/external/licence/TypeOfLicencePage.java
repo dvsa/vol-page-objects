@@ -79,7 +79,7 @@ public class TypeOfLicencePage extends BasePage {
         click(String.format(TYPE_OF_LICENCE_TEMPLATE, position), SelectorType.XPATH);
     }
 
-    public static void setSaveAndContinue() {
+    public static void saveAndContinue() throws UninitialisedDriverException {
         click(SAVE_AND_CONTINUE_BUTTON, SelectorType.XPATH);
     }
 
