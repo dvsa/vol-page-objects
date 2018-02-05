@@ -12,10 +12,12 @@ public class BusinessDetailsPage extends BasePage {
     private static String FIND_COMPANY_BUTTON = LOOKUP + " button[type='submit']";
 
     private static String COMPANY_NAME_FIELD = "input[name='data[name]']";
-    private static String TRADING_NAME_FIELD = "input[name='data[tradingNames][0][name]']";
+    private static String TRADING_NAME_FIELD_TEMPLATE = "input[name='data[tradingNames][%d][name]']";
+    private static String ADD_ANOTHER_TRADING_NAME = "//*/a[contains(text(), 'Add another trading name')]";
     private static String NATURE_OF_BUSINESS_FIELD = "input[name='data[natureOfBusiness]']";
 
     private static String REGISTERED_ADDRESS_TEMPLATE = ".address > div:nth-of-type(%d) input[type='text']";
+    private static String ADD_SUBSIDIARY = "//*/button[contains(text(), 'Add subsidiary')]";
 
     private static String BUTTON_WITH_TEXT_TEMPLATE = "//*/button[contains(text(), '%s')]";
     private static String SAVE_AND_CONTINUE_BUTTON = String.format(BUTTON_WITH_TEXT_TEMPLATE, "Save and continue");
@@ -31,8 +33,27 @@ public class BusinessDetailsPage extends BasePage {
         click(FIND_COMPANY_BUTTON);
     }
 
+    public static void tradingName(@NotNull String... names) throws UninitialisedDriverException {
+        for (int pos = 0; pos <= names.length; pos++) {
+            enterField(String.format(TRADING_NAME_FIELD_TEMPLATE, pos), names[pos]);
+
+            // Clicks add another trading if there are more names leftover that were given
+            if (pos + 1 < names.length) {
+                click(ADD_ANOTHER_TRADING_NAME, SelectorType.XPATH);
+            }
+        }
+    }
+
+    public static void natureOfBusiness(@NotNull String natureOfBusiness) throws UninitialisedDriverException {
+        enterField(NATURE_OF_BUSINESS_FIELD, natureOfBusiness);
+    }
+
     public static void address(@NotNull AddressLine addressLine, @NotNull String text) throws UninitialisedDriverException {
         enterField(String.format(REGISTERED_ADDRESS_TEMPLATE, addressLine.ordinal()), text);
+    }
+
+    public static void addSubsidiary() throws UninitialisedDriverException {
+        click(ADD_SUBSIDIARY, SelectorType.XPATH);
     }
 
     public static void saveAndContinueButton() throws UninitialisedDriverException {
