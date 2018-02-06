@@ -24,7 +24,8 @@ public class AddressesPage extends BasePage {
     private static String SAVE_AND_CONTINUE_BUTTON = String.format(BUTTON_WITH_TEXT_TEMPLATE, "Save and continue");
     private static String SAVE_AND_RETURN_TO_OVERVIEW = String.format(BUTTON_WITH_TEXT_TEMPLATE, "Save and return to overview");
     // Attributes
-
+    private static String PAGE_TITLE_TEXT = "Addresses";
+    private static String RESOURCE_PATH = "application/\\d{7}/addresses/";
     // Behaviour
     public static void attentionOf(@NotNull String name) throws UninitialisedDriverException {
         enterField(ATTENTION_OF_FIELD, name);
