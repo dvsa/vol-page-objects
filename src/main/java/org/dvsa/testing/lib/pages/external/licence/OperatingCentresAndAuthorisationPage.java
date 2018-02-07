@@ -2,6 +2,7 @@ package org.dvsa.testing.lib.pages.external.licence;
 
 import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
 import org.dvsa.testing.lib.pages.BasePage;
+import org.dvsa.testing.lib.pages.enums.SelectorType;
 import org.jetbrains.annotations.NotNull;
 
 public class OperatingCentresAndAuthorisationPage extends BasePage {
@@ -11,8 +12,8 @@ public class OperatingCentresAndAuthorisationPage extends BasePage {
     private static String DESIRED_NUMBER_OF_VEHICLES_AUTHORISED_ON_LICENCE = "input[name='data[totAuthVehicles]']";
     private static String DESIRED_NUMBER_OF_TRAILERS_AUTHORISED_ON_LICENCE = "input[name='data[totAuthTrailers]']";
 
-    private static String SAVE_AND_CONTINUE_BUTTON = "button[name='form-actions[saveAndContinue]']";
-    private static String SAVE_AND_RETURN_TO_OVERVIEW_BUTTON = "button[name='form-actions[saveAndContinue]']";
+    private static String SAVE_AND_CONTINUE_BUTTON = "//*/button[contains(text(), 'Save and continue')]";
+    private static String SAVE_AND_RETURN_TO_OVERVIEW_BUTTON = "//*/button[contains(text(), 'Save and return to overview')]";
 
     // Attributes
     private static String PAGE_TITLE_TEXT = "Operating centres and authorisation";
@@ -32,10 +33,10 @@ public class OperatingCentresAndAuthorisationPage extends BasePage {
     }
 
     public static void saveAndContinue() throws UninitialisedDriverException {
-        click(SAVE_AND_CONTINUE_BUTTON);
+        click(SAVE_AND_CONTINUE_BUTTON, SelectorType.XPATH);
     }
 
     public static void saveAndReturnToOverview() throws UninitialisedDriverException {
-        click(SAVE_AND_RETURN_TO_OVERVIEW_BUTTON);
+        click(SAVE_AND_RETURN_TO_OVERVIEW_BUTTON, SelectorType.XPATH);
     }
 }
