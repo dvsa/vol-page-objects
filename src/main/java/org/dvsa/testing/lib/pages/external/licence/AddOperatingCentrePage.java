@@ -3,7 +3,7 @@ package org.dvsa.testing.lib.pages.external.licence;
 import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
-import org.dvsa.testing.lib.pages.external.licence.enums.AdvertSubmission;
+import org.dvsa.testing.lib.pages.external.licence.enums.DeliveryMethod;
 import org.jetbrains.annotations.NotNull;
 
 public class AddOperatingCentrePage extends BasePage {
@@ -57,7 +57,7 @@ public class AddOperatingCentrePage extends BasePage {
         return isElementPresent(SELECTED_ACKNOWLEDGEMENT_LABEL);
     }
 
-    public static void advertSubmission(@NotNull AdvertSubmission advert) throws UninitialisedDriverException {
+    public static void advertSubmission(@NotNull DeliveryMethod advert) throws UninitialisedDriverException {
         click(String.format(ADVERT_CHOICE_TEMPLATE, advert.ordinal()), SelectorType.XPATH);
     }
 
