@@ -11,6 +11,10 @@ public class TransportManagersPage extends BasePage {
     private static String SAVE_AND_CONTINUE_BUTTON = "//*/button[contains(text(), 'Save and continue')]";
     private static String SAVE_AND_RETURN_TO_OVERVIEW_BUTTON = "//*/button[contains(text(), 'Save and return to overview')]";
 
+    public static void addTransportManager() throws UninitialisedDriverException {
+        click(ADD_TRANSPORT_MANAGER_BUTTON, SelectorType.XPATH);
+    }
+
     public static void saveAndContinue() throws UninitialisedDriverException {
         click(SAVE_AND_CONTINUE_BUTTON, SelectorType.XPATH);
     }
