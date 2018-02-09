@@ -51,7 +51,7 @@ public class TransportManagerDetailsPage extends BasePage {
 
     public static List<String> homeAddressSearch(@NotNull String postCode) throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException {
         enterField(HOME_ADDRESS_SEARCH, postCode);
-        TransportManagerDeatilsPage.findHomeAddressButton();
+        TransportManagerDetailsPage.findHomeAddressButton();
         untilElementPresentWithin(FOUND_HOME_ADDRESSES_LIST, 5000);
         return getListValues(FOUND_HOME_ADDRESSES_LIST);
     }
@@ -66,7 +66,7 @@ public class TransportManagerDetailsPage extends BasePage {
 
     public static List<String> workAddressSearch(@NotNull String postCode) throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException {
         enterField(WORK_ADDRESS_SEARCH, postCode);
-        TransportManagerDeatilsPage.findWorkAddressButton();
+        TransportManagerDetailsPage.findWorkAddressButton();
         untilElementPresentWithin(FOUND_WORK_ADDRESSES_LIST, 5000);
         return getListValues(FOUND_WORK_ADDRESSES_LIST);
     }
