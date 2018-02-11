@@ -15,6 +15,9 @@ public class FinancialHistoryPage extends BasePage {
 
     private static String AGREEMENT_TO_TERMS_AND_CONDITIONS = "input[type='checkbox']";
 
+    private static String SAVE_AND_CONTINUE_BUTTON = "button[name='form-actions[saveAndContinue]']";
+    private static String SAVE_AND_RETURN_TO_OVERVIEW = "button[name='form-actions[save]']";
+
     public static void declaredBankrupctyInThePast(boolean hasBeenBankruptBefore) throws UninitialisedDriverException {
         click(String.format(DECLARED_BANKRUPT_TEMPLATE, radioPosition(hasBeenBankruptBefore)));
     }
@@ -37,6 +40,14 @@ public class FinancialHistoryPage extends BasePage {
 
     private static int radioPosition(boolean option) {
         return option ? 1 : 2;
+    }
+
+    public static void saveAndContinueButton() throws UninitialisedDriverException {
+        click(SAVE_AND_CONTINUE_BUTTON);
+    }
+
+    public static void saveAndReturnToOverview() throws UninitialisedDriverException {
+        click(SAVE_AND_RETURN_TO_OVERVIEW);
     }
 
 }
