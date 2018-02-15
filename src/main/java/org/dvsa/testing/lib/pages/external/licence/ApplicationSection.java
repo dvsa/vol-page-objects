@@ -1,7 +1,7 @@
 package org.dvsa.testing.lib.pages.external.licence;
 
 public enum ApplicationSection {
-    TYPE_OF_LICENCE,,
+    TYPE_OF_LICENCE,
     BUSINESS_TYPE,
     BUSINESS_DETAILS,
     ADDRESS,
