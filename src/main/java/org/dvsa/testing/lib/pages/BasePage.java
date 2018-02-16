@@ -79,8 +79,31 @@ public class BasePage {
         return optionValues;
     }
 
+    /**
+     * Enters text in the specified text input/textarea field found using the specified selector.
+     * @param selector The text input field/textarea that's to have text entered in it.
+     * @param text The text to be entered.
+     * @throws UninitialisedDriverException
+     */
     protected static void enterField(@NotNull String selector, @NotNull String text) throws UninitialisedDriverException {
-        find(selector).sendKeys(text);
+        enterField(selector, text, false);
+    }
+
+    /**
+     * Enters text in the specified text input/textarea field found using the specified selector.
+     * @param selector The text input field/textarea that's to have text entered in it.
+     * @param text The text to be entered.
+     * @param append Specified weather the input field/textarea should be cleared before entering the text.
+     * @throws UninitialisedDriverException
+     */
+    protected static void enterField(@NotNull String selector, @NotNull String text, boolean append) throws UninitialisedDriverException {
+        WebElement element = find(selector);
+
+        if (!append) {
+            element.clear();
+        }
+
+        element.sendKeys(text);
     }
 
     /**
