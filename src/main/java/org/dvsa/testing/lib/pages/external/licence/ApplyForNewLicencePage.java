@@ -13,7 +13,6 @@ public class ApplyForNewLicencePage extends BasePage {
     private static String RESOURCE_PATH = "application/\\d{7}/";
 
     // Behaviour
-
     public static void section(@NotNull ApplicationSection applicationSection) throws UninitialisedDriverException {
         click(String.format(OVERVIEW_LIST_ITEM_TEMPLATE, applicationSection.ordinal() + 1));
     }
