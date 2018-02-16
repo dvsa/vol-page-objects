@@ -6,7 +6,7 @@
 
     <groupId>org.dvsa.testing.lib</groupId>
     <artifactId>page-objects</artifactId>
-    <version>0.5</version>
+    <version>0.6</version>
 
     <properties>
         <uri-constructor.version>1.4.1</uri-constructor.version>
@@ -15,7 +15,7 @@
         <browser.version>0.6</browser.version>
         <junit.version>4.12</junit.version>
         <annotations.version>13.0</annotations.version>
-        <active-support.version>0.8.2</active-support.version>
+        <active-support.version>1.1.0.1</active-support.version>
         <aws-maven.version>5.0.0.RELEASE</aws-maven.version>
         <slf4j-nop.version>1.7.25</slf4j-nop.version>
         <guava.version>23.6-jre</guava.version>

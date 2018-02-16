@@ -13,8 +13,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.not;
@@ -66,6 +68,17 @@ public class BasePage {
         return find(selector, selectorType).getText();
     }
 
+    protected static List<String> getListValues(@NotNull String listSelector) throws UninitialisedDriverException {
+        List<String> optionValues  = new LinkedList<>();
+
+        Select select = new Select(find(listSelector));
+        for (WebElement option : select.getOptions()) {
+            optionValues.add(option.getText());
+        }
+
+        return optionValues;
+    }
+
     protected static void enterField(@NotNull String selector, @NotNull String text) throws UninitialisedDriverException {
         find(selector).sendKeys(text);
     }
@@ -101,6 +114,22 @@ public class BasePage {
 
     protected static String attributeSelector(@NotNull String element, @NotNull String attribute, @NotNull String value){
         return String.format("%s[%s=\"%s\"]", element, attribute, value);
+    }
+
+    protected static void list(@NotNull String listSelector, int itemPosition) throws UninitialisedDriverException {
+        list(listSelector, itemPosition, SelectorType.CSS);
+    }
+
+    protected static void list(@NotNull String listSelector, int itemPosition, @NotNull SelectorType selectorType) throws UninitialisedDriverException {
+        (new Select(find(listSelector, selectorType))).selectByIndex(itemPosition);
+    }
+
+    protected static void list(@NotNull String listSelector, @NotNull String visibleText) throws UninitialisedDriverException {
+        list(listSelector, visibleText, SelectorType.CSS);
+    }
+
+    protected static void list(@NotNull String listSelector, @NotNull String visibleText , @NotNull SelectorType selectorType) throws UninitialisedDriverException {
+        (new Select(find(listSelector, selectorType))).selectByVisibleText(visibleText);
     }
 
     private static WebElement find(@NotNull String selector) throws UninitialisedDriverException {
