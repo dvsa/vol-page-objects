@@ -16,6 +16,7 @@ public class NavigationBar extends BasePage {
     // Selectors
     private static String ADMIN_BUTTON = "ul > li.admin__title";
     private static String ADMIN_MENU = "div.admin__menu";
+    private static String OPEN_ADMIN_MENU = ADMIN_MENU + ".active";
     private static String ADMIN_MENU_OPTION_TEMPLATE = ADMIN_MENU + " ul.admin__submenu:nth-of-type(%d) > li:nth-of-type(%d) > a";
 
     // Data Structures
@@ -65,7 +66,7 @@ public class NavigationBar extends BasePage {
     }
 
     private static boolean isAdminPanelOpen() throws UninitialisedDriverException {
-        return isElementPresent(ADMIN_BUTTON + ".active");
+        return isElementPresent(OPEN_ADMIN_MENU);
     }
 
     private static boolean isAdminPanelClosed() throws UninitialisedDriverException {
@@ -80,8 +81,8 @@ public class NavigationBar extends BasePage {
         int listPosition = adminListMapper.get(option).get(0);
         int listItemPosition = adminListMapper.get(option).get(1);
 
-        administratorButton();
-        untilElementPresentWithin(ADMIN_MENU, 1000);
+        openAdminPanel();
+        untilElementPresentWithin(OPEN_ADMIN_MENU, 1000);
         click(String.format(ADMIN_MENU_OPTION_TEMPLATE, listPosition, listItemPosition));
     }
 }
