@@ -1,11 +1,12 @@
 package org.dvsa.testing.lib.pages.internal;
 
+import activesupport.system.out.Output;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.primitives.Ints;
 import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
 import org.dvsa.testing.lib.pages.BasePage;
+import org.dvsa.testing.lib.pages.enums.Action;
 import org.dvsa.testing.lib.pages.enums.AdminOption;
-import org.dvsa.testing.lib.pages.enums.SelectorType;
 import org.dvsa.testing.lib.pages.exception.ElementDidNotAppearWithinSpecifiedTimeException;
 import org.dvsa.testing.lib.pages.exception.IncorrectPageTitleException;
 import org.jetbrains.annotations.NotNull;
@@ -42,9 +43,40 @@ public class HomePage extends BasePage {
             .put(AdminOption.DATA_RETENTION, Ints.asList(secondAdminList, 7))
             .build();
 
-
-
     // Behaviour
+    public static void adminPanel(@NotNull Action action) throws UninitialisedDriverException {
+        switch (action) {
+            case OPEN:
+                openAdminPanel();
+                break;
+            case CLOSE:
+                closeAdminPanel();
+                break;
+            default:
+                throw new IllegalArgumentException(Output.printColoredLog("ERROR unsupported argument " + action + " used."));
+        }
+    }
+
+    public static void openAdminPanel() throws UninitialisedDriverException {
+        if (isAdminPanelClosed()) {
+            administratorButton();
+        }
+    }
+
+    public static void closeAdminPanel() throws UninitialisedDriverException {
+        if (isAdminPanelOpen()) {
+            administratorButton();
+        }
+    }
+
+    private static boolean isAdminPanelOpen() throws UninitialisedDriverException {
+        return isElementPresent(ADMIN_BUTTON + ".active");
+    }
+
+    private static boolean isAdminPanelClosed() throws UninitialisedDriverException {
+        return !isAdminPanelOpen();
+    }
+
     public static void administratorButton() throws UninitialisedDriverException {
         click(ADMIN_BUTTON);
     }
