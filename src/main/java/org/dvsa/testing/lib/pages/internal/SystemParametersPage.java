@@ -3,7 +3,7 @@ package org.dvsa.testing.lib.pages.internal;
 import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
-import org.dvsa.testing.lib.pages.enums.dataretention.Parameter;
+import org.dvsa.testing.lib.pages.enums.dataretention.SystemParameter;
 import org.dvsa.testing.lib.pages.exception.ElementDidNotAppearWithinSpecifiedTimeException;
 import org.dvsa.testing.lib.pages.exception.IncorrectPageTitleException;
 import org.dvsa.testing.lib.pages.exception.UnableToFindSystemParameter;
@@ -39,14 +39,14 @@ public class SystemParametersPage extends BasePage {
     }
 
     // Behaviour
-    public static void set(@NotNull Parameter parameter, @NotNull String value) throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException, UnableToFindSystemParameter, IncorrectPageTitleException {
-        paginateToSystemParameter(parameter);
-        click(String.format(ROW_KEY_TEMPLATE, parameter.toString()), SelectorType.XPATH);
+    public static void set(@NotNull SystemParameter systemParameter, @NotNull String value) throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException, UnableToFindSystemParameter, IncorrectPageTitleException {
+        paginateToSystemParameter(systemParameter);
+        click(String.format(ROW_KEY_TEMPLATE, systemParameter.toString()), SelectorType.XPATH);
         EditModel.parameterValue(value);
     }
 
-    private static void paginateToSystemParameter(@NotNull Parameter parameter) throws UninitialisedDriverException, UnableToFindSystemParameter {
-        String keyToPress = String.format(ROW_KEY_TEMPLATE, parameter.toString());
+    private static void paginateToSystemParameter(@NotNull SystemParameter systemParameter) throws UninitialisedDriverException, UnableToFindSystemParameter {
+        String keyToPress = String.format(ROW_KEY_TEMPLATE, systemParameter.toString());
 
         while (!isElementPresent(keyToPress, SelectorType.XPATH) && isElementPresent(NEXT_BUTTON, SelectorType.XPATH)) {
             click(NEXT_BUTTON, SelectorType.XPATH);
@@ -55,7 +55,7 @@ public class SystemParametersPage extends BasePage {
         if (isElementPresent(keyToPress, SelectorType.XPATH)) {
             click(keyToPress, SelectorType.XPATH);
         } else {
-            throw new UnableToFindSystemParameter("[ERROR] Unable to find " + parameter + " system property through all paginated pages");
+            throw new UnableToFindSystemParameter("[ERROR] Unable to find " + systemParameter + " system property through all paginated pages");
         }
 
     }
