@@ -34,4 +34,8 @@ public enum SystemParameter {
         return this.disableValue;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
 }
