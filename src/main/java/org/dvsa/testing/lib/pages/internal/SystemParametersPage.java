@@ -41,12 +41,12 @@ public class SystemParametersPage extends BasePage {
     // Behaviour
     public static void set(@NotNull SystemParameter systemParameter, @NotNull String value) throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException, UnableToFindSystemParameter, IncorrectPageTitleException {
         paginateToSystemParameter(systemParameter);
-        click(String.format(ROW_KEY_TEMPLATE, systemParameter.toString()), SelectorType.XPATH);
+        click(String.format(ROW_KEY_TEMPLATE, systemParameter.getName()), SelectorType.XPATH);
         EditModel.parameterValue(value);
     }
 
     private static void paginateToSystemParameter(@NotNull SystemParameter systemParameter) throws UninitialisedDriverException, UnableToFindSystemParameter {
-        String keyToPress = String.format(ROW_KEY_TEMPLATE, systemParameter.toString());
+        String keyToPress = String.format(ROW_KEY_TEMPLATE, systemParameter.getName());
 
         while (!isElementPresent(keyToPress, SelectorType.XPATH) && isElementPresent(NEXT_BUTTON, SelectorType.XPATH)) {
             click(NEXT_BUTTON, SelectorType.XPATH);
@@ -55,7 +55,7 @@ public class SystemParametersPage extends BasePage {
         if (isElementPresent(keyToPress, SelectorType.XPATH)) {
             click(keyToPress, SelectorType.XPATH);
         } else {
-            throw new UnableToFindSystemParameter("[ERROR] Unable to find " + systemParameter + " system property through all paginated pages");
+            throw new UnableToFindSystemParameter("[ERROR] Unable to find " + systemParameter.getName() + " system property through all paginated pages");
         }
 
     }
