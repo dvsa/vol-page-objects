@@ -81,7 +81,10 @@ public class NavigationBar extends BasePage {
         int listPosition = adminListMapper.get(option).get(0);
         int listItemPosition = adminListMapper.get(option).get(1);
 
-        openAdminPanel();
+        if (isAdminPanelClosed()) {
+            openAdminPanel();
+        }
+
         untilElementPresentWithin(OPEN_ADMIN_MENU, 1000);
         click(String.format(ADMIN_MENU_OPTION_TEMPLATE, listPosition, listItemPosition));
     }
