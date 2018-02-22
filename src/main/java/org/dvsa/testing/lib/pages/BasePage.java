@@ -202,7 +202,15 @@ public class BasePage {
     }
 
     protected static boolean isElementPresent(@NotNull String selector, SelectorType selectorType) throws UninitialisedDriverException {
-        return find(selector, selectorType) != null;
+        boolean isElementPresent = true;
+
+        try {
+            find(selector, selectorType);
+        } catch (org.openqa.selenium.NoSuchElementException e) {
+            isElementPresent = false;
+        }
+
+        return  isElementPresent;
     }
 
     protected static void untilElementPresentWithin(@NotNull String selector, long milliseconds) throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException {
