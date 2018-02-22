@@ -8,6 +8,7 @@ import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.Action;
 import org.dvsa.testing.lib.pages.enums.AdminOption;
 import org.dvsa.testing.lib.pages.exception.ElementDidNotAppearWithinSpecifiedTimeException;
+import org.dvsa.testing.lib.pages.exception.ElementDidNotDisappearWithinSpecifiedTimeException;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -40,7 +41,7 @@ public class NavigationBar extends BasePage {
             .build();
 
     // Behaviour
-    public static void adminPanel(@NotNull Action action) throws UninitialisedDriverException {
+    public static void adminPanel(@NotNull Action action) throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException, ElementDidNotDisappearWithinSpecifiedTimeException {
         switch (action) {
             case OPEN:
                 openAdminPanel();
@@ -53,15 +54,17 @@ public class NavigationBar extends BasePage {
         }
     }
 
-    public static void openAdminPanel() throws UninitialisedDriverException {
+    public static void openAdminPanel() throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException {
         if (isAdminPanelClosed()) {
             administratorButton();
+            untilElementPresentWithin(OPEN_ADMIN_MENU, 1000);
         }
     }
 
-    public static void closeAdminPanel() throws UninitialisedDriverException {
+    public static void closeAdminPanel() throws UninitialisedDriverException, ElementDidNotDisappearWithinSpecifiedTimeException {
         if (isAdminPanelOpen()) {
             administratorButton();
+            untilElementNotPresentWithin(OPEN_ADMIN_MENU, 1000);
         }
     }
 
@@ -81,11 +84,8 @@ public class NavigationBar extends BasePage {
         int listPosition = adminListMapper.get(option).get(0);
         int listItemPosition = adminListMapper.get(option).get(1);
 
-        if (isAdminPanelClosed()) {
-            openAdminPanel();
-        }
+        openAdminPanel();
 
-        untilElementPresentWithin(OPEN_ADMIN_MENU, 1000);
         click(String.format(ADMIN_MENU_OPTION_TEMPLATE, listPosition, listItemPosition));
     }
 }
