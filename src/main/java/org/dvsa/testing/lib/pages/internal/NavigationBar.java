@@ -17,7 +17,7 @@ public class NavigationBar extends BasePage {
     // Selectors
     private static String ADMIN_BUTTON = "ul > li.admin__title";
     private static String ADMIN_MENU = "div.admin__menu";
-    private static String OPEN_ADMIN_MENU = ADMIN_MENU + ".active";
+    private static String OPEN_ADMIN_MENU = ADMIN_BUTTON + ".active";
     private static String ADMIN_MENU_OPTION_TEMPLATE = ADMIN_MENU + " ul.admin__submenu:nth-of-type(%d) > li:nth-of-type(%d) > a";
 
     // Data Structures
