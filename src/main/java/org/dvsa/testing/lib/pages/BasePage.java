@@ -331,6 +331,10 @@ public class BasePage {
         new WebDriverWait(getDriver(), seconds).until(not(ExpectedConditions.presenceOfAllElementsLocatedBy(by(selector, selectorType))));
     }
 
+    protected static boolean isInDOM(@NotNull String selector, int seconds) throws UninitialisedDriverException {
+        return isInDOM(selector, SelectorType.CSS, seconds);
+    }
+
     protected static boolean isInDOM(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException {
         boolean isInDOM = true;
 
