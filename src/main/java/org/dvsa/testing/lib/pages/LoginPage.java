@@ -36,7 +36,7 @@ public class LoginPage extends BasePage {
     }
 
     public static void untilNotOnPage(int seconds) throws UninitialisedDriverException {
-        isNotInDOM(SUBMIT_BUTTON, seconds);
+        untilNotInDOM(SUBMIT_BUTTON, seconds);
     }
 
 }

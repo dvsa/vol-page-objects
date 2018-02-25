@@ -307,8 +307,28 @@ public class BasePage {
         new WebDriverWait(getDriver(), seconds).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
     }
 
-    protected static void isNotInDOM(@NotNull String selector, int timeToWait) throws UninitialisedDriverException {
-        new WebDriverWait(getDriver(), timeToWait).until(not(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector(selector))));
+    protected static boolean isNotInDOM(@NotNull String selector, int seconds) throws UninitialisedDriverException {
+        return isNotInDOM(selector, SelectorType.CSS, seconds);
+    }
+
+    protected static boolean isNotInDOM(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException {
+        boolean isNotInDOM = true;
+
+        try {
+            untilInDOM(selector, selectorType, seconds);
+        } catch (org.openqa.selenium.TimeoutException e) {
+            isNotInDOM = false;
+        }
+
+        return isNotInDOM;
+    }
+
+    protected static void untilNotInDOM(@NotNull String selector, int seconds) throws UninitialisedDriverException {
+        untilInDOM(selector, SelectorType.CSS, seconds);
+    }
+
+    protected static void untilNotInDOM(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException {
+        new WebDriverWait(getDriver(), seconds).until(not(ExpectedConditions.presenceOfAllElementsLocatedBy(by(selector, selectorType))));
     }
 
     protected static boolean isInDOM(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException {
