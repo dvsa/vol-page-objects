@@ -294,6 +294,22 @@ public class BasePage {
         }
     }
 
+    protected static boolean isNotPresent(@NotNull String selector, int seconds) throws UninitialisedDriverException {
+        return isNotPresent(selector, SelectorType.CSS, seconds);
+    }
+
+    protected static boolean isNotPresent(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException {
+        boolean isNotPresent = true;
+
+        try {
+            untilNotPresent(selector, selectorType, seconds);
+        } catch (org.openqa.selenium.TimeoutException e) {
+            isNotPresent = false;
+        }
+
+        return isNotPresent;
+    }
+
     protected static void untilNotPresent(@NotNull String selector, int seconds) throws UninitialisedDriverException {
         untilNotPresent(selector, SelectorType.CSS, seconds);
     }
