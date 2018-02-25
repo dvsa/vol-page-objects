@@ -255,10 +255,14 @@ public class BasePage {
     }
 
     protected static boolean isElementPresentWithin(@NotNull String selector, int seconds) throws UninitialisedDriverException {
+        return isElementPresentWithin(selector, SelectorType.CSS, seconds);
+    }
+
+    protected static boolean isElementPresentWithin(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException {
         boolean isPresent = true;
 
         try {
-            isPresent(selector, seconds);
+            isPresent(selector, selectorType, seconds);
         } catch (org.openqa.selenium.TimeoutException e) {
             isPresent = false;
         }
@@ -294,16 +298,38 @@ public class BasePage {
         new WebDriverWait(getDriver(), timeToWait).until(not(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(selector))));
     }
 
-    protected static void isPresent(@NotNull String selector, int timeToWait) throws UninitialisedDriverException {
-        new WebDriverWait(getDriver(), timeToWait).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(selector)));
+    protected static void isPresent(@NotNull String selector, int seconds) throws UninitialisedDriverException {
+       isPresent(selector, SelectorType.CSS, seconds);
+    }
+
+    protected static void isPresent(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException {
+        By by = by(selector, selectorType);
+        new WebDriverWait(getDriver(), seconds).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
     }
 
     protected static void isNotInDOM(@NotNull String selector, int timeToWait) throws UninitialisedDriverException {
         new WebDriverWait(getDriver(), timeToWait).until(not(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector(selector))));
     }
 
-    protected static void isInDOM(@NotNull String selector, int timeToWait) throws UninitialisedDriverException {
-        new WebDriverWait(getDriver(), timeToWait).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector(selector)));
+    protected static boolean isInDOM(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException {
+        boolean isInDOM = true;
+
+        try {
+            untilInDOM(selector, selectorType, seconds);
+        } catch (org.openqa.selenium.TimeoutException e) {
+            isInDOM = false;
+        }
+
+        return isInDOM;
+    }
+
+    protected static void untilInDOM(@NotNull String selector, int seconds) throws UninitialisedDriverException {
+        untilInDOM(selector, SelectorType.CSS, seconds);
+    }
+
+    protected static void untilInDOM(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException {
+        By by = by(selector, selectorType);
+        new WebDriverWait(getDriver(), seconds).until(ExpectedConditions.presenceOfAllElementsLocatedBy(by));
     }
 
     protected static boolean contains(@NotNull String selector, @NotNull String content) throws UninitialisedDriverException {
