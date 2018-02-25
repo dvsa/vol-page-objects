@@ -87,7 +87,7 @@ public class RuleAdminPage extends DataRetentionPage {
                 foundDataRetentionRule = true;
                 click(ruleSelector, SelectorType.XPATH);
             } else {
-                click(NEXT_BUTTON);
+                click(NEXT_BUTTON, SelectorType.XPATH);
             }
         } while (!isElementPresent(ruleSelector, SelectorType.XPATH) && isElementPresent(NEXT_BUTTON, SelectorType.XPATH));
 
