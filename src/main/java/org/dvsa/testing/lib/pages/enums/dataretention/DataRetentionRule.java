@@ -21,7 +21,7 @@ public enum DataRetentionRule {
         return name.equals(otherName);
     }
 
-    public DataRetentionRule getEnum(String value) {
+    public static DataRetentionRule getEnum(String value) {
         DataRetentionRule dataRetentionRule;
 
         switch (value) {
