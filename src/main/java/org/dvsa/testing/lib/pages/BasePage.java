@@ -353,7 +353,7 @@ public class BasePage {
     }
 
     protected static void untilNotInDOM(@NotNull String selector, int seconds) throws UninitialisedDriverException {
-        untilInDOM(selector, SelectorType.CSS, seconds);
+        untilNotInDOM(selector, SelectorType.CSS, seconds);
     }
 
     protected static void untilNotInDOM(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException {
