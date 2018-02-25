@@ -258,16 +258,9 @@ public class BasePage {
         return isElementPresentWithin(selector, SelectorType.CSS, seconds);
     }
 
+    @Deprecated
     protected static boolean isElementPresentWithin(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException {
-        boolean isPresent = true;
-
-        try {
-            untilPresent(selector, selectorType, seconds);
-        } catch (org.openqa.selenium.TimeoutException e) {
-            isPresent = false;
-        }
-
-        return isPresent;
+        return isInDOM(selector, selectorType, seconds);
     }
 
     protected static boolean isElementNotPresentWithin(@NotNull String selector, int seconds) throws UninitialisedDriverException {
