@@ -294,8 +294,12 @@ public class BasePage {
         }
     }
 
-    protected static void isNotPresent(@NotNull String selector, int timeToWait) throws UninitialisedDriverException {
-        new WebDriverWait(getDriver(), timeToWait).until(not(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(selector))));
+    protected static void untilNotPresent(@NotNull String selector, int seconds) throws UninitialisedDriverException {
+        untilNotPresent(selector, SelectorType.CSS, seconds);
+    }
+
+    protected static void untilNotPresent(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException {
+        new WebDriverWait(getDriver(), seconds).until(not(ExpectedConditions.visibilityOfAllElementsLocatedBy(by(selector,selectorType))));
     }
 
     protected static boolean isPresent(@NotNull String selector, int seconds) throws UninitialisedDriverException {
