@@ -23,6 +23,8 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.not;
 
 public class BasePage {
 
+    private static final int WAIT_TIME_SECONDS =  10;
+
     private static String URI;
     private static String SCHEME;
     private static String DOMAIN;
@@ -66,6 +68,15 @@ public class BasePage {
      */
     protected static String getText(@NotNull String selector, @NotNull SelectorType selectorType) throws UninitialisedDriverException {
         return find(selector, selectorType).getText();
+    }
+
+    protected static boolean hasText(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String text) throws UninitialisedDriverException {
+        return getText(selector, selectorType).equals(text);
+    }
+
+    protected static boolean hasText(@NotNull String selector, @NotNull String text) throws UninitialisedDriverException {
+        SelectorType selectorType = SelectorType.CSS;
+        return hasText(selector, selectorType, text);
     }
 
     protected static List<String> getListValues(@NotNull String listSelector) throws UninitialisedDriverException {
@@ -213,63 +224,50 @@ public class BasePage {
         return  isElementPresent;
     }
 
-    protected static void untilElementPresentWithin(@NotNull String selector, long milliseconds) throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException {
-        boolean elementFound = isElementPresentWithin(selector, milliseconds);
+    protected static void untilElementPresentWithin(@NotNull String selector, int seconds) throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException {
+        boolean elementFound = isElementPresentWithin(selector, seconds);
         if(!elementFound){
             throw new ElementDidNotAppearWithinSpecifiedTimeException(
                     Output.printColoredLog(
                             String.format(
-                                    "[ERROR] Element with the selector %s did not appear after %d milliseconds",
+                                    "[ERROR] Element with the selector %s did not appear after %d seconds",
                                     selector,
-                                    milliseconds
+                                    seconds
                             )
                     )
             );
         }
     }
 
-    protected static void untilElementNotPresentWithin(@NotNull String selector, long milliseconds) throws ElementDidNotDisappearWithinSpecifiedTimeException, UninitialisedDriverException {
-        boolean elementFound = isElementNotPresentWithin(selector, milliseconds);
-        if(!elementFound){
+    protected static void untilElementNotPresentWithin(@NotNull String selector, int seconds) throws ElementDidNotDisappearWithinSpecifiedTimeException, UninitialisedDriverException {
+        boolean elementFound = isElementNotPresentWithin(selector, seconds);
+        if(elementFound){
             throw new ElementDidNotDisappearWithinSpecifiedTimeException(
                     Output.printColoredLog(
                             String.format(
-                                    "[ERROR] Element with the selector %s did not appear after %d milliseconds",
+                                    "[ERROR] Element with the selector '%s' did not disappear after %d seconds",
                                     selector,
-                                    milliseconds
+                                    seconds
                             )
                     )
             );
         }
     }
 
-    protected static boolean isElementPresentWithin(@NotNull String selector, long milliseconds) throws UninitialisedDriverException {
-        final long WAIT_INTERVAL = 250;
-        long count = 0;
-        boolean found;
+    protected static boolean isElementPresentWithin(@NotNull String selector, int seconds) throws UninitialisedDriverException {
+        boolean isPresent = true;
 
-        do {
-            found = isElementPresent(selector);
+        try {
+            isPresent(selector, seconds);
+        } catch (org.openqa.selenium.TimeoutException e) {
+            isPresent = false;
+        }
 
-            if(found || count >= milliseconds){
-                break;
-            }
-
-            try {
-                Thread.sleep(WAIT_INTERVAL);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            count += WAIT_INTERVAL;
-
-        } while (!found && count <= milliseconds);
-
-        return found;
+        return isPresent;
     }
 
-    protected static boolean isElementNotPresentWithin(@NotNull String selector, long milliseconds) throws UninitialisedDriverException {
-        return !isElementPresentWithin(selector, milliseconds);
+    protected static boolean isElementNotPresentWithin(@NotNull String selector, int seconds) throws UninitialisedDriverException {
+        return !isElementPresentWithin(selector, seconds);
     }
 
     protected static boolean isNotSelected(@NotNull String selector) throws UninitialisedDriverException {
@@ -316,19 +314,18 @@ public class BasePage {
         return isExpectedPageTitle(getPageTitleSelector(), title);
     }
 
-    protected static boolean isExpectedPageTitle(@NotNull String title, long horizonMilliseconds) throws UninitialisedDriverException {
-        return isExpectedPageTitle(getPageTitleSelector(), title, horizonMilliseconds);
+    protected static boolean isExpectedPageTitle(@NotNull String title, int horizonSeconds) throws UninitialisedDriverException {
+        return isExpectedPageTitle(getPageTitleSelector(), title, horizonSeconds);
     }
 
     protected static boolean isExpectedPageTitle(@NotNull String selector, @NotNull String title) throws UninitialisedDriverException {
-        long horizonMilliseconds = 3000;
-        return isExpectedPageTitle(selector, title, horizonMilliseconds);
+        return isExpectedPageTitle(selector, title, WAIT_TIME_SECONDS);
     }
 
-    protected static boolean isExpectedPageTitle(@NotNull String selector, @NotNull String title, long horizonMilliseconds) throws UninitialisedDriverException {
+    protected static boolean isExpectedPageTitle(@NotNull String selector, @NotNull String title, int horizonSeconds) throws UninitialisedDriverException {
         boolean isCurrentPage = false;
 
-        if(isElementPresentWithin(selector, horizonMilliseconds)){
+        if(isElementPresentWithin(selector, horizonSeconds)){
             isCurrentPage = contains(selector, title);
         }
 
@@ -339,57 +336,87 @@ public class BasePage {
         return isNotExpectedPageTitle(getPageTitleSelector(), title);
     }
 
-    protected static boolean isNotExpectedPageTitle(@NotNull String title, long horizonMilliseconds) throws UninitialisedDriverException {
-        return isNotExpectedPageTitle(getPageTitleSelector(), title, horizonMilliseconds);
+    protected static boolean isNotExpectedPageTitle(@NotNull String title, int horizonSeconds) throws UninitialisedDriverException {
+        return isNotExpectedPageTitle(getPageTitleSelector(), title, horizonSeconds);
     }
 
     protected static boolean isNotExpectedPageTitle(@NotNull String selector, @NotNull String title) throws UninitialisedDriverException {
-        long horizonMilliseconds = 3000;
-        return isNotExpectedPageTitle(selector, title, horizonMilliseconds);
+        return isNotExpectedPageTitle(selector, title, WAIT_TIME_SECONDS);
     }
 
-    protected static boolean isNotExpectedPageTitle(@NotNull String selector, @NotNull String title, long horizonMilliseconds) throws UninitialisedDriverException {
-        return !isExpectedPageTitle(selector, title, horizonMilliseconds);
+    protected static boolean isNotExpectedPageTitle(@NotNull String selector, @NotNull String title, int horizonSeconds) throws UninitialisedDriverException {
+        return !isExpectedPageTitle(selector, title, horizonSeconds);
     }
 
     protected static void untilExpectedPageTitle(@NotNull String selector, @NotNull String pageTitle) throws IncorrectPageTitleException, UninitialisedDriverException {
-        long horizonMilliseconds = 3000;
-        untilExpectedPageTitle(selector, pageTitle, horizonMilliseconds);
+        untilExpectedPageTitle(selector, pageTitle, WAIT_TIME_SECONDS);
     }
 
     protected static void untilExpectedPageTitle(@NotNull String pageTitle) throws IncorrectPageTitleException, UninitialisedDriverException {
-        long horizonMilliseconds = 3000;
-        untilExpectedPageTitle(pageTitle, horizonMilliseconds);
+        untilExpectedPageTitle(pageTitle, WAIT_TIME_SECONDS);
     }
 
-    protected static void untilExpectedPageTitle(@NotNull String pageTitle, long horizonMilliseconds) throws IncorrectPageTitleException, UninitialisedDriverException {
-        untilExpectedPageTitle(PAGE_TITLE_SELECTOR, pageTitle, horizonMilliseconds);
+    protected static void untilExpectedPageTitle(@NotNull String pageTitle, int horizonSeconds) throws IncorrectPageTitleException, UninitialisedDriverException {
+        untilExpectedPageTitle(PAGE_TITLE_SELECTOR, pageTitle, horizonSeconds);
     }
 
-    protected static void untilExpectedPageTitle(@NotNull String selector, @NotNull String pageTitle, long horizonMilliseconds) throws IncorrectPageTitleException, UninitialisedDriverException {
-        if(!isExpectedPageTitle(selector, pageTitle, horizonMilliseconds)){
-            throw new IncorrectPageTitleException(String.format("[ERROR] The page title for the current page should be %s but was %s", pageTitle, Browser.getPageTitle()));
+    protected static void untilExpectedPageTitle(@NotNull String selector, @NotNull String pageTitle, int horizonSeconds) throws IncorrectPageTitleException, UninitialisedDriverException {
+        if(!isExpectedPageTitle(selector, pageTitle, horizonSeconds)){
+            throw new IncorrectPageTitleException(String.format("[ERROR] The page title for the current page should be '%s' but was '%s'", pageTitle, Browser.getPageTitle()));
         }
     }
 
     protected static void untilNotExpectedPageTitle(@NotNull String selector, @NotNull String pageTitle) throws IncorrectPageTitleException, UninitialisedDriverException {
-        long horizonMilliseconds = 3000;
-        untilNotExpectedPageTitle(selector, pageTitle, horizonMilliseconds);
+        untilNotExpectedPageTitle(selector, pageTitle, WAIT_TIME_SECONDS);
     }
 
     protected static void untilNotExpectedPageTitle(@NotNull String pageTitle) throws IncorrectPageTitleException, UninitialisedDriverException {
-        long horizonMilliseconds = 3000;
-        untilNotExpectedPageTitle(pageTitle, horizonMilliseconds);
+        untilNotExpectedPageTitle(pageTitle, WAIT_TIME_SECONDS);
     }
 
-    protected static void untilNotExpectedPageTitle(@NotNull String pageTitle, long horizonMilliseconds) throws IncorrectPageTitleException, UninitialisedDriverException {
-        untilNotExpectedPageTitle(PAGE_TITLE_SELECTOR, pageTitle, horizonMilliseconds);
+    protected static void untilNotExpectedPageTitle(@NotNull String pageTitle, int horizonSeconds) throws IncorrectPageTitleException, UninitialisedDriverException {
+        untilNotExpectedPageTitle(PAGE_TITLE_SELECTOR, pageTitle, horizonSeconds);
     }
 
-    protected static void untilNotExpectedPageTitle(@NotNull String selector, @NotNull String pageTitle, long horizonMilliseconds) throws UninitialisedDriverException, IncorrectPageTitleException {
-        if(!isNotExpectedPageTitle(selector, pageTitle, horizonMilliseconds)){
-            throw new IncorrectPageTitleException(String.format("[ERROR] The page title for the page did not change asfter %d milliseconds", horizonMilliseconds));
+    protected static void untilNotExpectedPageTitle(@NotNull String selector, @NotNull String pageTitle, int horizonSeconds) throws UninitialisedDriverException, IncorrectPageTitleException {
+        if(!isNotExpectedPageTitle(selector, pageTitle, horizonSeconds)){
+            throw new IncorrectPageTitleException(String.format("[ERROR] The page title for the page did not change after %d seconds", horizonSeconds));
         }
+    }
+
+    protected static boolean isExpectedTextInElementWithin(@NotNull String selector, @NotNull String expectedText, int seconds) throws UninitialisedDriverException {
+        SelectorType selectorType = SelectorType.CSS;
+        return isExpectedTextInElementWithin(selector, selectorType, expectedText, seconds);
+    }
+
+    protected static boolean isExpectedTextInElementWithin(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String expectedText, int seconds) throws UninitialisedDriverException {
+        boolean found = true;
+
+        try {
+            untilExpectedTextInElement(selector, selectorType, expectedText, seconds);
+        } catch (org.openqa.selenium.TimeoutException e) {
+            found = false;
+        }
+
+        return found;
+    }
+
+    protected static void untilExpectedTextInElement(@NotNull String selector, @NotNull String expectedText, int seconds) throws UninitialisedDriverException {
+        SelectorType selectorType = SelectorType.CSS;
+        untilExpectedTextInElement(selector, selectorType, expectedText, seconds);
+    }
+
+    protected static void untilExpectedTextInElement(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String expectedText, int seconds) throws UninitialisedDriverException {
+        (new WebDriverWait(getDriver(), seconds)).until(ExpectedConditions.textToBePresentInElementLocated(by(selector, selectorType), expectedText));
+    }
+
+    protected static void untilNotExpectedTextInElement(@NotNull String selector, @NotNull String expectedText, int seconds) throws UninitialisedDriverException {
+        SelectorType selectorType = SelectorType.CSS;
+        untilNotExpectedTextInElement(selector, selectorType, expectedText, seconds);
+    }
+
+    protected static void untilNotExpectedTextInElement(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String expectedText, int seconds) throws UninitialisedDriverException {
+        (new WebDriverWait(getDriver(), seconds)).until(not(ExpectedConditions.textToBePresentInElementLocated(by(selector, selectorType), expectedText)));
     }
 
 }

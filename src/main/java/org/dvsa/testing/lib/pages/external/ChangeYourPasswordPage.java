@@ -38,28 +38,4 @@ public class ChangeYourPasswordPage extends BasePage{
         click(SUBMIT_BUTTON);
     }
 
-    public static void untilExpectedPageTitle() throws IncorrectPageTitleException, UninitialisedDriverException {
-        untilExpectedPageTitle(PAGE_TITLE_TEXT);
-    }
-
-    public static void untilExpectedPageTitle(long horizonMilliseconds) throws IncorrectPageTitleException, UninitialisedDriverException {
-        untilExpectedPageTitle(PAGE_TITLE_TEXT, horizonMilliseconds);
-    }
-
-    public static boolean isExpectedPageTitle() throws UninitialisedDriverException {
-        return BasePage.isExpectedPageTitle(PAGE_TITLE_TEXT);
-    }
-
-    public static boolean isExpectedPageTitle(long horizonMilliseconds) throws UninitialisedDriverException {
-        return BasePage.isExpectedPageTitle(PAGE_TITLE_TEXT, horizonMilliseconds);
-    }
-
-    public static boolean isNotExpectedPageTile() throws UninitialisedDriverException {
-        return BasePage.isNotExpectedPageTitle(PAGE_TITLE_TEXT);
-    }
-
-    public static boolean isNotExpectedPageTile(long horizonMilliseconds) throws UninitialisedDriverException {
-        return BasePage.isNotExpectedPageTitle(PAGE_TITLE_TEXT, horizonMilliseconds);
-    }
-
 }

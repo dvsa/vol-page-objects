@@ -5,6 +5,7 @@ import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
 import org.dvsa.testing.lib.pages.enums.dataretention.SystemParameter;
 import org.dvsa.testing.lib.pages.exception.ElementDidNotAppearWithinSpecifiedTimeException;
+import org.dvsa.testing.lib.pages.exception.ElementDidNotDisappearWithinSpecifiedTimeException;
 import org.dvsa.testing.lib.pages.exception.IncorrectPageTitleException;
 import org.dvsa.testing.lib.pages.exception.UnableToFindSystemParameter;
 import org.jetbrains.annotations.NotNull;
@@ -25,12 +26,11 @@ public class SystemParametersPage extends BasePage {
         // Attributes
         private static String PAGE_TITLE_TEXT = "Edit system parameter";
 
-        public static void parameterValue(@NotNull String systemParameter) throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException, IncorrectPageTitleException {
-            untilExpectedPageTitle(PAGE_TITLE_TEXT);
-            untilElementPresentWithin(PARAMETER_VALUE, 1000);
+        public static void parameterValue(@NotNull String systemParameter) throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException {
+            untilElementPresentWithin(PARAMETER_VALUE, 3);
             enterField(PARAMETER_VALUE, systemParameter);
             save();
-            untilNotExpectedPageTitle(PAGE_TITLE_TEXT);
+            untilNotExpectedTextInElement("h1", PAGE_TITLE_TEXT, 3);
         }
 
         public static void save() throws UninitialisedDriverException {
@@ -39,7 +39,7 @@ public class SystemParametersPage extends BasePage {
     }
 
     // Behaviour
-    public static void set(@NotNull SystemParameter systemParameter, @NotNull String value) throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException, UnableToFindSystemParameter, IncorrectPageTitleException {
+    public static void set(@NotNull SystemParameter systemParameter, @NotNull String value) throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException, UnableToFindSystemParameter, ElementDidNotDisappearWithinSpecifiedTimeException {
         paginateToSystemParameter(systemParameter);
         click(String.format(ROW_KEY_TEMPLATE, systemParameter.getName()), SelectorType.XPATH);
         EditModel.parameterValue(value);
@@ -52,36 +52,10 @@ public class SystemParametersPage extends BasePage {
             click(NEXT_BUTTON, SelectorType.XPATH);
         }
 
-        if (isElementPresent(keyToPress, SelectorType.XPATH)) {
-            click(keyToPress, SelectorType.XPATH);
-        } else {
+        if (isElementNotPresent(keyToPress, SelectorType.XPATH)) {
             throw new UnableToFindSystemParameter("[ERROR] Unable to find " + systemParameter.getName() + " system property through all paginated pages");
         }
 
-    }
-
-    public static void untilExpectedPageTitle() throws IncorrectPageTitleException, UninitialisedDriverException {
-        untilExpectedPageTitle(PAGE_TITLE_TEXT);
-    }
-
-    public static void untilExpectedPageTitle(long horizonMilliseconds) throws IncorrectPageTitleException, UninitialisedDriverException {
-        untilExpectedPageTitle(PAGE_TITLE_TEXT, horizonMilliseconds);
-    }
-
-    public static boolean isExpectedPageTitle() throws UninitialisedDriverException {
-        return BasePage.isExpectedPageTitle(PAGE_TITLE_TEXT);
-    }
-
-    public static boolean isExpectedPageTitle(long horizonMilliseconds) throws UninitialisedDriverException {
-        return BasePage.isExpectedPageTitle(PAGE_TITLE_TEXT, horizonMilliseconds);
-    }
-
-    public static boolean isNotExpectedPageTile() throws UninitialisedDriverException {
-        return BasePage.isNotExpectedPageTitle(PAGE_TITLE_TEXT);
-    }
-
-    public static boolean isNotExpectedPageTile(long horizonMilliseconds) throws UninitialisedDriverException {
-        return BasePage.isNotExpectedPageTitle(PAGE_TITLE_TEXT, horizonMilliseconds);
     }
 
 }
