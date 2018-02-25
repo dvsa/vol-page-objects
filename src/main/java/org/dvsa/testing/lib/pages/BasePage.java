@@ -298,6 +298,22 @@ public class BasePage {
         new WebDriverWait(getDriver(), timeToWait).until(not(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(selector))));
     }
 
+    protected static boolean isPresent(@NotNull String selector, int seconds) throws UninitialisedDriverException {
+        return isPresent(selector, SelectorType.CSS, seconds);
+    }
+
+    protected static boolean isPresent(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException {
+        boolean isPresent = true;
+
+        try {
+            untilPresent(selector, selectorType, seconds);
+        } catch (org.openqa.selenium.TimeoutException e) {
+            isPresent = false;
+        }
+
+        return isPresent;
+    }
+
     protected static void untilPresent(@NotNull String selector, int seconds) throws UninitialisedDriverException {
        untilPresent(selector, SelectorType.CSS, seconds);
     }
