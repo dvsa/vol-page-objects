@@ -27,6 +27,8 @@ public class RuleAdminPage extends DataRetentionPage {
 
         private static String SELECTED = ".selected ";
 
+        public static String MAIN_TITLE = "Edit Data retention rule";
+
         public static void enable(boolean enable) throws UninitialisedDriverException {
             if (enable) {
                 EditModel.enable();
@@ -79,24 +81,36 @@ public class RuleAdminPage extends DataRetentionPage {
      * @throws UnableToFindDataRetentionRule is thrown if the specified rule is not present in any of the pagination.
      */
     public static void selectRule(@NotNull DataRetentionRule dataRetentionRule) throws UninitialisedDriverException, UnableToFindDataRetentionRule {
-        String ruleSelector = String.format(RULE_DESCRIPTION_ROW_TEMPLATE, dataRetentionRule);
+        String ruleSelector = String.format(RULE_DESCRIPTION_ROW_TEMPLATE, dataRetentionRule.toString());
+
+        pagenateToRule(ruleSelector, SelectorType.XPATH, 2);
+
+        scrollTo(ruleSelector, SelectorType.XPATH);
+        click(ruleSelector, SelectorType.XPATH);
+        untilExpectedTextInElement("h1", EditModel.MAIN_TITLE, 3); // Waits until the edit model has appeared
+    }
+
+    private static void pagenateToRule(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException, UnableToFindDataRetentionRule {
         boolean foundDataRetentionRule = false;
 
         do {
-            if (isElementPresent(ruleSelector, SelectorType.XPATH)) {
+            if (isInDOM(selector, selectorType, seconds)) {
                 foundDataRetentionRule = true;
-                click(ruleSelector, SelectorType.XPATH);
-            } else {
+                break;
+            } else if (isInDOM(NEXT_BUTTON, SelectorType.XPATH)){
                 click(NEXT_BUTTON, SelectorType.XPATH);
+            } else if (isNotInDOM(NEXT_BUTTON, SelectorType.XPATH)) {
+                break;
             }
-        } while (!isElementPresent(ruleSelector, SelectorType.XPATH) && isElementPresent(NEXT_BUTTON, SelectorType.XPATH));
+        } while (true);
 
         if (!foundDataRetentionRule) {
-            throw new UnableToFindDataRetentionRule("Unable to find the data retention rule '"
-                    + dataRetentionRule.name()
-                    + "' from the Rule Admin page (including pagination)"
+            throw new UnableToFindDataRetentionRule("Unable to find the element with the selector '"
+                    + selector
+                    + "' after pagenation"
             );
         }
+
     }
 
     public static String getActionType(@NotNull DataRetentionRule dataRetentionRule) throws UninitialisedDriverException {
