@@ -27,7 +27,7 @@ public class BasePage {
     private static String SCHEME;
     private static String DOMAIN;
 
-    private static String PAGE_TITLE_SELECTOR = "h1";
+    protected static String MAIN_TITLE_SELECTOR = "h1";
 
     protected static String getScheme() throws UninitialisedDriverException {
         initialiseURLSectionsOnFirstCall();
@@ -53,8 +53,8 @@ public class BasePage {
         }
     }
 
-    protected static String getPageTitleSelector() {
-        return PAGE_TITLE_SELECTOR;
+    protected static String getMainTitleSelector() {
+        return MAIN_TITLE_SELECTOR;
     }
 
     /**
@@ -406,11 +406,11 @@ public class BasePage {
     }
 
     protected static boolean isExpectedPageTitle( @NotNull String title) throws UninitialisedDriverException {
-        return isExpectedPageTitle(getPageTitleSelector(), title);
+        return isExpectedPageTitle(getMainTitleSelector(), title);
     }
 
     protected static boolean isExpectedPageTitle(@NotNull String title, int horizonSeconds) throws UninitialisedDriverException {
-        return isExpectedPageTitle(getPageTitleSelector(), title, horizonSeconds);
+        return isExpectedPageTitle(getMainTitleSelector(), title, horizonSeconds);
     }
 
     protected static boolean isExpectedPageTitle(@NotNull String selector, @NotNull String title) throws UninitialisedDriverException {
@@ -428,11 +428,11 @@ public class BasePage {
     }
 
     protected static boolean isNotExpectedPageTitle(@NotNull String title) throws UninitialisedDriverException {
-        return isNotExpectedPageTitle(getPageTitleSelector(), title);
+        return isNotExpectedPageTitle(getMainTitleSelector(), title);
     }
 
     protected static boolean isNotExpectedPageTitle(@NotNull String title, int horizonSeconds) throws UninitialisedDriverException {
-        return isNotExpectedPageTitle(getPageTitleSelector(), title, horizonSeconds);
+        return isNotExpectedPageTitle(getMainTitleSelector(), title, horizonSeconds);
     }
 
     protected static boolean isNotExpectedPageTitle(@NotNull String selector, @NotNull String title) throws UninitialisedDriverException {
@@ -452,7 +452,7 @@ public class BasePage {
     }
 
     public static void untilExpectedPageTitle(@NotNull String pageTitle, int horizonSeconds) throws IncorrectPageTitleException, UninitialisedDriverException {
-        untilExpectedPageTitle(PAGE_TITLE_SELECTOR, pageTitle, horizonSeconds);
+        untilExpectedPageTitle(MAIN_TITLE_SELECTOR, pageTitle, horizonSeconds);
     }
 
     public static void untilExpectedPageTitle(@NotNull String selector, @NotNull String pageTitle, int horizonSeconds) throws IncorrectPageTitleException, UninitialisedDriverException {
@@ -470,7 +470,7 @@ public class BasePage {
     }
 
     public static void untilNotExpectedPageTitle(@NotNull String pageTitle, int horizonSeconds) throws IncorrectPageTitleException, UninitialisedDriverException {
-        untilNotExpectedPageTitle(PAGE_TITLE_SELECTOR, pageTitle, horizonSeconds);
+        untilNotExpectedPageTitle(MAIN_TITLE_SELECTOR, pageTitle, horizonSeconds);
     }
 
     public static void untilNotExpectedPageTitle(@NotNull String selector, @NotNull String pageTitle, int horizonSeconds) throws UninitialisedDriverException, IncorrectPageTitleException {
