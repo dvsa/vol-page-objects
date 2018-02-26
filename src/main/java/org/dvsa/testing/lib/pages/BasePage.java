@@ -9,9 +9,7 @@ import org.dvsa.testing.lib.pages.exception.ElementDidNotAppearWithinSpecifiedTi
 import org.dvsa.testing.lib.pages.exception.ElementDidNotDisappearWithinSpecifiedTimeException;
 import org.dvsa.testing.lib.pages.exception.IncorrectPageTitleException;
 import org.jetbrains.annotations.NotNull;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -136,6 +134,16 @@ public class BasePage {
      */
     protected static void click(@NotNull String selector, @NotNull SelectorType selectorType) throws UninitialisedDriverException {
         find(selector, selectorType).click();
+    }
+
+    protected static void scrollTo(@NotNull String selector, @NotNull SelectorType selectorType) throws UninitialisedDriverException {
+        scrollTo(selector, selectorType, WAIT_TIME_SECONDS);
+    }
+
+    protected static void scrollTo(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException {
+        WebElement element = find(selector, selectorType);
+        ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
+        untilPresent(selector, selectorType, seconds); // This will wait the specified amount of time until the element is in view
     }
 
     private static WebDriver getDriver() throws UninitialisedDriverException {
@@ -340,6 +348,10 @@ public class BasePage {
         return isNotInDOM(selector, SelectorType.CSS, seconds);
     }
 
+    protected static boolean isNotInDOM(@NotNull String selector, @NotNull SelectorType selectorType) throws UninitialisedDriverException {
+        return isInDOM(selector, selectorType, WAIT_TIME_SECONDS);
+    }
+
     protected static boolean isNotInDOM(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException {
         boolean isNotInDOM = true;
 
@@ -362,6 +374,10 @@ public class BasePage {
 
     protected static boolean isInDOM(@NotNull String selector, int seconds) throws UninitialisedDriverException {
         return isInDOM(selector, SelectorType.CSS, seconds);
+    }
+
+    protected static boolean isInDOM(@NotNull String selector, @NotNull SelectorType selectorType) throws UninitialisedDriverException {
+        return isInDOM(selector, selectorType, WAIT_TIME_SECONDS);
     }
 
     protected static boolean isInDOM(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException {
