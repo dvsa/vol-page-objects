@@ -15,18 +15,23 @@ public class RuleAdminPage extends DataRetentionPage {
     private static String ACTION_TYPE_TEMPLATE_ROW = RULE_DESCRIPTION_ROW_TEMPLATE + "/../../td[6]";
     private static String NEXT_BUTTON = "//a[contains(text(),'Next')]";
 
-    private static class EditModel {
-        private static String IS_ENABLED_NO = "input[name='ruleDetails[isEnabled]']:nth-of-type(1)";
-        private static String IS_ENABLED_YES = "input[name='ruleDetails[isEnabled]']:nth-of-type(2)";
+    public static class EditModel {
+
+        private static String IS_ENABLED_NO_TEMPLATE = "fieldset.inline label%s:nth-of-type(1) input";
+        private static String IS_ENABLED_YES_TEMPLATE = "fieldset.inline label%s:nth-of-type(2) input";
         private static String ACTION_TYPE = "select[name='ruleDetails[actionType]']";
 
+        private static String SAVE = "//*/button[contains(text(), 'Save')]";
+        private static String CANCEL = "//*/button[contains(text(), 'Cancel')]";
+
         // Added string interpolation so that an attribute checker can be inserted for checking which of
-        // the options are the selected one.
+        // the options is selected.
         private static String ACTION_TYPE_AUTOMATE_TEMPLATE = ACTION_TYPE + " option%s:nth-of-type(1)";
         private static String ACTION_TYPE_REVIEW_TEMPLATE = ACTION_TYPE + " option%s:nth-of-type(2)";
 
         private static String SELECTED = ".selected ";
 
+        // Attributes
         public static String MAIN_TITLE = "Edit Data retention rule";
 
         public static void enable(boolean enable) throws UninitialisedDriverException {
@@ -61,16 +66,25 @@ public class RuleAdminPage extends DataRetentionPage {
         }
 
         public static void disable() throws UninitialisedDriverException {
-            if (!isElementPresent(SELECTED + IS_ENABLED_NO)) {
-                click(IS_ENABLED_YES);
+            if (!isElementPresent(String.format(IS_ENABLED_NO_TEMPLATE, SELECTED))) {
+                click(String.format(IS_ENABLED_YES_TEMPLATE, ""));
             }
         }
 
         public static void enable() throws UninitialisedDriverException {
-            if (!isElementPresent(SELECTED + IS_ENABLED_YES)) {
-                click(IS_ENABLED_YES);
+            if (!isElementPresent(String.format(IS_ENABLED_YES_TEMPLATE, SELECTED))) {
+                click(String.format(IS_ENABLED_YES_TEMPLATE, ""));
             }
         }
+
+        public static void save() throws UninitialisedDriverException {
+            click(SAVE, SelectorType.XPATH);
+        }
+
+        public static void cancel() throws UninitialisedDriverException {
+            click(CANCEL, SelectorType.XPATH);
+        }
+
     }
 
     /**
@@ -87,7 +101,7 @@ public class RuleAdminPage extends DataRetentionPage {
 
         scrollTo(ruleSelector, SelectorType.XPATH);
         click(ruleSelector, SelectorType.XPATH);
-        untilExpectedTextInElement("h1", EditModel.MAIN_TITLE, 3); // Waits until the edit model has appeared
+        untilExpectedTextInElement("h1", EditModel.MAIN_TITLE, 5); // Waits until the edit model has appeared
     }
 
     private static void pagenateToRule(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException, UnableToFindDataRetentionRule {
