@@ -208,6 +208,10 @@ public class BasePage {
         return findAll(selector, selectorType).size();
     }
 
+    protected static int size(@NotNull String selector) throws UninitialisedDriverException {
+        size(selector, SelectorType.CSS);
+    }
+
     protected static boolean isElementNotPresent(@NotNull String selector) throws UninitialisedDriverException {
         return isElementNotPresent(selector, SelectorType.CSS);
     }
