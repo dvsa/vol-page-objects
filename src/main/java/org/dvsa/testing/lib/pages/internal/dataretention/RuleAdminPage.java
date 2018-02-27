@@ -2,10 +2,9 @@ package org.dvsa.testing.lib.pages.internal.dataretention;
 
 import activesupport.system.out.Output;
 import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
+import org.dvsa.testing.lib.pages.enums.SelectorType;
 import org.dvsa.testing.lib.pages.enums.dataretention.ActionType;
 import org.dvsa.testing.lib.pages.enums.dataretention.DataRetentionRule;
-import org.dvsa.testing.lib.pages.enums.SelectorType;
-import org.dvsa.testing.lib.pages.exception.UnableToFindDataRetentionRule;
 import org.jetbrains.annotations.NotNull;
 
 public class RuleAdminPage extends DataRetentionPage {
@@ -14,6 +13,9 @@ public class RuleAdminPage extends DataRetentionPage {
     private static String IS_ENABLED_TEMPLATE_ROW = RULE_DESCRIPTION_ROW_TEMPLATE + "/../../td[5]";
     private static String ACTION_TYPE_TEMPLATE_ROW = RULE_DESCRIPTION_ROW_TEMPLATE + "/../../td[6]";
     private static String NEXT_BUTTON = "//a[contains(text(),'Next')]";
+
+    // Attributes
+    private static String MAIN_TITLE = "Data retention rules";
 
     public static class EditModel {
 
@@ -85,44 +87,8 @@ public class RuleAdminPage extends DataRetentionPage {
             click(CANCEL, SelectorType.XPATH);
         }
 
-    }
-
-    /**
-     * Finds and selects the specified data retention rule. This method will go through the various pagination while
-     * trying to find the data retention rule.
-     * @param dataRetentionRule This is the that the user wishes to select.
-     * @throws UninitialisedDriverException is thrown if the driver is null, hasn't been initialised,  or has been closed
-     * @throws UnableToFindDataRetentionRule is thrown if the specified rule is not present in any of the pagination.
-     */
-    public static void selectRule(@NotNull DataRetentionRule dataRetentionRule) throws UninitialisedDriverException, UnableToFindDataRetentionRule {
-        String ruleSelector = String.format(RULE_DESCRIPTION_ROW_TEMPLATE, dataRetentionRule.toString());
-
-        pagenateToRule(ruleSelector, SelectorType.XPATH, 2);
-
-        scrollTo(ruleSelector, SelectorType.XPATH);
-        click(ruleSelector, SelectorType.XPATH);
-        untilExpectedTextInElement("h1", EditModel.MAIN_TITLE, 5); // Waits until the edit model has appeared
-    }
-
-    private static void pagenateToRule(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException, UnableToFindDataRetentionRule {
-        boolean foundDataRetentionRule = false;
-
-        do {
-            if (isInDOM(selector, selectorType, seconds)) {
-                foundDataRetentionRule = true;
-                break;
-            } else if (isInDOM(NEXT_BUTTON, SelectorType.XPATH)){
-                click(NEXT_BUTTON, SelectorType.XPATH);
-            } else if (isNotInDOM(NEXT_BUTTON, SelectorType.XPATH)) {
-                break;
-            }
-        } while (true);
-
-        if (!foundDataRetentionRule) {
-            throw new UnableToFindDataRetentionRule("Unable to find the element with the selector '"
-                    + selector
-                    + "' after pagenation"
-            );
+        public static void untilOnModel() throws UninitialisedDriverException {
+            RuleAdminPage.untilExpectedTextInElement("h1", RuleAdminPage.EditModel.MAIN_TITLE, 5);
         }
 
     }
@@ -137,6 +103,10 @@ public class RuleAdminPage extends DataRetentionPage {
 
     public static String getRelativeRuleCell(@NotNull String selector, @NotNull DataRetentionRule dataRetentionRule) throws UninitialisedDriverException {
         return getText(String.format(selector, dataRetentionRule), SelectorType.XPATH);
+    }
+
+    public static void untilOnPage() throws UninitialisedDriverException {
+        untilExpectedTextInElement(MAIN_TITLE_SELECTOR, MAIN_TITLE, 5);
     }
 
 }
