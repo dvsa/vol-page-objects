@@ -22,9 +22,9 @@ public class RecordsPage extends BasePage {
     private static String NUMBER_OF_RECORDS_TEXT = ".table__header h3";
 
     // Attributes
-    private static String PAGE_TITLE_SELECTOR = "h1";
+    private static String TABLE_HEADER_SELECTOR = "h3";
     // The title for this is the name of the data retention rule selected that these records are for.
-    private static String PAGE_TITLE_TEXT;
+    private static String TABLE_HEADER = "Data Retention Records";
 
     // Behaviour
 
@@ -117,6 +117,10 @@ public class RecordsPage extends BasePage {
 
     public static boolean isNotEmpty() throws UninitialisedDriverException {
         return !isEmpty();
+    }
+
+    public static void untilOnPage() throws UninitialisedDriverException {
+        untilExpectedTextInElement(TABLE_HEADER_SELECTOR, TABLE_HEADER, 5);
     }
 
 }
