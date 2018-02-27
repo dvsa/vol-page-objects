@@ -24,17 +24,17 @@ public enum DataRetentionRule {
     public static DataRetentionRule getEnum(String value) {
         DataRetentionRule dataRetentionRule;
 
-        switch (value) {
-            case "IRFO Operator Expired":
+        switch (value.toLowerCase()) {
+            case "irfo operator expired":
                 dataRetentionRule = DataRetentionRule.IRFO_OPERATOR_EXPIRED;
                 break;
-            case "Transport Managers With Public Inquirys":
+            case "transport Managers with Public inquirys":
                 dataRetentionRule = DataRetentionRule.TRANSPORT_MANAGERS_WITH_PUBLIC_INQUIRYS;
                 break;
-            case "Licence With Pi, No Impounding And Not Unlicenced":
+            case "licence with pi, no impounding and not unlicenced":
                 dataRetentionRule = DataRetentionRule.LICENCE_WITH_PI_NO_IMPOUNDING_AND_NOT_UNLICENCED;
                 break;
-            case "Licence With Impounding And Not Unlicenced":
+            case "licence with impounding and not unlicenced":
                 dataRetentionRule = DataRetentionRule.LICENCE_WITH_IMPOUNDING_AND_NOT_UNLICENCED;
                 break;
             default:
