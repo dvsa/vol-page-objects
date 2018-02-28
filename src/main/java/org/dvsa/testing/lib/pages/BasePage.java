@@ -209,7 +209,7 @@ public class BasePage {
     }
 
     protected static int size(@NotNull String selector) throws UninitialisedDriverException {
-        size(selector, SelectorType.CSS);
+        return size(selector, SelectorType.CSS);
     }
 
     protected static boolean isElementNotPresent(@NotNull String selector) throws UninitialisedDriverException {
