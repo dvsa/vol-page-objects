@@ -7,6 +7,11 @@ import activesupport.system.out.Output;
  */
 public enum DataRetentionRule {
     IRFO_OPERATOR_EXPIRED ("IRFO Operator Expired"),
+    IRFO_GV_PERMIT_EXPIRED("IRFO GV Permit Expired"),
+    IRFO_PSV_AUTHORISATION_EXPIRED("IRFO PSV Authorisation Expired"),
+    IRFO_GV_PERMIT_WITHDRAWN_PENDING_OR_REFUSED_EXPIRED("IRFO GV Permit Withdrawn Pending Or Refused Expired"),
+    LICENCE_NOT_YET_SUBMITTED("Licence Not Yet Submitted"),
+    APPLICATIONS_REFUSED("Applications Refused"),
     TRANSPORT_MANAGERS_WITH_PUBLIC_INQUIRYS ("Transport Managers With Public Inquirys"),
     LICENCE_WITH_PI_NO_IMPOUNDING_AND_NOT_UNLICENCED ("Licence With Pi, No Impounding And Not Unlicenced"),
     LICENCE_WITH_IMPOUNDING_AND_NOT_UNLICENCED ("Licence With Impounding And Not Unlicenced");
@@ -27,6 +32,21 @@ public enum DataRetentionRule {
         switch (value.toLowerCase()) {
             case "irfo operator expired":
                 dataRetentionRule = DataRetentionRule.IRFO_OPERATOR_EXPIRED;
+                break;
+            case "irfo gv permit expired":
+                dataRetentionRule = DataRetentionRule.IRFO_GV_PERMIT_EXPIRED;
+                break;
+            case "irfo psv authorisation expired":
+                dataRetentionRule = DataRetentionRule.IRFO_PSV_AUTHORISATION_EXPIRED;
+                break;
+            case "irfo gv permit withdrawn pending or refused expired":
+                dataRetentionRule = DataRetentionRule.IRFO_GV_PERMIT_WITHDRAWN_PENDING_OR_REFUSED_EXPIRED;
+                break;
+            case "licence not yet submitted":
+                dataRetentionRule = DataRetentionRule.LICENCE_NOT_YET_SUBMITTED;
+                break;
+            case "applications refused":
+                dataRetentionRule = DataRetentionRule.APPLICATIONS_REFUSED;
                 break;
             case "transport Managers with Public inquirys":
                 dataRetentionRule = DataRetentionRule.TRANSPORT_MANAGERS_WITH_PUBLIC_INQUIRYS;
