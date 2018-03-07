@@ -9,12 +9,18 @@ import org.dvsa.testing.lib.pages.enums.SelectorType;
 import org.dvsa.testing.lib.pages.exception.InsufficientExistingDataException;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class RecordsPage extends BasePage {
     // Selectors
     private static String ACTION_BUTTON_TEMPLATE = ".actions-container button:nth-of-type(%d)";
     private static String MARK_FOR_REVIEW_BUTTON = String.format(ACTION_BUTTON_TEMPLATE, 3);
     private static String MARK_FOR_DELETE_BUTTON = String.format(ACTION_BUTTON_TEMPLATE, 4);
     private static String RECORD_ROWS = "form tbody tr";
+    private static String ENTITY_TEMPLATE = "//*/tbody/tr[%d]/descendant::a[last()]";
     private static String RECORD_ROW_CHECKBOX = "form tbody tr:nth-of-type(%s) input[type='checkbox']";
     private static String NEXT_BUTTON = "//*[@class='pagination__item ']/a[text()[contains(.,'Next')]]";
     private static String TICK_ALL = "thead th:nth-of-type(5) input";
@@ -26,8 +32,26 @@ public class RecordsPage extends BasePage {
     // The title for this is the name of the data retention rule selected that these records are for.
     private static String TABLE_HEADER = "Data Retention Records";
 
-    // Behaviour
+    public static class DREntity {
+        private String entityName;
+        private String entityPK;
 
+        public DREntity(@NotNull String entityName, @NotNull String entityPK) {
+            this.entityName = entityName;
+            this.entityPK = entityPK;
+        }
+
+        public String getEntityName() {
+            return entityName;
+        }
+
+        public String getEntityPK() {
+            return entityPK;
+        }
+
+    }
+
+    // Behaviour
     /**
      * This selects the specified amount of records. Note that if the amount of records being selected
      * is greater than the amount of records on a single page, the records will be marked for the specified
@@ -117,6 +141,27 @@ public class RecordsPage extends BasePage {
 
     public static boolean isNotEmpty() throws UninitialisedDriverException {
         return !isEmpty();
+    }
+
+    public static List<DREntity> extractRecordIdentifiers() throws UninitialisedDriverException {
+        List<DREntity> DREntities = new ArrayList<>();
+        int numRecords = size(RECORD_ROWS);
+
+        for (int index = 1; index <= numRecords; index++)
+            DREntities.add(extractRecordIdentifier(index));
+
+        return DREntities;
+    }
+
+    public static DREntity extractRecordIdentifier(int index) throws UninitialisedDriverException {
+        String entityText = getText(String.format(ENTITY_TEMPLATE, index), SelectorType.XPATH);
+
+        Pattern p = Pattern.compile("(?<entityName>\\w+) (?<entityPK>\\w+)");
+        Matcher m = p.matcher(entityText);
+        m.matches();
+
+
+        return new DREntity(m.group("entityName"), m.group("entityPK"));
     }
 
     public static void untilOnPage() throws UninitialisedDriverException {
