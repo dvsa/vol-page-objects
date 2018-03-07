@@ -89,7 +89,7 @@ public class RuleAdminPage extends DataRetentionPage {
         }
 
         public static String extractRuleID() throws UninitialisedDriverException {
-            getAttribute(RULE_ID, "value");
+            return getAttribute(RULE_ID, "value");
         }
 
         public static void untilOnModel() throws UninitialisedDriverException {
