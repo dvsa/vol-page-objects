@@ -19,6 +19,7 @@ public class RuleAdminPage extends DataRetentionPage {
 
     public static class EditModel {
 
+        private static String RULE_ID = "input[name='ruleDetails[id]']";
         private static String IS_ENABLED_NO_TEMPLATE = "fieldset.inline label%s:nth-of-type(1) input";
         private static String IS_ENABLED_YES_TEMPLATE = "fieldset.inline label%s:nth-of-type(2) input";
         private static String ACTION_TYPE = "select[name='ruleDetails[actionType]']";
@@ -85,6 +86,10 @@ public class RuleAdminPage extends DataRetentionPage {
 
         public static void cancel() throws UninitialisedDriverException {
             click(CANCEL, SelectorType.XPATH);
+        }
+
+        public static String extractRuleID() throws UninitialisedDriverException {
+            getAttribute(RULE_ID, "value");
         }
 
         public static void untilOnModel() throws UninitialisedDriverException {

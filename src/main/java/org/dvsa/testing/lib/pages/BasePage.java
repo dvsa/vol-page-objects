@@ -57,6 +57,14 @@ public class BasePage {
         return MAIN_TITLE_SELECTOR;
     }
 
+    protected static String getAttribute(@NotNull String selector, @NotNull String attribute) throws UninitialisedDriverException {
+        return getAttribute(selector, SelectorType.CSS, attribute);
+    }
+
+    protected static String getAttribute(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String attribute) throws UninitialisedDriverException {
+        return find(selector, selectorType).getAttribute(attribute);
+    }
+
     /**
      * This returns any text content that an element possesses.
      * @param selector This should be a CSS or XPATH selector which is used to identify which elements text is to be retrieved.
