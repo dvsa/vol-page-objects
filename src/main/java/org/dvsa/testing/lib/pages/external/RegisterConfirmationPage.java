@@ -20,10 +20,8 @@ public class RegisterConfirmationPage extends BasePage {
         return getText(EMAIL_NOT_RECIVEVED_MESSAGE, SelectorType.CSS);
     }
 
-    //Attributes
     public static Pattern checkEmail() {
-        return
-                Pattern.compile(CHECK_EMAIL);
+        return Pattern.compile(CHECK_EMAIL);
     }
 
     public static String signingInProblems() {
