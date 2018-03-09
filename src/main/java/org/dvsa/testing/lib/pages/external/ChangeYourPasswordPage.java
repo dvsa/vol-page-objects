@@ -40,7 +40,7 @@ public class ChangeYourPasswordPage extends BasePage{
     }
 
     public static void untilOnPage() throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException {
-        untilElementPresentWithin(SUBMIT_BUTTON, 6);
+        untilElementPresent(SUBMIT_BUTTON);
     }
 
 }
