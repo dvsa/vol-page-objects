@@ -244,6 +244,10 @@ public class BasePage {
         return  isElementPresent;
     }
 
+    public static void untilElementPresent(@NotNull String selector) throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException {
+        untilElementPresentWithin(selector, WAIT_TIME_SECONDS);
+    }
+
     public static void untilElementPresentWithin(@NotNull String selector, int seconds) throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException {
         boolean elementFound = isElementPresentWithin(selector, seconds);
         if(!elementFound){
