@@ -3,7 +3,6 @@ package org.dvsa.testing.lib.pages.external;
 import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.BusinessType;
-import org.dvsa.testing.lib.pages.exception.IncorrectPageTitleException;
 import org.jetbrains.annotations.NotNull;
 
 public class RegisterPage extends BasePage {

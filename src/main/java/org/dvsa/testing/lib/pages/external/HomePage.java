@@ -20,7 +20,7 @@ public class HomePage extends BasePage {
     }
 
     public static void untilOnPage() throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException {
-        untilElementPresent(APPLY_FOR_LICENCE_BUTTON);
+        untilElementPresent(APPLY_FOR_LICENCE_BUTTON, SelectorType.XPATH);
     }
 
 }

@@ -248,8 +248,16 @@ public class BasePage {
         untilElementPresentWithin(selector, WAIT_TIME_SECONDS);
     }
 
+    public static void untilElementPresent(@NotNull String selector, @NotNull SelectorType selectorType) throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException {
+        untilElementPresentWithin(selector, selectorType, WAIT_TIME_SECONDS);
+    }
+
     public static void untilElementPresentWithin(@NotNull String selector, int seconds) throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException {
-        boolean elementFound = isElementPresentWithin(selector, seconds);
+        untilElementPresentWithin(selector, SelectorType.CSS, seconds);
+    }
+
+    public static void untilElementPresentWithin(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException {
+        boolean elementFound = isElementPresentWithin(selector, selectorType, seconds);
         if(!elementFound){
             throw new ElementDidNotAppearWithinSpecifiedTimeException(
                     Output.printColoredLog(
