@@ -67,29 +67,7 @@ public class RegisterPage extends BasePage {
     }
 
     public static void businessType(@NotNull BusinessType businessType) throws UninitialisedDriverException {
-        int position;
-
-        switch(businessType){
-            case LIMITED_COMPANY:
-                position = 1;
-                break;
-            case SOLE_TRADER:
-                position = 2;
-                break;
-            case PARTNERSHIP:
-                position = 3;
-                break;
-            case LIMITED_LIABILITY_COMPANY:
-                position = 4;
-                break;
-            case OTHER:
-                position = 5;
-                break;
-            default:
-                throw new IllegalArgumentException(String.format("%s is not a supported business type", businessType));
-        }
-
-        click(String.format(BUSINESS_TYPE_BUTTON_TEMPLATE, position));
+        click(String.format(BUSINESS_TYPE_BUTTON_TEMPLATE, businessType.ordinal() + 1 ));
     }
 
     public static void welshCorrespondence(boolean choice) throws UninitialisedDriverException {
