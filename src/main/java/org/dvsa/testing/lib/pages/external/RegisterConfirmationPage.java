@@ -11,7 +11,7 @@ public class RegisterConfirmationPage extends BasePage {
 
     //Attributes
     private static String CHECK_EMAIL = "We have sent an email to .+\\@.+\\..+ containing a temporary password. Once you.ve signed in using the temporary password you will need to create a new password";
-    private static String SIGNING_IN_PROBLEMS = "If our email does not appear in your inbox within 5 minutes, check your Spam or Junk folder or contact your IT department for help. If our email is in your Spam or Junk folder, please change your email settings so that further emails from us are directed to your inbox. If you have issues signing in or didn’t receive our email you will need to contact notifications@vehicle-operator-licensing.service.gov.uk.";
+    private static String SIGNING_IN_PROBLEMS = "If our email does not appear in your inbox within 5 minutes, check your Spam or Junk folder or contact your IT department for help. If our email is in your Spam or Junk folder, please change your email settings so that further emails from us are directed to your inbox. If you have issues signing in or didn't receive our email you will need to contact notifications@vehicle-operator-licensing.service.gov.uk.";
 
     public static String getConfirmEmailTemppassSentMessageText() throws UninitialisedDriverException {
         return getText(CONFIRM_EMAIL_TEMPPASS_SENT_MESSAGE, SelectorType.CSS);

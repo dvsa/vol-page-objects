@@ -9,6 +9,7 @@
     <version>0.6.5</version>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <uri-constructor.version>1.4.1</uri-constructor.version>
         <selenium.version>3.7.1</selenium.version>
         <webdriver-manager.version>1.7.2</webdriver-manager.version>
