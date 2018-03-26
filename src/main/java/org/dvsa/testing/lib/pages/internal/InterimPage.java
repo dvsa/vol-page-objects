@@ -26,8 +26,8 @@ public class InterimPage extends BasePage{
         click(ADD_INTERIM_RADIO_YES);
     }
 
-    public static void  enterInterimDetails() throws UninitialisedDriverException {
-          enterField(INTERIM_REASON_FIELD, Str.randomWord(150));
+    public static void  enterInterimDetail(String interimDetails) throws UninitialisedDriverException {
+          enterField(INTERIM_REASON_FIELD, interimDetails);
     }
 
     public static void startDate(int day, int month, int year) throws UninitialisedDriverException {
