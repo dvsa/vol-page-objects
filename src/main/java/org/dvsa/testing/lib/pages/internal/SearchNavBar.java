@@ -61,6 +61,4 @@ public class SearchNavBar extends NavigationBar {
     public static void irfo() throws UninitialisedDriverException {
         click(IRFO);
     }
-
-
 }
