@@ -10,7 +10,13 @@ public class Application extends BasePage {
 
     public static String INTERIM_LINK = "//*/a[contains(text(), 'Interim details')]";
 
-        private static void interimLink() throws UninitialisedDriverException {
+    public static String SAVE_BUTTON = nameAttribute("input","\"form-actions[save]\"");
+
+        public static void interimLink() throws UninitialisedDriverException {
             click(INTERIM_LINK);
+        }
+
+        public static void save() {
+            click(SAVE_BUTTON);
         }
     }

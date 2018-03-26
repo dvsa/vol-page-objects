@@ -1,5 +1,6 @@
 package org.dvsa.testing.lib.pages;
 
+import activesupport.MissingRequiredArgument;
 import activesupport.system.Properties;
 import org.dvsa.testing.lib.browser.Browser;
 import org.dvsa.testing.lib.Environment;
@@ -30,7 +31,7 @@ public class LoginPageTest {
     }
 
     @Test
-    public void goToInternalLogonPage() throws UninitialisedDriverException {
+    public void goToInternalLogonPage() throws UninitialisedDriverException, MissingRequiredArgument {
         EnvironmentType environmentType = Environment.enumType(System.getProperty("env"));
         String URL = URI.build(ApplicationType.INTERNAL, environmentType, endPoint);
 
@@ -39,7 +40,7 @@ public class LoginPageTest {
     }
 
     @Test
-    public void goToExternalLogonPage() throws UninitialisedDriverException {
+    public void goToExternalLogonPage() throws UninitialisedDriverException, MissingRequiredArgument {
         EnvironmentType environmentType = Environment.enumType(System.getProperty("env"));
         String URL = URI.build(ApplicationType.EXTERNAL, environmentType, LoginPage.getResourcePath());
 

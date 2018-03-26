@@ -51,10 +51,12 @@ public class InterimPage extends BasePage{
     }
 
     public static void operatingCentre() throws UninitialisedDriverException {
+        if (OPERATING_CENTRE_FIELD != null)
         click(OPERATING_CENTRE_FIELD);
     }
 
     public static void vehicleSelect() throws UninitialisedDriverException {
+        if(VEHICLE_SELECT_FIELD !=null)
         click(VEHICLE_SELECT_FIELD);
     }
 
