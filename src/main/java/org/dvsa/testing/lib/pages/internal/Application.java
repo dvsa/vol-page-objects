@@ -8,12 +8,12 @@ import org.dvsa.testing.lib.pages.enums.SelectorType;
 
 public class Application extends BasePage {
 
-    public static String INTERIM_LINK = "//*/a[contains(text(), 'Interim details')]";
+    public static String INTERIM_LINK = "//*/a[contains(text(),'add interim')]";
 
     public static String SAVE_BUTTON = nameAttribute("input","\"form-actions[save]\"");
 
         public static void interimLink() throws UninitialisedDriverException {
-            click(INTERIM_LINK);
+            click(INTERIM_LINK, SelectorType.XPATH);
         }
 
         public static void save() {
