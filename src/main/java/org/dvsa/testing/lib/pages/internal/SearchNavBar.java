@@ -19,10 +19,14 @@ public class SearchNavBar extends NavigationBar {
     private static String IRFO =  String.format(SEARCH_LINK_TEMPLATE, 11);
     private static String SEARCH = nameAttribute("input", "search");
     private static String TEMP_LICENCE = "//*/a[contains(text(), '1014729')]";
+    private static String SEARCH_BUTTON = nameAttribute("input", "submit");
 
     public static void search(String search) throws UninitialisedDriverException {
         enterField(SEARCH, search);
+        click(SEARCH_BUTTON);
     }
+
+
 
     public static void licence() throws UninitialisedDriverException {
         click(LICENCE);
@@ -30,6 +34,7 @@ public class SearchNavBar extends NavigationBar {
 
     public static void applications() throws UninitialisedDriverException {
         click(APPLICATIONS);
+
     }
 
     public static void cases() throws UninitialisedDriverException {
@@ -69,6 +74,7 @@ public class SearchNavBar extends NavigationBar {
     }
 
     public static void TEMP_LICENCE() throws UninitialisedDriverException{
-        click(TEMP_LICENCE);
+        click(TEMP_LICENCE, SelectorType.XPATH);
     }
+
 }
