@@ -7,8 +7,8 @@ import org.dvsa.testing.lib.pages.BasePage;
 public class InterimPage extends BasePage{
 
     //Selectors
-    private static String ADD_INTERIM_RADIO_YES = nameAttribute("radio","interimRequested");
-    private static String INTERIM_REASON_FIELD = "data[interimReason]";
+    private static String ADD_INTERIM_RADIO_YES = "fieldset.inline label:nth-of-type(2)";
+    private static String INTERIM_REASON_FIELD = nameAttribute("textarea","data[interimReason]");
     private static String START_DATE_DAY_FIELD = nameAttribute("input", "data[interimStart][day]");
     private static String START_DATE_MONTH_FIELD = nameAttribute("input", "data[interimStart][month]");
     private static String START_DATE_YEAR_FIELD = nameAttribute("input", "data[interimStart][year]");
@@ -19,7 +19,7 @@ public class InterimPage extends BasePage{
     private static String TRAILERS_FIELD = nameAttribute("input", "data[interimAuthTrailers]");
     private static String OPERATING_CENTRE_FIELD = nameAttribute("input", "operatingCentres[id][]");
     private static String VEHICLE_SELECT_FIELD = nameAttribute("input", "vehicles[id][]");
-    private static String SAVE_FIELD = nameAttribute("input", "form-actions[save]");
+    private static String SAVE = nameAttribute("button", "form-actions[save]");
 
     //Behaviour
     public static void addInterim() throws UninitialisedDriverException {
@@ -51,16 +51,15 @@ public class InterimPage extends BasePage{
     }
 
     public static void operatingCentre() throws UninitialisedDriverException {
-        if (OPERATING_CENTRE_FIELD != null)
         click(OPERATING_CENTRE_FIELD);
     }
 
+
     public static void vehicleSelect() throws UninitialisedDriverException {
-        if(VEHICLE_SELECT_FIELD !=null)
         click(VEHICLE_SELECT_FIELD);
     }
 
     public static void save() throws UninitialisedDriverException {
-        click(SAVE_FIELD);
+        click(SAVE);
     }
 }
