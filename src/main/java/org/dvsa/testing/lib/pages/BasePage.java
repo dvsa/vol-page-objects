@@ -19,7 +19,7 @@ import java.util.List;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.not;
 
-public class BasePage {
+public abstract class BasePage {
 
     private static final int WAIT_TIME_SECONDS =  10;
 
