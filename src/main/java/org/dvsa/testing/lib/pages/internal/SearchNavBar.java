@@ -4,6 +4,8 @@ import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
 
+import static org.junit.Assert.*;
+
 public class SearchNavBar extends NavigationBar {
     private static String SEARCH_LINK_TEMPLATE = ".horizontal-navigation li:nth-of-type(%d)";
     private static String LICENCE = String.format(SEARCH_LINK_TEMPLATE, 1);
@@ -16,9 +18,9 @@ public class SearchNavBar extends NavigationBar {
     private static String PEOPLE = String.format(SEARCH_LINK_TEMPLATE, 8);
     private static String USERS = String.format(SEARCH_LINK_TEMPLATE, 9);
     private static String PUBLICATION = String.format(SEARCH_LINK_TEMPLATE, 10);
-    private static String IRFO =  String.format(SEARCH_LINK_TEMPLATE, 11);
+    private static String IRFO = String.format(SEARCH_LINK_TEMPLATE, 11);
     private static String SEARCH = nameAttribute("input", "search");
-    private static String TEMP_LICENCE = "//*/a[contains(text(), '1014729')]";
+    private static String NO_RESULTS_SEARCH = "//*[contains(text(), 'There were no results for your search')]";
     private static String SEARCH_BUTTON = nameAttribute("input", "submit");
 
     public static void search(String search) throws UninitialisedDriverException {
@@ -26,7 +28,9 @@ public class SearchNavBar extends NavigationBar {
         click(SEARCH_BUTTON);
     }
 
-
+    public static boolean isTrue() {
+        return Boolean.valueOf(NO_RESULTS_SEARCH);
+    }
 
     public static void licence() throws UninitialisedDriverException {
         click(LICENCE);
@@ -73,8 +77,5 @@ public class SearchNavBar extends NavigationBar {
         click(IRFO);
     }
 
-    public static void TEMP_LICENCE() throws UninitialisedDriverException{
-        click(TEMP_LICENCE, SelectorType.XPATH);
-    }
 
 }

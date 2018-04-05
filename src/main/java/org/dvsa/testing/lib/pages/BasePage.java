@@ -21,7 +21,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.not;
 
 public class BasePage {
 
-    private static final int WAIT_TIME_SECONDS =  10;
+    private static final int WAIT_TIME_SECONDS = 10;
 
     private static String URI;
     private static String SCHEME;
@@ -40,7 +40,7 @@ public class BasePage {
     }
 
     private static void initialiseURLSectionsOnFirstCall() throws UninitialisedDriverException {
-        if(URI == null){
+        if (URI == null) {
             updateURLSections();
         }
     }
@@ -67,7 +67,8 @@ public class BasePage {
 
     /**
      * This returns any text content that an element possesses.
-     * @param selector This should be a CSS or XPATH selector which is used to identify which elements text is to be retrieved.
+     *
+     * @param selector     This should be a CSS or XPATH selector which is used to identify which elements text is to be retrieved.
      * @param selectorType This is the type of selector that the argument selector is.
      * @return The specified elements text contents.
      * @throws UninitialisedDriverException
@@ -86,7 +87,7 @@ public class BasePage {
     }
 
     protected static List<String> getListValues(@NotNull String listSelector) throws UninitialisedDriverException {
-        List<String> optionValues  = new LinkedList<>();
+        List<String> optionValues = new LinkedList<>();
 
         Select select = new Select(find(listSelector));
         for (WebElement option : select.getOptions()) {
@@ -98,8 +99,9 @@ public class BasePage {
 
     /**
      * Enters text in the specified text input/textarea field found using the specified selector.
+     *
      * @param selector The text input field/textarea that's to have text entered in it.
-     * @param text The text to be entered.
+     * @param text     The text to be entered.
      * @throws UninitialisedDriverException
      */
     protected static void enterField(@NotNull String selector, @NotNull String text) throws UninitialisedDriverException {
@@ -108,9 +110,10 @@ public class BasePage {
 
     /**
      * Enters text in the specified text input/textarea field found using the specified selector.
+     *
      * @param selector The text input field/textarea that's to have text entered in it.
-     * @param text The text to be entered.
-     * @param append Specified weather the input field/textarea should be cleared before entering the text.
+     * @param text     The text to be entered.
+     * @param append   Specified weather the input field/textarea should be cleared before entering the text.
      * @throws UninitialisedDriverException
      */
     protected static void enterField(@NotNull String selector, @NotNull String text, boolean append) throws UninitialisedDriverException {
@@ -123,10 +126,44 @@ public class BasePage {
         element.sendKeys(text);
     }
 
+    protected static void clickByLinkText(@NotNull String selector) {
+        getDriver().findElement(By.partialLinkText(selector)).click();
+    }
+
+    protected static void clickByName(@NotNull String selector) {
+        getDriver().findElement(By.id(selector)).click();
+    }
+
+    protected static boolean isLinkPresent(String locator, int duration) {
+        boolean itsFound = true;
+        try {
+            WebDriverWait wait = new WebDriverWait(getDriver(), duration);
+            wait.until(ExpectedConditions.visibilityOf(getDriver().findElement(By.partialLinkText(locator))));
+        } catch (Exception e) {
+            return false;
+
+        }
+        return itsFound;
+    }
+
+    protected static boolean isTextPresent(String locator, int duration) {
+        boolean itsFound = true;
+        try {
+            WebDriverWait wait = new WebDriverWait(getDriver(), duration);
+            wait.until(ExpectedConditions.visibilityOf(getDriver().findElement(By.xpath(
+                    String.format("//*[contains(text(),'%s')]",locator)))));
+        } catch (Exception e) {
+            return false;
+
+        }
+        return itsFound;
+    }
+
     /**
      * Clicks on the first element found using the passed in CSS selector.
      * Note: There is an overloaded version of this method that allows you to specify which type of selector
      * you'd like to use, this overloaded version supports both CSS and XPATH.
+     *
      * @param selector This should be a css selector.
      * @throws UninitialisedDriverException This is thrown in the event that the driver has not been initialised.
      */
@@ -136,7 +173,8 @@ public class BasePage {
 
     /**
      * Clicks on the first element found using the passed in selector.
-     * @param selector This is the selector, this should be either CSS or XPATH.
+     *
+     * @param selector     This is the selector, this should be either CSS or XPATH.
      * @param selectorType This specifies what type of selector the first argument, selector, is.
      * @throws UninitialisedDriverException
      */
@@ -158,11 +196,11 @@ public class BasePage {
         return Browser.getDriver();
     }
 
-    protected static String nameAttribute(@NotNull String element, @NotNull String value){
+    protected static String nameAttribute(@NotNull String element, @NotNull String value) {
         return attributeSelector(element, "name", value);
     }
 
-    protected static String attributeSelector(@NotNull String element, @NotNull String attribute, @NotNull String value){
+    protected static String attributeSelector(@NotNull String element, @NotNull String attribute, @NotNull String value) {
         return String.format("%s[%s=\"%s\"]", element, attribute, value);
     }
 
@@ -178,7 +216,7 @@ public class BasePage {
         list(listSelector, visibleText, SelectorType.CSS);
     }
 
-    protected static void list(@NotNull String listSelector, @NotNull String visibleText , @NotNull SelectorType selectorType) throws UninitialisedDriverException {
+    protected static void list(@NotNull String listSelector, @NotNull String visibleText, @NotNull SelectorType selectorType) throws UninitialisedDriverException {
         (new Select(find(listSelector, selectorType))).selectByVisibleText(visibleText);
     }
 
@@ -220,7 +258,7 @@ public class BasePage {
         return size(selector, SelectorType.CSS);
     }
 
-    protected static boolean isElementNotPresent(@NotNull String selector) throws UninitialisedDriverException {
+    protected static boolean FisElementNotPresent(@NotNull String selector) throws UninitialisedDriverException {
         return isElementNotPresent(selector, SelectorType.CSS);
     }
 
@@ -241,12 +279,12 @@ public class BasePage {
             isElementPresent = false;
         }
 
-        return  isElementPresent;
+        return isElementPresent;
     }
 
     public static void untilElementPresentWithin(@NotNull String selector, int seconds) throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException {
         boolean elementFound = isElementPresentWithin(selector, seconds);
-        if(!elementFound){
+        if (!elementFound) {
             throw new ElementDidNotAppearWithinSpecifiedTimeException(
                     Output.printColoredLog(
                             String.format(
@@ -261,7 +299,7 @@ public class BasePage {
 
     public static void untilElementNotPresentWithin(@NotNull String selector, int seconds) throws ElementDidNotDisappearWithinSpecifiedTimeException, UninitialisedDriverException {
         boolean elementFound = isElementNotPresentWithin(selector, seconds);
-        if(elementFound){
+        if (elementFound) {
             throw new ElementDidNotDisappearWithinSpecifiedTimeException(
                     Output.printColoredLog(
                             String.format(
@@ -296,13 +334,13 @@ public class BasePage {
     }
 
     protected static void select(@NotNull String selector) throws UninitialisedDriverException {
-        if(isNotSelected(selector)){
+        if (isNotSelected(selector)) {
             click(selector);
         }
     }
 
     protected static void deselect(@NotNull String selector) throws UninitialisedDriverException {
-        if(isSelected(selector)){
+        if (isSelected(selector)) {
             click(selector);
         }
     }
@@ -328,7 +366,7 @@ public class BasePage {
     }
 
     public static void untilNotPresent(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException {
-        new WebDriverWait(getDriver(), seconds).until(not(ExpectedConditions.visibilityOfAllElementsLocatedBy(by(selector,selectorType))));
+        new WebDriverWait(getDriver(), seconds).until(not(ExpectedConditions.visibilityOfAllElementsLocatedBy(by(selector, selectorType))));
     }
 
     protected static boolean isPresent(@NotNull String selector, int seconds) throws UninitialisedDriverException {
@@ -348,7 +386,7 @@ public class BasePage {
     }
 
     public static void untilPresent(@NotNull String selector, int seconds) throws UninitialisedDriverException {
-       untilPresent(selector, SelectorType.CSS, seconds);
+        untilPresent(selector, SelectorType.CSS, seconds);
     }
 
     public static void untilPresent(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException {
@@ -417,7 +455,7 @@ public class BasePage {
         return find(selector).getText().contains(content);
     }
 
-    protected static boolean isExpectedPageTitle( @NotNull String title) throws UninitialisedDriverException {
+    protected static boolean isExpectedPageTitle(@NotNull String title) throws UninitialisedDriverException {
         return isExpectedPageTitle(getMainTitleSelector(), title);
     }
 
@@ -432,7 +470,7 @@ public class BasePage {
     protected static boolean isExpectedPageTitle(@NotNull String selector, @NotNull String title, int horizonSeconds) throws UninitialisedDriverException {
         boolean isCurrentPage = false;
 
-        if(isElementPresentWithin(selector, horizonSeconds)){
+        if (isElementPresentWithin(selector, horizonSeconds)) {
             isCurrentPage = contains(selector, title);
         }
 
@@ -468,7 +506,7 @@ public class BasePage {
     }
 
     public static void untilExpectedPageTitle(@NotNull String selector, @NotNull String pageTitle, int horizonSeconds) throws IncorrectPageTitleException, UninitialisedDriverException {
-        if(!isExpectedPageTitle(selector, pageTitle, horizonSeconds)){
+        if (!isExpectedPageTitle(selector, pageTitle, horizonSeconds)) {
             throw new IncorrectPageTitleException(String.format("[ERROR] The page title for the current page should be '%s' but was '%s'", pageTitle, Browser.getPageTitle()));
         }
     }
@@ -486,7 +524,7 @@ public class BasePage {
     }
 
     public static void untilNotExpectedPageTitle(@NotNull String selector, @NotNull String pageTitle, int horizonSeconds) throws UninitialisedDriverException, IncorrectPageTitleException {
-        if(!isNotExpectedPageTitle(selector, pageTitle, horizonSeconds)){
+        if (!isNotExpectedPageTitle(selector, pageTitle, horizonSeconds)) {
             throw new IncorrectPageTitleException(String.format("[ERROR] The page title for the page did not change after %d seconds", horizonSeconds));
         }
     }
