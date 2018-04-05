@@ -4,11 +4,21 @@ import activesupport.system.out.Output;
 import org.jetbrains.annotations.NotNull;
 
 public enum BusinessType {
-    LIMITED_COMPANY,
-    SOLE_TRADER,
-    PARTNERSHIP,
-    LIMITED_LIABILITY_COMPANY,
-    OTHER;
+    LIMITED_COMPANY("limited company"),
+    SOLE_TRADER("sole trader"),
+    PARTNERSHIP("partnership"),
+    LIMITED_LIABILITY_PARTNERSHIP("limited liability partnership"),
+    OTHER("other");
+
+    private String name;
+
+    BusinessType(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
 
     public static BusinessType getEnum(@NotNull String businessType) {
         BusinessType businessTypeEnum;
@@ -23,8 +33,8 @@ public enum BusinessType {
             case "partnership":
                 businessTypeEnum = PARTNERSHIP;
                 break;
-            case "limited liability company":
-                businessTypeEnum = LIMITED_LIABILITY_COMPANY;
+            case "limited liability partnership":
+                businessTypeEnum = LIMITED_LIABILITY_PARTNERSHIP;
                 break;
             case "other":
                 businessTypeEnum = OTHER;
