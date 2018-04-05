@@ -6,7 +6,7 @@
 
     <groupId>org.dvsa.testing.lib</groupId>
     <artifactId>page-objects</artifactId>
-    <version>0.6.5</version>
+    <version>0.6.7</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -20,6 +20,7 @@
         <aws-maven.version>5.0.0.RELEASE</aws-maven.version>
         <slf4j-nop.version>1.7.25</slf4j-nop.version>
         <guava.version>23.6-jre</guava.version>
+        <browser.version>0.6.2</browser.version>
     </properties>
 
     <repositories>
@@ -117,6 +118,11 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
         </dependency>
 
     </dependencies>

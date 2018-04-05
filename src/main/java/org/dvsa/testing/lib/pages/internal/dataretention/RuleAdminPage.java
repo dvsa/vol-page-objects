@@ -48,12 +48,12 @@ public class RuleAdminPage extends DataRetentionPage {
         public static void actionType(@NotNull ActionType actionType) throws UninitialisedDriverException {
             switch (actionType) {
                 case AUTOMATE:
-                    if (isElementNotPresent(String.format(ACTION_TYPE_AUTOMATE_TEMPLATE, "[selected]"))) {
+                    if (isElementNotPresent(String.format(ACTION_TYPE_AUTOMATE_TEMPLATE, "[selected]"),SelectorType.CSS)); {
                         click(String.format(ACTION_TYPE_AUTOMATE_TEMPLATE, ""));
                     }
                     break;
                 case REVIEW:
-                    if (isElementNotPresent(String.format(ACTION_TYPE_REVIEW_TEMPLATE, "[selected]"))) {
+                    if (isElementNotPresent(String.format(ACTION_TYPE_REVIEW_TEMPLATE, "[selected]"),SelectorType.CSS)) {
                         click(String.format(ACTION_TYPE_REVIEW_TEMPLATE, ""));
                     }
                     break;
