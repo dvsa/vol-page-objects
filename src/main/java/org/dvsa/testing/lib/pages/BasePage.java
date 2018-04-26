@@ -10,14 +10,17 @@ import org.dvsa.testing.lib.pages.exception.ElementDidNotDisappearWithinSpecifie
 import org.dvsa.testing.lib.pages.exception.IncorrectPageTitleException;
 import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.*;
+
 
 import java.util.LinkedList;
 import java.util.List;
 
+
+import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.openqa.selenium.support.ui.ExpectedConditions.not;
+
+import com.google.common.base.Function;
 
 public abstract class BasePage {
 
@@ -134,6 +137,16 @@ public abstract class BasePage {
         getDriver().findElement(By.id(selector)).click();
     }
 
+    protected static void selectValueFromDropDown(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String listValue) {
+        Select selectItem = new Select(getDriver().findElement(by(selector, selectorType)));
+        selectItem.selectByVisibleText(listValue);
+    }
+
+    protected static void selectValueFromDropDownByIndex(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull int listValue) {
+        Select selectItem = new Select(getDriver().findElement(by(selector, selectorType)));
+        selectItem.selectByIndex(listValue);
+    }
+
     protected static boolean isLinkPresent(String locator, int duration) {
         boolean itsFound = true;
         try {
@@ -151,7 +164,7 @@ public abstract class BasePage {
         try {
             WebDriverWait wait = new WebDriverWait(getDriver(), duration);
             wait.until(ExpectedConditions.visibilityOf(getDriver().findElement(By.xpath(
-                    String.format("//*[contains(text(),'%s')]",locator)))));
+                    String.format("//*[contains(text(),'%s')]", locator)))));
         } catch (Exception e) {
             return false;
 
@@ -296,7 +309,7 @@ public abstract class BasePage {
 
     public static void untilElementPresentWithin(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException {
         boolean elementFound = isElementPresentWithin(selector, selectorType, seconds);
-        if(!elementFound){
+        if (!elementFound) {
             throw new ElementDidNotAppearWithinSpecifiedTimeException(
                     Output.printColoredLog(
                             String.format(
@@ -576,4 +589,72 @@ public abstract class BasePage {
         (new WebDriverWait(getDriver(), seconds)).until(not(ExpectedConditions.textToBePresentInElementLocated(by(selector, selectorType), expectedText)));
     }
 
+    public static String getElementValueByText(@NotNull String selector, @NotNull SelectorType selectorType) {
+        return getDriver().findElement(by(selector, selectorType)).getText();
+    }
+
+    public static WebElement findElement(@NotNull String selector, @NotNull SelectorType selectorType, long timeOutInSeconds) {
+        WebDriverWait wait = new WebDriverWait(getDriver(), timeOutInSeconds);
+        wait.until(ExpectedConditions.presenceOfElementLocated(by(selector, selectorType)));
+
+        return getDriver().findElement(by(selector, selectorType));
+    }
+
+    public static boolean waitUntilElementIsEnabled(@NotNull String selector, @NotNull SelectorType selectorType) {
+        return getDriver().findElement(by(selector, selectorType)).isEnabled();
+    }
+
+    public static void waitAndSelectByIndex(@NotNull String selector, @NotNull int listValue) {
+        FluentWait<WebDriver> wait = new FluentWait<>(getDriver())
+                .withTimeout(120, SECONDS)
+                .pollingEvery(2, SECONDS)
+                .ignoring(NoSuchElementException.class);
+
+        WebElement element = wait.until(new Function<WebDriver, WebElement>() {
+            public WebElement apply(WebDriver driver) {
+                WebElement element = driver.findElement(By.xpath("//*[@id='modal-title']"));
+                String getTextOnPage = element.getText();
+                if (getTextOnPage.equals("Generate letter")) {
+                    System.out.println(getTextOnPage);
+                    Select selectItem = new Select(driver.findElement(By.xpath(selector)));
+                    selectItem.selectByIndex(listValue);
+                    return element;
+                } else {
+                    System.out.println("FluentWait Failed");
+                    return null;
+                }
+            }
+        });
+    }
+
+    public static void waitAndClick(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String assertionText) {
+        FluentWait<WebDriver> wait = new FluentWait<>(getDriver())
+                .withTimeout(120, SECONDS)
+                .pollingEvery(2, SECONDS)
+                .ignoring(NoSuchElementException.class);
+
+        WebElement element = wait.until(new Function<WebDriver, WebElement>() {
+            public WebElement apply(WebDriver driver) {
+                WebElement submit = wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(by(selector, selectorType))));
+                submit.click();
+                return submit;
+            }
+        });
+    }
+
+    public static void waitForTextToBePresent (@NotNull String selector) {
+        FluentWait<WebDriver> wait = new FluentWait<>(getDriver())
+                .withTimeout(120, SECONDS)
+                .pollingEvery(2, SECONDS)
+                .ignoring(NoSuchElementException.class);
+
+        WebElement element = wait.until(new Function<WebDriver, WebElement>() {
+
+            public WebElement apply(WebDriver driver) {
+                WebElement submit =  wait.until(ExpectedConditions.visibilityOf(getDriver().findElement(By.xpath(
+                        String.format("//*[contains(text(),'%s')]", selector)))));
+                    return submit;
+                }
+        });
+    }
 }
