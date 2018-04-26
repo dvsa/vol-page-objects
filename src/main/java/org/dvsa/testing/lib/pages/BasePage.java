@@ -575,5 +575,9 @@ public abstract class BasePage {
     public static void untilNotExpectedTextInElement(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String expectedText, int seconds) throws UninitialisedDriverException {
         (new WebDriverWait(getDriver(), seconds)).until(not(ExpectedConditions.textToBePresentInElementLocated(by(selector, selectorType), expectedText)));
     }
-
+    public static void enterDOB(int DAY, int MONTH, int YEAR) {
+        enterField(nameAttribute("input", "data[birthDate][day]"),String.valueOf(DAY));
+        enterField(nameAttribute("input", "data[birthDate][month]"),String.valueOf(MONTH));
+        enterField(nameAttribute("input", "data[birthDate][year]"), String.valueOf(YEAR));
+    }
 }
