@@ -12,10 +12,8 @@ import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
 
-
 import java.util.LinkedList;
 import java.util.List;
-
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.openqa.selenium.support.ui.ExpectedConditions.not;
@@ -604,7 +602,7 @@ public abstract class BasePage {
         return getDriver().findElement(by(selector, selectorType)).isEnabled();
     }
 
-    public static void waitAndSelectByIndex(@NotNull String selector, @NotNull int listValue) {
+    public static void waitAndSelectByIndex(@NotNull String textWait, @NotNull String selector, @NotNull SelectorType selectorType, @NotNull int listValue) {
         FluentWait<WebDriver> wait = new FluentWait<>(getDriver())
                 .withTimeout(120, SECONDS)
                 .pollingEvery(2, SECONDS)
@@ -612,22 +610,16 @@ public abstract class BasePage {
 
         WebElement element = wait.until(new Function<WebDriver, WebElement>() {
             public WebElement apply(WebDriver driver) {
-                WebElement element = driver.findElement(By.xpath("//*[@id='modal-title']"));
-                String getTextOnPage = element.getText();
-                if (getTextOnPage.equals("Generate letter")) {
-                    System.out.println(getTextOnPage);
+               WebElement foundIt = wait.until(ExpectedConditions.visibilityOf(getDriver().findElement(By.xpath(
+                        String.format("//*[contains(text(),'%s')]", textWait)))));
                     Select selectItem = new Select(driver.findElement(By.xpath(selector)));
                     selectItem.selectByIndex(listValue);
-                    return element;
-                } else {
-                    System.out.println("FluentWait Failed");
-                    return null;
-                }
+                    return foundIt;
             }
         });
     }
 
-    public static void waitAndClick(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String assertionText) {
+    public static void waitAndClick(@NotNull String selector, @NotNull SelectorType selectorType) {
         FluentWait<WebDriver> wait = new FluentWait<>(getDriver())
                 .withTimeout(120, SECONDS)
                 .pollingEvery(2, SECONDS)
