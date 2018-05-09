@@ -9,7 +9,9 @@ import org.dvsa.testing.lib.pages.exception.ElementDidNotAppearWithinSpecifiedTi
 import org.dvsa.testing.lib.pages.exception.ElementDidNotDisappearWithinSpecifiedTimeException;
 import org.dvsa.testing.lib.pages.exception.IncorrectPageTitleException;
 import org.jetbrains.annotations.NotNull;
+import org.joda.time.LocalDate;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
 
 import java.util.LinkedList;
@@ -610,11 +612,11 @@ public abstract class BasePage {
 
         WebElement element = wait.until(new Function<WebDriver, WebElement>() {
             public WebElement apply(WebDriver driver) {
-               WebElement foundIt = wait.until(ExpectedConditions.visibilityOf(getDriver().findElement(By.xpath(
+                WebElement foundIt = wait.until(ExpectedConditions.visibilityOf(getDriver().findElement(By.xpath(
                         String.format("//*[contains(text(),'%s')]", textWait)))));
-                    Select selectItem = new Select(driver.findElement(By.xpath(selector)));
-                    selectItem.selectByIndex(listValue);
-                    return foundIt;
+                Select selectItem = new Select(driver.findElement(By.xpath(selector)));
+                selectItem.selectByIndex(listValue);
+                return foundIt;
             }
         });
     }
@@ -634,7 +636,7 @@ public abstract class BasePage {
         });
     }
 
-    public static void waitForTextToBePresent (@NotNull String selector) {
+    public static void waitForTextToBePresent(@NotNull String selector) {
         FluentWait<WebDriver> wait = new FluentWait<>(getDriver())
                 .withTimeout(120, SECONDS)
                 .pollingEvery(2, SECONDS)
@@ -643,10 +645,74 @@ public abstract class BasePage {
         WebElement element = wait.until(new Function<WebDriver, WebElement>() {
 
             public WebElement apply(WebDriver driver) {
-                WebElement submit =  wait.until(ExpectedConditions.visibilityOf(getDriver().findElement(By.xpath(
+                WebElement submit = wait.until(ExpectedConditions.visibilityOf(getDriver().findElement(By.xpath(
                         String.format("//*[contains(text(),'%s')]", selector)))));
-                    return submit;
-                }
+                return submit;
+            }
         });
+    }
+
+    public static void uploadFile(@NotNull String inputBoxSelector, @NotNull String file, String jScript, @NotNull SelectorType selectorType) {
+        if (jScript != null) {
+            // making the file input element visible
+            javaScriptExecutor(jScript);
+        }
+        WebElement element = getDriver().findElement(by(inputBoxSelector, selectorType));
+        element.sendKeys(file);
+    }
+
+    public static Object javaScriptExecutor(String jsScript) {
+        return ((JavascriptExecutor) getDriver()).executeScript(jsScript);
+    }
+
+    public static void enterText(String selector, String textValue) {
+        getDriver().findElement(By.id(selector)).sendKeys(textValue);
+    }
+
+    public static void enterTextByName(String selector, String textValue) {
+        getDriver().findElement(By.name(selector)).sendKeys(textValue);
+    }
+
+    public static int getCurrentDayOfMonth() {
+        return LocalDate.now().getDayOfMonth();
+    }
+
+    public static int getCurrentMonth() {
+        return LocalDate.now().getMonthOfYear();
+    }
+
+    public static int getCurrentYear() {
+        return LocalDate.now().getYear();
+    }
+
+    public static int getFutureDayOfMonth(@NotNull int days) {
+        return LocalDate.now().plusDays(days).getDayOfMonth();
+    }
+
+    public static int getFutureMonth(@NotNull int months) {
+        return LocalDate.now().plusMonths(months).getMonthOfYear();
+    }
+
+    public static int getFutureYear(@NotNull int years) {
+        return LocalDate.now().plusYears(years).getYear();
+    }
+
+    public static int getPastDayOfMonth(@NotNull int days) {
+        return LocalDate.now().minusDays(days).getDayOfMonth();
+    }
+
+    public static int getPastMonth(@NotNull int months) {
+        return LocalDate.now().minusMonths(months).getMonthOfYear();
+    }
+
+    public static int getPastYear(@NotNull int years) {
+        return LocalDate.now().minusYears(years).getYear();
+    }
+
+    public static void selectServiceType(@NotNull String inputBoxSelector, @NotNull String listValueSelector, @NotNull SelectorType selectorType) {
+        WebElement element = getDriver().findElement(by(inputBoxSelector, selectorType));
+        new Actions(getDriver()).moveToElement(element).click().perform();
+        WebElement dropDownValueByIndex = getDriver().findElement(by(inputBoxSelector, selectorType));
+        new Actions(getDriver()).moveToElement(dropDownValueByIndex).click().perform();
     }
 }
