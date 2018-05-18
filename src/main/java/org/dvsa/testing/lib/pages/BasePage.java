@@ -716,7 +716,7 @@ public abstract class BasePage {
         new Actions(getDriver()).moveToElement(dropDownValueByIndex).click().perform();
     }
 
-    public int returnTableRows(@NotNull String selector, @NotNull SelectorType selectorType){
+    public static int returnTableRows(@NotNull String selector, @NotNull SelectorType selectorType){
         return getDriver().findElements(by(selector,selectorType)).size();
     }
 }
