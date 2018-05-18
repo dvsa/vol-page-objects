@@ -715,4 +715,8 @@ public abstract class BasePage {
         WebElement dropDownValueByIndex = getDriver().findElement(by(inputBoxSelector, selectorType));
         new Actions(getDriver()).moveToElement(dropDownValueByIndex).click().perform();
     }
+
+    public int returnTableRows(@NotNull String selector, @NotNull SelectorType selectorType){
+        return getDriver().findElements(by(selector,selectorType)).size();
+    }
 }
