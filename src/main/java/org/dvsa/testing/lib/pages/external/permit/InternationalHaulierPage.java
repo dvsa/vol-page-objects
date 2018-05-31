@@ -4,7 +4,7 @@ import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
 import org.jetbrains.annotations.NotNull;
 
-public class InternationalHaulier extends BasePage {
+public class InternationalHaulierPage extends BasePage {
 
     private static String CABOTAGE_TEMPLATE = "#cabotage label:nth-of-type(%d) input";
     private static String EURO_SIX_COMPLIANT_VEHICLES = "#euro6 label:nth-of-type(%d) input";
