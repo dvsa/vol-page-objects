@@ -47,9 +47,4 @@ public class LoginPageTest {
         Assert.assertEquals(URL, Browser.getURL());
     }
 
-    @After
-    public void tearDown(){
-        Browser.quit();
-    }
-
 }
