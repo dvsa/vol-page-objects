@@ -21,7 +21,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.not;
 
 public abstract class BasePage {
 
-    private static final int WAIT_TIME_SECONDS =  10;
+    protected static final int WAIT_TIME_SECONDS =  10;
 
     private static String URI;
     private static String SCHEME;
