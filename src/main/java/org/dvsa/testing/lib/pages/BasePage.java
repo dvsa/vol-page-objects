@@ -29,23 +29,23 @@ public abstract class BasePage {
 
     protected static String MAIN_TITLE_SELECTOR = "h1";
 
-    protected static String getScheme() throws UninitialisedDriverException {
+    protected static String getScheme() {
         initialiseURLSectionsOnFirstCall();
         return SCHEME;
     }
 
-    protected static String getDomain() throws UninitialisedDriverException {
+    protected static String getDomain() {
         initialiseURLSectionsOnFirstCall();
         return DOMAIN;
     }
 
-    private static void initialiseURLSectionsOnFirstCall() throws UninitialisedDriverException {
+    private static void initialiseURLSectionsOnFirstCall() {
         if(URI == null){
             updateURLSections();
         }
     }
 
-    private static void updateURLSections() throws UninitialisedDriverException {
+    private static void updateURLSections() {
         if (Browser.isInitialised()) {
             URI = Browser.getURL();
             SCHEME = URL.extractScheme(URI);
@@ -57,11 +57,11 @@ public abstract class BasePage {
         return MAIN_TITLE_SELECTOR;
     }
 
-    protected static String getAttribute(@NotNull String selector, @NotNull String attribute) throws UninitialisedDriverException {
+    protected static String getAttribute(@NotNull String selector, @NotNull String attribute) {
         return getAttribute(selector, SelectorType.CSS, attribute);
     }
 
-    protected static String getAttribute(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String attribute) throws UninitialisedDriverException {
+    protected static String getAttribute(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String attribute) {
         return find(selector, selectorType).getAttribute(attribute);
     }
 
@@ -70,26 +70,25 @@ public abstract class BasePage {
      * @param selector This should be a CSS or XPATH selector which is used to identify which elements text is to be retrieved.
      * @param selectorType This is the type of selector that the argument selector is.
      * @return The specified elements text contents.
-     * @throws UninitialisedDriverException
      */
-    protected static String getText(@NotNull String selector, @NotNull SelectorType selectorType) throws UninitialisedDriverException {
+    protected static String getText(@NotNull String selector, @NotNull SelectorType selectorType) {
         return find(selector, selectorType).getText();
     }
 
-    protected static String getText(@NotNull String selector) throws UninitialisedDriverException {
+    protected static String getText(@NotNull String selector) {
         return getText(selector, SelectorType.CSS);
     }
 
-    protected static boolean hasText(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String text) throws UninitialisedDriverException {
+    protected static boolean hasText(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String text) {
         return getText(selector, selectorType).equals(text);
     }
 
-    protected static boolean hasText(@NotNull String selector, @NotNull String text) throws UninitialisedDriverException {
+    protected static boolean hasText(@NotNull String selector, @NotNull String text) {
         SelectorType selectorType = SelectorType.CSS;
         return hasText(selector, selectorType, text);
     }
 
-    protected static List<String> getListValues(@NotNull String listSelector) throws UninitialisedDriverException {
+    protected static List<String> getListValues(@NotNull String listSelector) {
         List<String> optionValues  = new LinkedList<>();
 
         Select select = new Select(find(listSelector));
@@ -104,9 +103,8 @@ public abstract class BasePage {
      * Enters text in the specified text input/textarea field found using the specified selector.
      * @param selector The text input field/textarea that's to have text entered in it.
      * @param text The text to be entered.
-     * @throws UninitialisedDriverException
      */
-    protected static void enterField(@NotNull String selector, @NotNull String text) throws UninitialisedDriverException {
+    protected static void enterField(@NotNull String selector, @NotNull String text) {
         enterField(selector, text, false);
     }
 
@@ -115,9 +113,8 @@ public abstract class BasePage {
      * @param selector The text input field/textarea that's to have text entered in it.
      * @param text The text to be entered.
      * @param append Specified weather the input field/textarea should be cleared before entering the text.
-     * @throws UninitialisedDriverException
      */
-    protected static void enterField(@NotNull String selector, @NotNull String text, boolean append) throws UninitialisedDriverException {
+    protected static void enterField(@NotNull String selector, @NotNull String text, boolean append) {
         WebElement element = find(selector);
 
         if (!append) {
@@ -132,9 +129,8 @@ public abstract class BasePage {
      * Note: There is an overloaded version of this method that allows you to specify which type of selector
      * you'd like to use, this overloaded version supports both CSS and XPATH.
      * @param selector This should be a css selector.
-     * @throws UninitialisedDriverException This is thrown in the event that the driver has not been initialised.
      */
-    protected static void click(@NotNull String selector) throws UninitialisedDriverException {
+    protected static void click(@NotNull String selector) {
         click(selector, SelectorType.CSS);
     }
 
@@ -142,9 +138,8 @@ public abstract class BasePage {
      * Clicks on the first element found using the passed in selector.
      * @param selector This is the selector, this should be either CSS or XPATH.
      * @param selectorType This specifies what type of selector the first argument, selector, is.
-     * @throws UninitialisedDriverException
      */
-    protected static void click(@NotNull String selector, @NotNull SelectorType selectorType) throws UninitialisedDriverException {
+    protected static void click(@NotNull String selector, @NotNull SelectorType selectorType) {
         find(selector, selectorType).click();
     }
 
@@ -165,15 +160,15 @@ public abstract class BasePage {
                 .perform();
     }
 
-    protected static void scrollTo(@NotNull String selector, @NotNull SelectorType selectorType) throws UninitialisedDriverException {
+    protected static void scrollTo(@NotNull String selector, @NotNull SelectorType selectorType) {
         scrollTo(selector, selectorType, WAIT_TIME_SECONDS);
     }
 
-    protected static void scrollTo(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException {
+    protected static void scrollTo(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) {
         scrollTo(selector, selectorType, (long) seconds, TimeUnit.SECONDS);
     }
 
-    protected static void scrollTo(@NotNull String selector, @NotNull SelectorType selectorType, long duration, TimeUnit timeUnit) throws UninitialisedDriverException {
+    protected static void scrollTo(@NotNull String selector, @NotNull SelectorType selectorType, long duration, TimeUnit timeUnit) {
         WebElement element = find(selector, selectorType);
 
         // Scrolls to element using JS
@@ -183,7 +178,7 @@ public abstract class BasePage {
         untilPresent(selector, selectorType, duration, timeUnit);
     }
 
-    private static WebDriver getDriver() throws UninitialisedDriverException {
+    private static WebDriver getDriver() {
         return Browser.getDriver();
     }
 
@@ -195,32 +190,32 @@ public abstract class BasePage {
         return String.format("%s[%s=\"%s\"]", element, attribute, value);
     }
 
-    protected static void list(@NotNull String listSelector, int itemPosition) throws UninitialisedDriverException {
+    protected static void list(@NotNull String listSelector, int itemPosition) {
         list(listSelector, itemPosition, SelectorType.CSS);
     }
 
-    protected static void list(@NotNull String listSelector, int itemPosition, @NotNull SelectorType selectorType) throws UninitialisedDriverException {
+    protected static void list(@NotNull String listSelector, int itemPosition, @NotNull SelectorType selectorType) {
         (new Select(find(listSelector, selectorType))).selectByIndex(itemPosition);
     }
 
-    protected static void list(@NotNull String listSelector, @NotNull String visibleText) throws UninitialisedDriverException {
+    protected static void list(@NotNull String listSelector, @NotNull String visibleText) {
         list(listSelector, visibleText, SelectorType.CSS);
     }
 
-    protected static void list(@NotNull String listSelector, @NotNull String visibleText , @NotNull SelectorType selectorType) throws UninitialisedDriverException {
+    protected static void list(@NotNull String listSelector, @NotNull String visibleText , @NotNull SelectorType selectorType) {
         (new Select(find(listSelector, selectorType))).selectByVisibleText(visibleText);
     }
 
-    private static WebElement find(@NotNull String selector) throws UninitialisedDriverException {
+    private static WebElement find(@NotNull String selector) {
         return find(selector, SelectorType.CSS);
     }
 
-    private static WebElement find(@NotNull String selector, @NotNull SelectorType selectorType) throws UninitialisedDriverException {
+    private static WebElement find(@NotNull String selector, @NotNull SelectorType selectorType) {
         By bySelector = by(selector, selectorType);
         return Browser.getDriver().findElement(bySelector);
     }
 
-    private static List<WebElement> findAll(@NotNull String selector, @NotNull SelectorType selectorType) throws UninitialisedDriverException {
+    private static List<WebElement> findAll(@NotNull String selector, @NotNull SelectorType selectorType) {
         By bySelector = by(selector, selectorType);
         return Browser.getDriver().findElements(bySelector);
     }
@@ -241,27 +236,27 @@ public abstract class BasePage {
         return bySelector;
     }
 
-    protected static int size(@NotNull String selector, @NotNull SelectorType selectorType) throws UninitialisedDriverException {
+    protected static int size(@NotNull String selector, @NotNull SelectorType selectorType) {
         return findAll(selector, selectorType).size();
     }
 
-    protected static int size(@NotNull String selector) throws UninitialisedDriverException {
+    protected static int size(@NotNull String selector) {
         return size(selector, SelectorType.CSS);
     }
 
-    protected static boolean isElementNotPresent(@NotNull String selector) throws UninitialisedDriverException {
+    protected static boolean isElementNotPresent(@NotNull String selector) {
         return isElementNotPresent(selector, SelectorType.CSS);
     }
 
-    protected static boolean isElementNotPresent(@NotNull String selector, SelectorType selectorType) throws UninitialisedDriverException {
+    protected static boolean isElementNotPresent(@NotNull String selector, SelectorType selectorType) {
         return !isElementPresent(selector, selectorType);
     }
 
-    protected static boolean isElementPresent(@NotNull String selector) throws UninitialisedDriverException {
+    protected static boolean isElementPresent(@NotNull String selector) {
         return isElementPresent(selector, SelectorType.CSS);
     }
 
-    protected static boolean isElementPresent(@NotNull String selector, SelectorType selectorType) throws UninitialisedDriverException {
+    protected static boolean isElementPresent(@NotNull String selector, SelectorType selectorType) {
         boolean isElementPresent = true;
 
         try {
@@ -273,19 +268,19 @@ public abstract class BasePage {
         return  isElementPresent;
     }
 
-    public static void untilElementPresent(@NotNull String selector) throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException {
+    public static void untilElementPresent(@NotNull String selector) throws ElementDidNotAppearWithinSpecifiedTimeException {
         untilElementPresentWithin(selector, WAIT_TIME_SECONDS);
     }
 
-    public static void untilElementPresent(@NotNull String selector, @NotNull SelectorType selectorType) throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException {
+    public static void untilElementPresent(@NotNull String selector, @NotNull SelectorType selectorType) throws ElementDidNotAppearWithinSpecifiedTimeException {
         untilElementPresentWithin(selector, selectorType, WAIT_TIME_SECONDS);
     }
 
-    public static void untilElementPresentWithin(@NotNull String selector, int seconds) throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException {
+    public static void untilElementPresentWithin(@NotNull String selector, int seconds) throws ElementDidNotAppearWithinSpecifiedTimeException {
         untilElementPresentWithin(selector, SelectorType.CSS, seconds);
     }
 
-    public static void untilElementPresentWithin(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException {
+    public static void untilElementPresentWithin(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws ElementDidNotAppearWithinSpecifiedTimeException {
         boolean elementFound = isElementPresentWithin(selector, selectorType, seconds);
         if(!elementFound){
             throw new ElementDidNotAppearWithinSpecifiedTimeException(
@@ -315,44 +310,44 @@ public abstract class BasePage {
         }
     }
 
-    protected static boolean isElementPresentWithin(@NotNull String selector, int seconds) throws UninitialisedDriverException {
+    protected static boolean isElementPresentWithin(@NotNull String selector, int seconds) {
         return isElementPresentWithin(selector, SelectorType.CSS, seconds);
     }
 
     @Deprecated
-    protected static boolean isElementPresentWithin(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException {
+    protected static boolean isElementPresentWithin(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) {
         return isInDOM(selector, selectorType, seconds);
     }
 
-    protected static boolean isElementNotPresentWithin(@NotNull String selector, int seconds) throws UninitialisedDriverException {
+    protected static boolean isElementNotPresentWithin(@NotNull String selector, int seconds) {
         return !isElementPresentWithin(selector, seconds);
     }
 
-    protected static boolean isNotSelected(@NotNull String selector) throws UninitialisedDriverException {
+    protected static boolean isNotSelected(@NotNull String selector) {
         return !isSelected(selector);
     }
 
-    protected static boolean isSelected(@NotNull String selector) throws UninitialisedDriverException {
+    protected static boolean isSelected(@NotNull String selector) {
         return getDriver().findElement(By.cssSelector(selector)).isSelected();
     }
 
-    protected static void select(@NotNull String selector) throws UninitialisedDriverException {
+    protected static void select(@NotNull String selector) {
         if(isNotSelected(selector)){
             click(selector);
         }
     }
 
-    protected static void deselect(@NotNull String selector) throws UninitialisedDriverException {
+    protected static void deselect(@NotNull String selector) {
         if(isSelected(selector)){
             click(selector);
         }
     }
 
-    protected static boolean isNotPresent(@NotNull String selector, int seconds) throws UninitialisedDriverException {
+    protected static boolean isNotPresent(@NotNull String selector, int seconds) {
         return isNotPresent(selector, SelectorType.CSS, seconds);
     }
 
-    protected static boolean isNotPresent(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException {
+    protected static boolean isNotPresent(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) {
         boolean isNotPresent = true;
 
         try {
@@ -364,19 +359,19 @@ public abstract class BasePage {
         return isNotPresent;
     }
 
-    public static void untilNotPresent(@NotNull String selector, int seconds) throws UninitialisedDriverException {
+    public static void untilNotPresent(@NotNull String selector, int seconds) {
         untilNotPresent(selector, SelectorType.CSS, seconds);
     }
 
-    public static void untilNotPresent(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException {
+    public static void untilNotPresent(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) {
         new WebDriverWait(getDriver(), seconds).until(not(ExpectedConditions.visibilityOfAllElementsLocatedBy(by(selector,selectorType))));
     }
 
-    protected static boolean isPresent(@NotNull String selector, int seconds) throws UninitialisedDriverException {
+    protected static boolean isPresent(@NotNull String selector, int seconds) {
         return isPresent(selector, SelectorType.CSS, seconds);
     }
 
-    protected static boolean isPresent(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException {
+    protected static boolean isPresent(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) {
         boolean isPresent = true;
 
         try {
@@ -388,17 +383,17 @@ public abstract class BasePage {
         return isPresent;
     }
 
-    public static void untilPresent(@NotNull String selector, int seconds) throws UninitialisedDriverException {
+    public static void untilPresent(@NotNull String selector, int seconds) {
        untilPresent(selector, SelectorType.CSS, seconds);
     }
 
-    public static void untilPresent(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException {
+    public static void untilPresent(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) {
         By by = by(selector, selectorType);
         new WebDriverWait(getDriver(), seconds).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
         untilPresent(selector, selectorType, (long) seconds, TimeUnit.SECONDS);
     }
 
-    public static void untilPresent(@NotNull String selector, @NotNull SelectorType selectorType, long duration, TimeUnit timeUnit) throws UninitialisedDriverException {
+    public static void untilPresent(@NotNull String selector, @NotNull SelectorType selectorType, long duration, TimeUnit timeUnit) {
         By by = by(selector, selectorType);
 
         Wait<WebDriver> wait = new FluentWait<>(getDriver())
@@ -408,15 +403,15 @@ public abstract class BasePage {
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
     }
 
-    protected static boolean isNotInDOM(@NotNull String selector, int seconds) throws UninitialisedDriverException {
+    protected static boolean isNotInDOM(@NotNull String selector, int seconds) {
         return isNotInDOM(selector, SelectorType.CSS, seconds);
     }
 
-    protected static boolean isNotInDOM(@NotNull String selector, @NotNull SelectorType selectorType) throws UninitialisedDriverException {
+    protected static boolean isNotInDOM(@NotNull String selector, @NotNull SelectorType selectorType) {
         return isInDOM(selector, selectorType, WAIT_TIME_SECONDS);
     }
 
-    protected static boolean isNotInDOM(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException {
+    protected static boolean isNotInDOM(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) {
         boolean isNotInDOM = true;
 
         try {
@@ -428,23 +423,23 @@ public abstract class BasePage {
         return isNotInDOM;
     }
 
-    public static void untilNotInDOM(@NotNull String selector, int seconds) throws UninitialisedDriverException {
+    public static void untilNotInDOM(@NotNull String selector, int seconds) {
         untilNotInDOM(selector, SelectorType.CSS, seconds);
     }
 
-    public static void untilNotInDOM(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException {
+    public static void untilNotInDOM(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) {
         new WebDriverWait(getDriver(), seconds).until(not(ExpectedConditions.presenceOfAllElementsLocatedBy(by(selector, selectorType))));
     }
 
-    protected static boolean isInDOM(@NotNull String selector, int seconds) throws UninitialisedDriverException {
+    protected static boolean isInDOM(@NotNull String selector, int seconds) {
         return isInDOM(selector, SelectorType.CSS, seconds);
     }
 
-    protected static boolean isInDOM(@NotNull String selector, @NotNull SelectorType selectorType) throws UninitialisedDriverException {
+    protected static boolean isInDOM(@NotNull String selector, @NotNull SelectorType selectorType) {
         return isInDOM(selector, selectorType, WAIT_TIME_SECONDS);
     }
 
-    protected static boolean isInDOM(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException {
+    protected static boolean isInDOM(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) {
         boolean isInDOM = true;
 
         try {
@@ -456,32 +451,32 @@ public abstract class BasePage {
         return isInDOM;
     }
 
-    public static void untilInDOM(@NotNull String selector, int seconds) throws UninitialisedDriverException {
+    public static void untilInDOM(@NotNull String selector, int seconds) {
         untilInDOM(selector, SelectorType.CSS, seconds);
     }
 
-    public static void untilInDOM(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException {
+    public static void untilInDOM(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) {
         By by = by(selector, selectorType);
         new WebDriverWait(getDriver(), seconds).until(ExpectedConditions.presenceOfAllElementsLocatedBy(by));
     }
 
-    protected static boolean contains(@NotNull String selector, @NotNull String content) throws UninitialisedDriverException {
+    protected static boolean contains(@NotNull String selector, @NotNull String content) {
         return find(selector).getText().contains(content);
     }
 
-    protected static boolean isExpectedPageTitle( @NotNull String title) throws UninitialisedDriverException {
+    protected static boolean isExpectedPageTitle( @NotNull String title) {
         return isExpectedPageTitle(getMainTitleSelector(), title);
     }
 
-    protected static boolean isExpectedPageTitle(@NotNull String title, int horizonSeconds) throws UninitialisedDriverException {
+    protected static boolean isExpectedPageTitle(@NotNull String title, int horizonSeconds) {
         return isExpectedPageTitle(getMainTitleSelector(), title, horizonSeconds);
     }
 
-    protected static boolean isExpectedPageTitle(@NotNull String selector, @NotNull String title) throws UninitialisedDriverException {
+    protected static boolean isExpectedPageTitle(@NotNull String selector, @NotNull String title) {
         return isExpectedPageTitle(selector, title, WAIT_TIME_SECONDS);
     }
 
-    protected static boolean isExpectedPageTitle(@NotNull String selector, @NotNull String title, int horizonSeconds) throws UninitialisedDriverException {
+    protected static boolean isExpectedPageTitle(@NotNull String selector, @NotNull String title, int horizonSeconds) {
         boolean isCurrentPage = false;
 
         if(isElementPresentWithin(selector, horizonSeconds)){
@@ -491,19 +486,19 @@ public abstract class BasePage {
         return isCurrentPage;
     }
 
-    protected static boolean isNotExpectedPageTitle(@NotNull String title) throws UninitialisedDriverException {
+    protected static boolean isNotExpectedPageTitle(@NotNull String title) {
         return isNotExpectedPageTitle(getMainTitleSelector(), title);
     }
 
-    protected static boolean isNotExpectedPageTitle(@NotNull String title, int horizonSeconds) throws UninitialisedDriverException {
+    protected static boolean isNotExpectedPageTitle(@NotNull String title, int horizonSeconds) {
         return isNotExpectedPageTitle(getMainTitleSelector(), title, horizonSeconds);
     }
 
-    protected static boolean isNotExpectedPageTitle(@NotNull String selector, @NotNull String title) throws UninitialisedDriverException {
+    protected static boolean isNotExpectedPageTitle(@NotNull String selector, @NotNull String title) {
         return isNotExpectedPageTitle(selector, title, WAIT_TIME_SECONDS);
     }
 
-    protected static boolean isNotExpectedPageTitle(@NotNull String selector, @NotNull String title, int horizonSeconds) throws UninitialisedDriverException {
+    protected static boolean isNotExpectedPageTitle(@NotNull String selector, @NotNull String title, int horizonSeconds) {
         return !isExpectedPageTitle(selector, title, horizonSeconds);
     }
 
@@ -537,18 +532,18 @@ public abstract class BasePage {
         untilNotExpectedPageTitle(MAIN_TITLE_SELECTOR, pageTitle, horizonSeconds);
     }
 
-    public static void untilNotExpectedPageTitle(@NotNull String selector, @NotNull String pageTitle, int horizonSeconds) throws UninitialisedDriverException, IncorrectPageTitleException {
+    public static void untilNotExpectedPageTitle(@NotNull String selector, @NotNull String pageTitle, int horizonSeconds) throws IncorrectPageTitleException {
         if(!isNotExpectedPageTitle(selector, pageTitle, horizonSeconds)){
             throw new IncorrectPageTitleException(String.format("[ERROR] The page title for the page did not change after %d seconds", horizonSeconds));
         }
     }
 
-    protected static boolean isExpectedTextInElementWithin(@NotNull String selector, @NotNull String expectedText, int seconds) throws UninitialisedDriverException {
+    protected static boolean isExpectedTextInElementWithin(@NotNull String selector, @NotNull String expectedText, int seconds) {
         SelectorType selectorType = SelectorType.CSS;
         return isExpectedTextInElementWithin(selector, selectorType, expectedText, seconds);
     }
 
-    protected static boolean isExpectedTextInElementWithin(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String expectedText, int seconds) throws UninitialisedDriverException {
+    protected static boolean isExpectedTextInElementWithin(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String expectedText, int seconds) {
         boolean found = true;
 
         try {
@@ -560,21 +555,21 @@ public abstract class BasePage {
         return found;
     }
 
-    public static void untilExpectedTextInElement(@NotNull String selector, @NotNull String expectedText, int seconds) throws UninitialisedDriverException {
+    public static void untilExpectedTextInElement(@NotNull String selector, @NotNull String expectedText, int seconds) {
         SelectorType selectorType = SelectorType.CSS;
         untilExpectedTextInElement(selector, selectorType, expectedText, seconds);
     }
 
-    public static void untilExpectedTextInElement(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String expectedText, int seconds) throws UninitialisedDriverException {
+    public static void untilExpectedTextInElement(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String expectedText, int seconds) {
         (new WebDriverWait(getDriver(), seconds)).until(ExpectedConditions.textToBePresentInElementLocated(by(selector, selectorType), expectedText));
     }
 
-    public static void untilNotExpectedTextInElement(@NotNull String selector, @NotNull String expectedText, int seconds) throws UninitialisedDriverException {
+    public static void untilNotExpectedTextInElement(@NotNull String selector, @NotNull String expectedText, int seconds) {
         SelectorType selectorType = SelectorType.CSS;
         untilNotExpectedTextInElement(selector, selectorType, expectedText, seconds);
     }
 
-    public static void untilNotExpectedTextInElement(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String expectedText, int seconds) throws UninitialisedDriverException {
+    public static void untilNotExpectedTextInElement(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String expectedText, int seconds) {
         (new WebDriverWait(getDriver(), seconds)).until(not(ExpectedConditions.textToBePresentInElementLocated(by(selector, selectorType), expectedText)));
     }
 
