@@ -4,7 +4,7 @@ import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
 
 public class DeclarationPage extends BasePage {
-
+    // TODO: fill in identifiers once devs complete pages
     private static String TERMS_AND_CONDITIONS_LINK = "//a[text() = 'terms and conditions']";
     private static String GUIDANCE_NOTES_LINK = "//a[contains(text(), 'Guidance notes')]";
 

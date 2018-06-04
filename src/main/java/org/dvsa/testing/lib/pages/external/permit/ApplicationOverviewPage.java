@@ -2,6 +2,7 @@ package org.dvsa.testing.lib.pages.external.permit;
 
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
+import org.dvsa.testing.lib.pages.external.permit.enums.ApplicationInfo;
 import org.jetbrains.annotations.NotNull;
 
 public class ApplicationOverviewPage extends BasePage {
