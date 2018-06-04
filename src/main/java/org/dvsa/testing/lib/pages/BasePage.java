@@ -10,12 +10,11 @@ import org.dvsa.testing.lib.pages.exception.ElementDidNotDisappearWithinSpecifie
 import org.dvsa.testing.lib.pages.exception.IncorrectPageTitleException;
 import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.*;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.not;
 
@@ -142,6 +141,10 @@ public abstract class BasePage {
      */
     protected static void click(@NotNull String selector, @NotNull SelectorType selectorType) throws UninitialisedDriverException {
         find(selector, selectorType).click();
+    }
+
+    protected static void scrollAndClick(@NotNull String selector, @NotNull SelectorType selectorType) {
+
     }
 
     protected static void scrollTo(@NotNull String selector, @NotNull SelectorType selectorType) throws UninitialisedDriverException {
@@ -366,6 +369,17 @@ public abstract class BasePage {
     public static void untilPresent(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException {
         By by = by(selector, selectorType);
         new WebDriverWait(getDriver(), seconds).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
+        untilPresent(selector, selectorType, (long) seconds, TimeUnit.SECONDS);
+    }
+
+    public static void untilPresent(@NotNull String selector, @NotNull SelectorType selectorType, long duration, TimeUnit timeUnit) throws UninitialisedDriverException {
+        By by = by(selector, selectorType);
+
+        Wait<WebDriver> wait = new FluentWait<>(getDriver())
+                .withTimeout(duration, timeUnit)
+                .ignoring(NoSuchElementException.class);
+
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
     }
 
     protected static boolean isNotInDOM(@NotNull String selector, int seconds) throws UninitialisedDriverException {
