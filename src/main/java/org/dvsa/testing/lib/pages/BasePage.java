@@ -152,9 +152,17 @@ public abstract class BasePage {
     }
 
     protected static void scrollTo(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException {
+        scrollTo(selector, selectorType, (long) seconds, TimeUnit.SECONDS);
+    }
+
+    protected static void scrollTo(@NotNull String selector, @NotNull SelectorType selectorType, long duration, TimeUnit timeUnit) throws UninitialisedDriverException {
         WebElement element = find(selector, selectorType);
+
+        // Scrolls to element using JS
         ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
-        untilPresent(selector, selectorType, seconds); // This will wait the specified amount of time until the element is in view
+
+        // This will wait the specified amount of time until the element is in view
+        untilPresent(selector, selectorType, duration, timeUnit);
     }
 
     private static WebDriver getDriver() throws UninitialisedDriverException {
