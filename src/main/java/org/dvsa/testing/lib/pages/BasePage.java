@@ -76,6 +76,10 @@ public abstract class BasePage {
         return find(selector, selectorType).getText();
     }
 
+    protected static String getText(@NotNull String selector) throws UninitialisedDriverException {
+        return getText(selector, SelectorType.CSS);
+    }
+
     protected static boolean hasText(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String text) throws UninitialisedDriverException {
         return getText(selector, selectorType).equals(text);
     }
