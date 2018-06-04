@@ -10,6 +10,7 @@ import org.dvsa.testing.lib.pages.exception.ElementDidNotDisappearWithinSpecifie
 import org.dvsa.testing.lib.pages.exception.IncorrectPageTitleException;
 import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
 
 import java.util.LinkedList;
@@ -144,7 +145,16 @@ public abstract class BasePage {
     }
 
     protected static void scrollAndClick(@NotNull String selector, @NotNull SelectorType selectorType) {
+        new Actions(getDriver())
+                .moveToElement(find(selector, selectorType))
+                .click()
+                .perform();
+    }
 
+    protected static void moveTo(@NotNull String selector, @NotNull SelectorType selectorType) {
+        new Actions(getDriver())
+                .moveToElement(find(selector, selectorType))
+                .perform();
     }
 
     protected static void scrollTo(@NotNull String selector, @NotNull SelectorType selectorType) throws UninitialisedDriverException {
