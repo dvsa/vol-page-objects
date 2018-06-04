@@ -151,6 +151,10 @@ public abstract class BasePage {
                 .perform();
     }
 
+    protected static void scrollAndClick(@NotNull String selector) {
+        scrollAndClick(selector, SelectorType.CSS);
+    }
+
     protected static void moveTo(@NotNull String selector, @NotNull SelectorType selectorType) {
         new Actions(getDriver())
                 .moveToElement(find(selector, selectorType))
