@@ -175,7 +175,7 @@ public abstract class BasePage {
         ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
 
         // This will wait the specified amount of time until the element is in view
-        untilPresent(selector, selectorType, duration, timeUnit);
+        untilVisible(selector, selectorType, duration, timeUnit);
     }
 
     private static WebDriver getDriver() {
@@ -268,18 +268,22 @@ public abstract class BasePage {
         return  isElementPresent;
     }
 
+    @Deprecated
     public static void untilElementPresent(@NotNull String selector) throws ElementDidNotAppearWithinSpecifiedTimeException {
         untilElementPresentWithin(selector, WAIT_TIME_SECONDS);
     }
 
+    @Deprecated
     public static void untilElementPresent(@NotNull String selector, @NotNull SelectorType selectorType) throws ElementDidNotAppearWithinSpecifiedTimeException {
         untilElementPresentWithin(selector, selectorType, WAIT_TIME_SECONDS);
     }
 
+    @Deprecated
     public static void untilElementPresentWithin(@NotNull String selector, int seconds) throws ElementDidNotAppearWithinSpecifiedTimeException {
         untilElementPresentWithin(selector, SelectorType.CSS, seconds);
     }
 
+    @Deprecated
     public static void untilElementPresentWithin(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws ElementDidNotAppearWithinSpecifiedTimeException {
         boolean elementFound = isElementPresentWithin(selector, selectorType, seconds);
         if(!elementFound){
@@ -295,6 +299,7 @@ public abstract class BasePage {
         }
     }
 
+    @Deprecated
     public static void untilElementNotPresentWithin(@NotNull String selector, int seconds) throws ElementDidNotDisappearWithinSpecifiedTimeException, UninitialisedDriverException {
         boolean elementFound = isElementNotPresentWithin(selector, seconds);
         if(elementFound){
@@ -337,6 +342,7 @@ public abstract class BasePage {
         }
     }
 
+    @Deprecated
     protected static void deselect(@NotNull String selector) {
         if(isSelected(selector)){
             click(selector);
@@ -359,18 +365,22 @@ public abstract class BasePage {
         return isNotPresent;
     }
 
+    @Deprecated
     public static void untilNotPresent(@NotNull String selector, int seconds) {
         untilNotPresent(selector, SelectorType.CSS, seconds);
     }
 
+    @Deprecated
     public static void untilNotPresent(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) {
         new WebDriverWait(getDriver(), seconds).until(not(ExpectedConditions.visibilityOfAllElementsLocatedBy(by(selector,selectorType))));
     }
 
+    @Deprecated
     protected static boolean isPresent(@NotNull String selector, int seconds) {
         return isPresent(selector, SelectorType.CSS, seconds);
     }
 
+    @Deprecated
     protected static boolean isPresent(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) {
         boolean isPresent = true;
 
@@ -383,34 +393,45 @@ public abstract class BasePage {
         return isPresent;
     }
 
+    @Deprecated
     public static void untilPresent(@NotNull String selector, int seconds) {
        untilPresent(selector, SelectorType.CSS, seconds);
     }
 
+    @Deprecated
     public static void untilPresent(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) {
         By by = by(selector, selectorType);
         new WebDriverWait(getDriver(), seconds).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
-        untilPresent(selector, selectorType, (long) seconds, TimeUnit.SECONDS);
+        untilVisible(selector, selectorType, (long) seconds, TimeUnit.SECONDS);
     }
 
-    public static void untilPresent(@NotNull String selector, @NotNull SelectorType selectorType, long duration, TimeUnit timeUnit) {
+    public static void untilVisible(@NotNull String selector, @NotNull SelectorType selectorType, long duration, TimeUnit timeUnit) {
+        By by = by(selector, selectorType);
+
+        until(selector, selectorType, duration, timeUnit, ExpectedConditions.visibilityOfElementLocated(by));
+    }
+
+    public static void until(@NotNull String selector, @NotNull SelectorType selectorType, long duration, TimeUnit timeUnit, ExpectedCondition<WebElement> expectedCondition) {
         By by = by(selector, selectorType);
 
         Wait<WebDriver> wait = new FluentWait<>(getDriver())
                 .withTimeout(duration, timeUnit)
                 .ignoring(NoSuchElementException.class);
 
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
+        wait.until(expectedCondition);
     }
 
+    @Deprecated
     protected static boolean isNotInDOM(@NotNull String selector, int seconds) {
         return isNotInDOM(selector, SelectorType.CSS, seconds);
     }
 
+    @Deprecated
     protected static boolean isNotInDOM(@NotNull String selector, @NotNull SelectorType selectorType) {
         return isInDOM(selector, selectorType, WAIT_TIME_SECONDS);
     }
 
+    @Deprecated
     protected static boolean isNotInDOM(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) {
         boolean isNotInDOM = true;
 
@@ -423,22 +444,27 @@ public abstract class BasePage {
         return isNotInDOM;
     }
 
+    @Deprecated
     public static void untilNotInDOM(@NotNull String selector, int seconds) {
         untilNotInDOM(selector, SelectorType.CSS, seconds);
     }
 
+    @Deprecated
     public static void untilNotInDOM(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) {
         new WebDriverWait(getDriver(), seconds).until(not(ExpectedConditions.presenceOfAllElementsLocatedBy(by(selector, selectorType))));
     }
 
+    @Deprecated
     protected static boolean isInDOM(@NotNull String selector, int seconds) {
         return isInDOM(selector, SelectorType.CSS, seconds);
     }
 
+    @Deprecated
     protected static boolean isInDOM(@NotNull String selector, @NotNull SelectorType selectorType) {
         return isInDOM(selector, selectorType, WAIT_TIME_SECONDS);
     }
 
+    @Deprecated
     protected static boolean isInDOM(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) {
         boolean isInDOM = true;
 
@@ -451,10 +477,12 @@ public abstract class BasePage {
         return isInDOM;
     }
 
+    @Deprecated
     public static void untilInDOM(@NotNull String selector, int seconds) {
         untilInDOM(selector, SelectorType.CSS, seconds);
     }
 
+    @Deprecated
     public static void untilInDOM(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) {
         By by = by(selector, selectorType);
         new WebDriverWait(getDriver(), seconds).until(ExpectedConditions.presenceOfAllElementsLocatedBy(by));
