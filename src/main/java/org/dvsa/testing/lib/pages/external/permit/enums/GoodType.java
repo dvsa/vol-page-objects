@@ -1,4 +1,4 @@
-package org.dvsa.testing.lib.pages.external.permit;
+package org.dvsa.testing.lib.pages.external.permit.enums;
 
 import org.jetbrains.annotations.NotNull;
 

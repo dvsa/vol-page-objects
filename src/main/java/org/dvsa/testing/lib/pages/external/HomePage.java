@@ -8,7 +8,7 @@ import org.dvsa.testing.lib.pages.exception.ElementDidNotAppearWithinSpecifiedTi
 
 public class HomePage extends BasePage {
     // Selectors
-    private static String APPLY_FOR_LICENCE_BUTTON = "//*/a[contains(text(), 'Apply for a licence')]";
+    private static String APPLY_FOR_LICENCE_BUTTON = "//*/a[contains(text(), 'Apply for a permit')]";
     private static String APPLY = "//a[contains(text(), 'Apply for a')]";
 
     private static String TAB_TEMPLATE = "//*/ul[@class='tab-list']//a[contains(text(), '%s')]";
