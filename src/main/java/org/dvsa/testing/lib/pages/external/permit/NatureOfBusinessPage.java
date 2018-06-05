@@ -18,13 +18,10 @@ public class NatureOfBusinessPage extends BasePage {
         Stream.of(goods).forEach((good) -> {
             String selector = String.format(TYPE_OF_GOOD_TEMPLATE, good.toString());
 
-            scrollTo(
+            scrollAndClick(
                     String.format(TYPE_OF_GOOD_TEMPLATE, good.toString()),
-                    SelectorType.XPATH,
-                    BasePage.WAIT_TIME_SECONDS
+                    SelectorType.XPATH
             );
-
-            click(selector);
         });
     }
 
