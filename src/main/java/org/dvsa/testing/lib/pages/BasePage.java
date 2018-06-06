@@ -665,12 +665,8 @@ public abstract class BasePage {
         return ((JavascriptExecutor) getDriver()).executeScript(jsScript);
     }
 
-    public static void enterText(String selector, String textValue) {
-        getDriver().findElement(By.id(selector)).sendKeys(textValue);
-    }
-
-    public static void enterTextByName(String selector, String textValue) {
-        getDriver().findElement(By.name(selector)).sendKeys(textValue);
+    public static void enterText(@NotNull String selector, @NotNull String textValue, @NotNull SelectorType selectorType) {
+        getDriver().findElement(by(selector,selectorType)).sendKeys(textValue);
     }
 
     public static int getCurrentDayOfMonth() {
