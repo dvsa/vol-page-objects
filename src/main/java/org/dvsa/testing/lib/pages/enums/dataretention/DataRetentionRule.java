@@ -9,6 +9,7 @@ public enum DataRetentionRule {
     IRFO_OPERATOR_EXPIRED ("IRFO Operator Expired"),
     IRFO_GV_PERMIT_EXPIRED("IRFO GV Permit Expired"),
     IRFO_PSV_AUTHORISATION_EXPIRED("IRFO PSV Authorisation Expired"),
+    IRFO_PSV_AUTH_WITHDRAWN_PENDING_REFUSED_ETC_EXPIRED("IRFO PSV Auth Withdrawn,Pending,Refused Etc Expired"),
     IRFO_GV_PERMIT_WITHDRAWN_PENDING_OR_REFUSED_EXPIRED("IRFO GV Permit Withdrawn Pending Or Refused Expired"),
     LICENCE_NOT_YET_SUBMITTED("Licence Not Yet Submitted"),
     APPLICATIONS_REFUSED("Applications Refused"),
@@ -38,6 +39,9 @@ public enum DataRetentionRule {
                 break;
             case "irfo psv authorisation expired":
                 dataRetentionRule = DataRetentionRule.IRFO_PSV_AUTHORISATION_EXPIRED;
+                break;
+            case "irfo psv auth withdrawn,pending,refused etc expired":
+                dataRetentionRule = DataRetentionRule.IRFO_PSV_AUTH_WITHDRAWN_PENDING_REFUSED_ETC_EXPIRED;
                 break;
             case "irfo gv permit withdrawn pending or refused expired":
                 dataRetentionRule = DataRetentionRule.IRFO_GV_PERMIT_WITHDRAWN_PENDING_OR_REFUSED_EXPIRED;
