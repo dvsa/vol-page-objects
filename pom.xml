@@ -13,7 +13,7 @@
         <uri-constructor.version>1.4.4</uri-constructor.version>
         <selenium.version>3.7.1</selenium.version>
         <webdriver-manager.version>1.7.2</webdriver-manager.version>
-        <browser.version>0.6.1</browser.version>
+        <browser.version>0.6.6</browser.version>
         <junit.version>4.12</junit.version>
         <annotations.version>13.0</annotations.version>
         <active-support.version>1.1.0.1</active-support.version>
