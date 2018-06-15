@@ -32,7 +32,7 @@ public class HomePage extends BasePage {
     }
 
     public static void applyForLicenceButton() throws UninitialisedDriverException {
-        click(APPLY_FOR_LICENCE_BUTTON, SelectorType.XPATH);
+        scrollAndClick(APPLY_FOR_LICENCE_BUTTON, SelectorType.XPATH);
     }
 
     public static void untilOnPage() throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException {

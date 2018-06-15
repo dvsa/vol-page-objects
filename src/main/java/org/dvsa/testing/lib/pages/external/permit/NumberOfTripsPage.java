@@ -1,13 +1,13 @@
 package org.dvsa.testing.lib.pages.external.permit;
 
 import org.dvsa.testing.lib.pages.BasePage;
+import org.dvsa.testing.lib.pages.enums.SelectorType;
 
 public class NumberOfTripsPage extends BasePage {
-    // TODO: fill in identifiers once devs complete pages
-    private static String NUMBER_OF_TRIPS_FIELD;
+    private static String NUMBER_OF_TRIPS_FIELD = "#numberOfTrips";
 
-    private static String SAVE_AND_CONTINUE_BUTTON;
-    private static String CANCEL_BUTTON;
+    private static String SAVE_AND_CONTINUE_BUTTON = "input[type='submit']";
+    private static String CANCEL_BUTTON = "//a[contains(text(), 'Cancel')]";
 
     public static void numberOfTrips(int numberOfTrips) {
         enterField(NUMBER_OF_TRIPS_FIELD, String.valueOf(numberOfTrips));
@@ -18,7 +18,7 @@ public class NumberOfTripsPage extends BasePage {
     }
 
     public static void cancel() {
-        click(CANCEL_BUTTON);
+        click(CANCEL_BUTTON, SelectorType.XPATH);
     }
 
 }

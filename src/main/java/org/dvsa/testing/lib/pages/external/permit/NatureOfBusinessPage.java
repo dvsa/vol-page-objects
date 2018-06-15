@@ -8,11 +8,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.stream.Stream;
 
 public class NatureOfBusinessPage extends BasePage {
-    // TODO: fill in identifiers once devs complete pages
-    private static String TYPE_OF_GOOD_TEMPLATE;
+    private static String TYPE_OF_GOOD_TEMPLATE = "//label[contains(text(), '%s')]/input";
 
-    private static String SAVE_AND_CONTINUE_BUTTON;
-    private static String CANCEL_BUTTON;
+    private static String SAVE_AND_CONTINUE_BUTTON = "input[type='submit']";
+    private static String CANCEL_BUTTON = "//a[contains(text(), 'Cancel')]";
 
     public static void typeOfGoods(@NotNull GoodType... goods) {
         Stream.of(goods).forEach((good) -> {
@@ -26,11 +25,11 @@ public class NatureOfBusinessPage extends BasePage {
     }
 
     public static void saveAndContinue() {
-        click(SAVE_AND_CONTINUE_BUTTON);
+        scrollAndClick(SAVE_AND_CONTINUE_BUTTON);
     }
 
     public static void cancel() {
-        click(CANCEL_BUTTON);
+        scrollAndClick(CANCEL_BUTTON, SelectorType.XPATH);
     }
 
 }

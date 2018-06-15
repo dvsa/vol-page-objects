@@ -8,8 +8,8 @@ public class DeclarationPage extends BasePage {
     private static String TERMS_AND_CONDITIONS_LINK = "//a[text() = 'terms and conditions']";
     private static String GUIDANCE_NOTES_LINK = "//a[contains(text(), 'Guidance notes')]";
 
-    private static String SUBMIT_AND_PAY_BUTTON;
-    private static String CANCEL_BUTTON;
+    private static String SUBMIT_AND_PAY_BUTTON = "//a[text() = 'Submit and pay']";
+    private static String CANCEL_BUTTON = "//a[contains(text(), 'Cancel')]";
 
     public static void termsAndConditions() {
         scrollAndClick(TERMS_AND_CONDITIONS_LINK, SelectorType.XPATH);
@@ -20,7 +20,7 @@ public class DeclarationPage extends BasePage {
     }
 
     public static void submitAndPay() {
-        scrollAndClick(SUBMIT_AND_PAY_BUTTON);
+        scrollAndClick(SUBMIT_AND_PAY_BUTTON, SelectorType.XPATH);
     }
 
 }

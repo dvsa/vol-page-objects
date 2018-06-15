@@ -7,11 +7,11 @@ import org.jetbrains.annotations.NotNull;
 
 public class ApplicationOverviewPage extends BasePage {
     // TODO: fill in identifiers once devs complete pages
-    private static String ANSWER_ROW_TEMPLATE;
+    private static String ANSWER_ROW_TEMPLATE = "tbody tr:nth-of-type(%d) ";
 
     private static String ANSWER_VALUE_DATA_CELL = " td:nth-of-type(2)";
 
-    private static String ACCEPT_AND_CONTINUE_BUTTON;
+    private static String ACCEPT_AND_CONTINUE_BUTTON = "//a[contains(text(), 'Accept and continue')]";
 
     public static String getAnswer(@NotNull ApplicationInfo info) {
         String selector = String.format(ANSWER_ROW_TEMPLATE, info.ordinal() + 1);
@@ -22,7 +22,7 @@ public class ApplicationOverviewPage extends BasePage {
     }
 
     public static void acceptAndContinue() {
-        click(ACCEPT_AND_CONTINUE_BUTTON);
+        scrollAndClick(ACCEPT_AND_CONTINUE_BUTTON, SelectorType.XPATH);
     }
 
 }
