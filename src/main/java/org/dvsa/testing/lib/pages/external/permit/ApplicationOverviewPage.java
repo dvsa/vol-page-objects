@@ -12,6 +12,7 @@ public class ApplicationOverviewPage extends BasePage {
     private static String ANSWER_VALUE_DATA_CELL = " td:nth-of-type(2)";
 
     private static String ACCEPT_AND_CONTINUE_BUTTON = "//a[contains(text(), 'Accept and continue')]";
+    private static String SAVE_AND_RETURN;
 
     public static String getAnswer(@NotNull ApplicationInfo info) {
         String selector = String.format(ANSWER_ROW_TEMPLATE, info.ordinal() + 1);
@@ -23,6 +24,10 @@ public class ApplicationOverviewPage extends BasePage {
 
     public static void acceptAndContinue() {
         scrollAndClick(ACCEPT_AND_CONTINUE_BUTTON, SelectorType.XPATH);
+    }
+
+    public static void SaveAndReturn() {
+        scrollAndClick(SAVE_AND_RETURN);
     }
 
 }
