@@ -16,7 +16,7 @@
         <browser.version>0.6.6</browser.version>
         <junit.version>4.12</junit.version>
         <annotations.version>13.0</annotations.version>
-        <active-support.version>1.1.0.1</active-support.version>
+        <active-support.version>1.2.5</active-support.version>
         <aws-maven.version>5.0.0.RELEASE</aws-maven.version>
         <slf4j-nop.version>1.7.25</slf4j-nop.version>
         <guava.version>23.6-jre</guava.version>
@@ -108,17 +108,12 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
-        </dependency>
-        <dependency>
-            <groupId>org.dvsa.testing.lib</groupId>
-            <artifactId>active-support</artifactId>
-            <version>0.8.2</version>
+            <version>${junit.version}</version>
         </dependency>
         <dependency>
             <groupId>org.dvsa.testing.lib</groupId>
             <artifactId>uri-constructor</artifactId>
-            <version>1.4.1</version>
+            <version>${uri-constructor.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
