@@ -16,6 +16,10 @@ public class FeeCardDetailsPage extends BasePage {
         scrollAndEnterField(CARD_NUMBER_FIELD, String.valueOf(cardNumber));
     }
 
+    public static void cardNumber(String cardNumber) {
+        cardNumber(Integer.parseInt(cardNumber));
+    }
+
     public static void expiryDate(int month, int year) {
         scrollAndEnterField(String.format(EXPIRY_DATE_TEMPLATE, 1), String.valueOf(month));
         scrollAndEnterField(String.format(EXPIRY_DATE_TEMPLATE, 2), String.valueOf(year));
