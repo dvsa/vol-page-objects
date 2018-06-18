@@ -4,14 +4,14 @@ import org.dvsa.testing.lib.pages.BasePage;
 
 public class CabotagePage extends BasePage {
 
-    private static String CARRIES_CABOTAGE;
+    private static String CARRIES_CABOTAGE_TEMPLATE = "#cabotage label:nth-of-type(%d) input[type='radio']";
 
-    private static String SAVE_AND_CONTINUE;
-    private static String SAVE_AND_RETURN;
+    private static String SAVE_AND_CONTINUE = "input[type='submit']";
+    private static String SAVE_AND_RETURN = "//a[contains(text(), 'Cancel')]";
 
     public static void carryCabotage(boolean cabotage) {
         int pos = cabotage ? 1 : 2;
-        scrollAndClick(String.format(CARRIES_CABOTAGE, pos));
+        scrollAndClick(String.format(CARRIES_CABOTAGE_TEMPLATE, pos));
     }
 
     public static void saveAndContinue() {
