@@ -30,13 +30,10 @@ public class LoginPage extends BasePage {
         click(SUBMIT_BUTTON);
     }
 
-    public static void untilNotOnPage() throws UninitialisedDriverException {
-        int seconds = 30;
-        untilNotOnPage(seconds);
-    }
-
-    public static void untilNotOnPage(int seconds) throws UninitialisedDriverException {
-        untilNotInDOM(SUBMIT_BUTTON, seconds);
+    public static void signIn(String emailAddress, String password) {
+        LoginPage.email(emailAddress);
+        LoginPage.password(password);
+        LoginPage.submit();
     }
 
 }
