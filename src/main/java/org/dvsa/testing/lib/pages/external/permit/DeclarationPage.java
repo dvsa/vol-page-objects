@@ -5,8 +5,8 @@ import org.dvsa.testing.lib.pages.enums.SelectorType;
 
 public class DeclarationPage extends BasePage {
 
-    private static String ACCEPT_AND_CONTINUE = "//a[text() = 'Submit and pay']";
-    private static String SAVE_AND_RETURN = "//a[contains(text(), 'Cancel')]";
+    private static String ACCEPT_AND_CONTINUE = "#submitbutton";
+    private static String SAVE_AND_RETURN = "//a[contains(text(), 'Save and return to permits')]";
 
     public static void acceptAndContinue() {
         scrollAndClick(ACCEPT_AND_CONTINUE, SelectorType.XPATH);
