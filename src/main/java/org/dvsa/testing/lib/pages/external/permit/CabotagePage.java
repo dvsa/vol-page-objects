@@ -7,7 +7,7 @@ public class CabotagePage extends BasePage {
     private static String CARRIES_CABOTAGE_TEMPLATE = "#cabotage label:nth-of-type(%d) input[type='radio']";
 
     private static String SAVE_AND_CONTINUE = "input[type='submit']";
-    private static String SAVE_AND_RETURN = "//a[contains(text(), 'Cancel')]";
+    private static String SAVE_AND_RETURN = "//a[contains(text(), 'Save and return to permits')]";
 
     public static void carryCabotage(boolean cabotage) {
         int pos = cabotage ? 1 : 2;

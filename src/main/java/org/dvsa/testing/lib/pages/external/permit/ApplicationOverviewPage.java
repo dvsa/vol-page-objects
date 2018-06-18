@@ -12,7 +12,7 @@ public class ApplicationOverviewPage extends BasePage {
     private static String ANSWER_VALUE_DATA_CELL = " td:nth-of-type(2)";
 
     private static String ACCEPT_AND_CONTINUE_BUTTON = "//a[contains(text(), 'Accept and continue')]";
-    private static String SAVE_AND_RETURN;
+    private static String SAVE_AND_RETURN = "//a[contains(text(), 'Save and return to permits')]";
 
     public static String getAnswer(@NotNull ApplicationInfo info) {
         String selector = String.format(ANSWER_ROW_TEMPLATE, info.ordinal() + 1);
