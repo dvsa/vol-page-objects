@@ -1,7 +1,6 @@
 package org.dvsa.testing.lib.pages.external.permit;
 
 import org.dvsa.testing.lib.pages.BasePage;
-import org.dvsa.testing.lib.pages.enums.SelectorType;
 
 public class DeclarationPage extends BasePage {
 
@@ -9,7 +8,7 @@ public class DeclarationPage extends BasePage {
     private static String SAVE_AND_RETURN = "//a[contains(text(), 'Save and return to permits')]";
 
     public static void acceptAndContinue() {
-        scrollAndClick(ACCEPT_AND_CONTINUE, SelectorType.XPATH);
+        scrollAndClick(ACCEPT_AND_CONTINUE);
     }
 
     public static void saveAndReturn() {
