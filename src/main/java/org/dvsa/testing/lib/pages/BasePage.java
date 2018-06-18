@@ -481,7 +481,6 @@ public abstract class BasePage {
     }
 
     public static void until(@NotNull String selector, @NotNull SelectorType selectorType, long duration, TimeUnit timeUnit, ExpectedCondition<WebElement> expectedCondition) {
-        By by = by(selector, selectorType);
 
         Wait<WebDriver> wait = new FluentWait<>(getDriver())
                 .withTimeout(duration, timeUnit)
