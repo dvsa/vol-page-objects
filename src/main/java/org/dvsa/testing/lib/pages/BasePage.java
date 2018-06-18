@@ -480,7 +480,13 @@ public abstract class BasePage {
         until(selector, selectorType, duration, timeUnit, ExpectedConditions.visibilityOfElementLocated(by));
     }
 
-    public static void until(@NotNull String selector, @NotNull SelectorType selectorType, long duration, TimeUnit timeUnit, ExpectedCondition<WebElement> expectedCondition) {
+    public static void untilNotVisible(@NotNull String selector, @NotNull SelectorType selectorType, long duration, TimeUnit timeUnit) {
+        By by = by(selector, selectorType);
+
+        until(selector, selectorType, duration, timeUnit, not(ExpectedConditions.visibilityOfElementLocated(by)));
+    }
+
+    public static void until(@NotNull String selector, @NotNull SelectorType selectorType, long duration, TimeUnit timeUnit, ExpectedCondition<?> expectedCondition) {
 
         Wait<WebDriver> wait = new FluentWait<>(getDriver())
                 .withTimeout(duration, timeUnit)
