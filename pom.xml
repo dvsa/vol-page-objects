@@ -6,7 +6,7 @@
 
     <groupId>org.dvsa.testing.lib</groupId>
     <artifactId>page-objects</artifactId>
-    <version>0.6.7.6</version>
+    <version>0.6.7.7</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -67,7 +67,7 @@
         </dependency>
 
         <dependency>
-            <groupId>io.github.bonigarcia</groupId>
+            <groupId>io.github.bonigarcia</gr oupId>
             <artifactId>webdrivermanager</artifactId>
             <version>${webdriver-manager.version}</version>
         </dependency>

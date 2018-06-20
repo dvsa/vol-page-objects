@@ -133,6 +133,10 @@ public abstract class BasePage {
         getDriver().findElement(By.partialLinkText(selector)).click();
     }
 
+    protected static void checkTextisPresent(@NotNull String selector){
+     getDriver().findElement(By.partialLinkText(selector)).isDisplayed();
+    }
+
     protected static void clickByName(@NotNull String selector) {
         getDriver().findElement(By.id(selector)).click();
     }
@@ -715,4 +719,6 @@ public abstract class BasePage {
         WebElement dropDownValueByIndex = getDriver().findElement(by(inputBoxSelector, selectorType));
         new Actions(getDriver()).moveToElement(dropDownValueByIndex).click().perform();
     }
+
+
 }
