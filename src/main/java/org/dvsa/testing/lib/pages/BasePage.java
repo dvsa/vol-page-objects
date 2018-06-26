@@ -138,7 +138,7 @@ public abstract class BasePage {
     }
 
     protected static String colourChecker(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String cssValue) {
-        getDriver().findElement(By.cssSelector(selector)).getCssValue(cssValue);
+       return getDriver().findElement(By.cssSelector(selector)).getCssValue(cssValue);
     }
 
     protected static void clickByName(@NotNull String selector) {
@@ -723,6 +723,4 @@ public abstract class BasePage {
         WebElement dropDownValueByIndex = getDriver().findElement(by(inputBoxSelector, selectorType));
         new Actions(getDriver()).moveToElement(dropDownValueByIndex).click().perform();
     }
-
-
 }
