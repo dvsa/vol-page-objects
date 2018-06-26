@@ -137,8 +137,8 @@ public abstract class BasePage {
      getDriver().findElement(By.partialLinkText(selector)).isDisplayed();
     }
 
-    protected static void colourChecker(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String cssValue) {
-        getDriver().findElement(by(selector, selectorType)).getCssValue(cssValue);
+    protected static String colourChecker(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String cssValue) {
+        getDriver().findElement(By.cssSelector(selector)).getCssValue(cssValue);
     }
 
     protected static void clickByName(@NotNull String selector) {
