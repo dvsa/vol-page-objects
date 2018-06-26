@@ -133,6 +133,14 @@ public abstract class BasePage {
         getDriver().findElement(By.partialLinkText(selector)).click();
     }
 
+    protected static void checkTextisPresent(@NotNull String selector){
+     getDriver().findElement(By.partialLinkText(selector)).isDisplayed();
+    }
+
+    protected static String colourChecker(@NotNull String selector, @NotNull String cssValue) {
+       return getDriver().findElement(By.cssSelector(selector)).getCssValue(cssValue);
+    }
+
     protected static void clickByName(@NotNull String selector) {
         getDriver().findElement(By.id(selector)).click();
     }
