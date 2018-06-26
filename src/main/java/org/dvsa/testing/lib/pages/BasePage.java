@@ -257,6 +257,12 @@ public abstract class BasePage {
             case XPATH:
                 bySelector = By.xpath(selector);
                 break;
+            case NAME:
+                bySelector = By.name(selector);
+                break;
+            case ID:
+                bySelector = By.id(selector);
+                break;
             default:
                 throw new IllegalArgumentException("Only CSS and XPATH selector types are allowed");
         }
