@@ -2,12 +2,10 @@ package org.dvsa.testing.lib.pages;
 
 import activesupport.system.Properties;
 import org.dvsa.testing.lib.browser.Browser;
-import org.dvsa.testing.lib.Environment;
-import org.dvsa.testing.lib.URI;
 import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
-import org.dvsa.testing.lib.utils.ApplicationType;
-import org.dvsa.testing.lib.utils.EnvironmentType;
-import org.junit.After;
+import org.dvsa.testing.lib.url.utils.EnvironmentType;
+import org.dvsa.testing.lib.url.webapp.URL;
+import org.dvsa.testing.lib.url.webapp.utils.ApplicationType;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -31,20 +29,20 @@ public class LoginPageTest {
 
     @Test
     public void goToInternalLogonPage() throws UninitialisedDriverException {
-        EnvironmentType environmentType = Environment.enumType(System.getProperty("env"));
-        String URL = URI.build(ApplicationType.INTERNAL, environmentType, endPoint);
+        EnvironmentType environmentType = EnvironmentType.getEnum(System.getProperty("env"));
+        java.net.URL myURL = URL.build(ApplicationType.INTERNAL, environmentType, endPoint);
 
-        Browser.open(URL);
-        Assert.assertEquals(URL, Browser.getURL());
+        Browser.open(myURL);
+        Assert.assertEquals(myURL.toString(), Browser.getURL());
     }
 
     @Test
     public void goToExternalLogonPage() throws UninitialisedDriverException {
-        EnvironmentType environmentType = Environment.enumType(System.getProperty("env"));
-        String URL = URI.build(ApplicationType.EXTERNAL, environmentType, LoginPage.getResourcePath());
+        EnvironmentType environmentType = EnvironmentType.getEnum(System.getProperty("env"));
+        java.net.URL myURL = URL.build(ApplicationType.EXTERNAL, environmentType, LoginPage.getResourcePath());
 
-        Browser.open(URL);
-        Assert.assertEquals(URL, Browser.getURL());
+        Browser.open(myURL);
+        Assert.assertEquals(myURL.toString(), Browser.getURL());
     }
 
 }
