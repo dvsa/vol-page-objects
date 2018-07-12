@@ -18,24 +18,24 @@ public class LoginPage extends BasePage {
     }
 
     // Behaviour
-    public static void email(@NotNull String email) throws UninitialisedDriverException {
+    public static void email(@NotNull String email) {
         enterField(EMAIL_FIELD_LOCATOR, email);
     }
 
-    public static void password(@NotNull String password) throws UninitialisedDriverException {
+    public static void password(@NotNull String password) {
         enterField(PASSWORD_FIELD_LOCATOR, password);
     }
 
-    public static void submit() throws UninitialisedDriverException {
+    public static void submit() {
         click(SUBMIT_BUTTON);
     }
 
-    public static void untilNotOnPage() throws UninitialisedDriverException {
+    public static void untilNotOnPage() {
         int seconds = 30;
         untilNotOnPage(seconds);
     }
 
-    public static void untilNotOnPage(int seconds) throws UninitialisedDriverException {
+    public static void untilNotOnPage(int seconds) {
         untilNotInDOM(SUBMIT_BUTTON, seconds);
     }
 
