@@ -1,6 +1,5 @@
 package org.dvsa.testing.lib.pages;
 
-import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
 import org.jetbrains.annotations.NotNull;
 
 public class LoginPage extends BasePage {
