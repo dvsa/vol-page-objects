@@ -18,11 +18,11 @@ public class LoginPage extends BasePage {
     }
 
     // Behaviour
-    public static void email(@NotNull String email) throws UninitialisedDriverException {
-        enterField(EMAIL_FIELD_LOCATOR, email);
+    public static void username(@NotNull String username) {
+        enterField(EMAIL_FIELD_LOCATOR, username);
     }
 
-    public static void password(@NotNull String password) throws UninitialisedDriverException {
+    public static void password(@NotNull String password) {
         enterField(PASSWORD_FIELD_LOCATOR, password);
     }
 
@@ -30,8 +30,8 @@ public class LoginPage extends BasePage {
         click(SUBMIT_BUTTON);
     }
 
-    public static void signIn(String emailAddress, String password) {
-        LoginPage.email(emailAddress);
+    public static void signIn(String username, String password) {
+        LoginPage.username(username);
         LoginPage.password(password);
         LoginPage.submit();
     }
