@@ -6,7 +6,7 @@
 
     <groupId>org.dvsa.testing.lib</groupId>
     <artifactId>page-objects</artifactId>
-    <version>0.6.7.8</version>
+    <version>0.6.8.EUPA</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -16,11 +16,10 @@
         <browser.version>0.6.6</browser.version>
         <junit.version>4.12</junit.version>
         <annotations.version>13.0</annotations.version>
-        <active-support.version>1.1.0.1</active-support.version>
+        <active-support.version>1.2.5</active-support.version>
         <aws-maven.version>5.0.0.RELEASE</aws-maven.version>
         <slf4j-nop.version>1.7.25</slf4j-nop.version>
         <guava.version>23.6-jre</guava.version>
-        <browser.version>0.6.2</browser.version>
     </properties>
 
     <repositories>
@@ -59,61 +58,48 @@
     </build>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>${selenium.version}</version>
         </dependency>
-
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
             <version>${webdriver-manager.version}</version>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/junit/junit -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.dvsa.testing.lib</groupId>
             <artifactId>uri-constructor</artifactId>
             <version>${uri-constructor.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.dvsa.testing.lib</groupId>
             <artifactId>browser</artifactId>
             <version>${browser.version}</version>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.jetbrains/annotations -->
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>${annotations.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.dvsa.testing.lib</groupId>
             <artifactId>active-support</artifactId>
             <version>${active-support.version}</version>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-nop -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-nop</artifactId>
             <version>${slf4j-nop.version}</version>
             <scope>test</scope>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
@@ -122,20 +108,14 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
-        </dependency>
-        <dependency>
-            <groupId>org.dvsa.testing.lib</groupId>
-            <artifactId>active-support</artifactId>
-            <version>0.8.2</version>
+            <version>${junit.version}</version>
         </dependency>
         <dependency>
             <groupId>org.dvsa.testing.lib</groupId>
             <artifactId>uri-constructor</artifactId>
-            <version>1.4.1</version>
+            <version>${uri-constructor.version}</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
 </project>

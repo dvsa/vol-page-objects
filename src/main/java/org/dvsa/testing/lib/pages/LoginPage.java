@@ -17,8 +17,8 @@ public class LoginPage extends BasePage {
     }
 
     // Behaviour
-    public static void email(@NotNull String email) {
-        enterField(EMAIL_FIELD_LOCATOR, email);
+    public static void username(@NotNull String username) {
+        enterField(EMAIL_FIELD_LOCATOR, username);
     }
 
     public static void password(@NotNull String password) {
@@ -29,13 +29,10 @@ public class LoginPage extends BasePage {
         click(SUBMIT_BUTTON);
     }
 
-    public static void untilNotOnPage() {
-        int seconds = 30;
-        untilNotOnPage(seconds);
-    }
-
-    public static void untilNotOnPage(int seconds) {
-        untilNotInDOM(SUBMIT_BUTTON, seconds);
+    public static void signIn(String username, String password) {
+        LoginPage.username(username);
+        LoginPage.password(password);
+        LoginPage.submit();
     }
 
 }

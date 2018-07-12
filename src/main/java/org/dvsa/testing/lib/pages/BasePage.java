@@ -131,6 +131,23 @@ public abstract class BasePage {
         element.sendKeys(text);
     }
 
+    protected static void scrollAndEnterField(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String text, boolean append) {
+        WebElement field = find(selector, selectorType);
+
+        if (!append)
+            field.clear();
+
+        new Actions(getDriver()).moveToElement(field).sendKeys(field, text).perform();
+    }
+
+    protected static void scrollAndEnterField(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String text) {
+        scrollAndEnterField(selector, selectorType, text, false);
+    }
+
+    protected static void scrollAndEnterField(@NotNull String selector, @NotNull String text) {
+        scrollAndEnterField(selector, SelectorType.CSS, text);
+    }
+
     protected static void clickByLinkText(@NotNull String selector) {
         getDriver().findElement(By.partialLinkText(selector)).click();
     }
@@ -463,8 +480,13 @@ public abstract class BasePage {
         until(selector, selectorType, duration, timeUnit, ExpectedConditions.visibilityOfElementLocated(by));
     }
 
-    public static void until(@NotNull String selector, @NotNull SelectorType selectorType, long duration, TimeUnit timeUnit, ExpectedCondition<WebElement> expectedCondition) {
+    public static void untilNotVisible(@NotNull String selector, @NotNull SelectorType selectorType, long duration, TimeUnit timeUnit) {
         By by = by(selector, selectorType);
+
+        until(selector, selectorType, duration, timeUnit, not(ExpectedConditions.visibilityOfElementLocated(by)));
+    }
+
+    public static void until(@NotNull String selector, @NotNull SelectorType selectorType, long duration, TimeUnit timeUnit, ExpectedCondition<?> expectedCondition) {
 
         Wait<WebDriver> wait = new FluentWait<>(getDriver())
                 .withTimeout(duration, timeUnit)
