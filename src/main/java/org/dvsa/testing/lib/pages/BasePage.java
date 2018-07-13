@@ -752,15 +752,14 @@ public abstract class BasePage {
         });
     }
 
+    public static void waitAndEnterText(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String textValue, long duration, @NotNull TimeUnit timeUnit) {
+        WebElement element = find(selector, selectorType);
+        until(duration, timeUnit, ExpectedConditions.elementToBeClickable(element));
+        element.sendKeys(textValue);
+    }
+
     public static void waitAndEnterText(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String textValue) {
-        final FluentWait<WebDriver> wait = (new FluentWait(getDriver())).withTimeout(120L, TimeUnit.SECONDS).pollingEvery(2L, TimeUnit.SECONDS).ignoring(NoSuchElementException.class);
-        WebElement element = (WebElement)wait.until(new Function<WebDriver, WebElement>() {
-            public WebElement apply(WebDriver driver) {
-                WebElement sendText = wait.until(ExpectedConditions.elementToBeClickable(by(selector,selectorType)));
-                sendText.sendKeys(textValue);
-                return sendText;
-            }
-        });
+        waitAndEnterText(selector, selectorType, textValue, 120, SECONDS);
     }
 
     public static void uploadFile(@NotNull String inputBoxSelector, @NotNull String file, String jScript, @NotNull SelectorType selectorType) {
