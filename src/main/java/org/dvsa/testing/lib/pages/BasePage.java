@@ -773,8 +773,8 @@ public abstract class BasePage {
             // making the file input element visible
             javaScriptExecutor(jScript);
         }
-        WebElement element = find(inputBoxSelector, selectorType);
-        element.sendKeys(file);
+
+        enterField(inputBoxSelector, selectorType, file);
     }
 
     public static Object javaScriptExecutor(String jsScript) {
