@@ -491,16 +491,16 @@ public abstract class BasePage {
     public static void untilVisible(@NotNull String selector, @NotNull SelectorType selectorType, long duration, TimeUnit timeUnit) {
         By by = by(selector, selectorType);
 
-        until(selector, selectorType, duration, timeUnit, ExpectedConditions.visibilityOfElementLocated(by));
+        until(duration, timeUnit, ExpectedConditions.visibilityOfElementLocated(by));
     }
 
     public static void untilNotVisible(@NotNull String selector, @NotNull SelectorType selectorType, long duration, TimeUnit timeUnit) {
         By by = by(selector, selectorType);
 
-        until(selector, selectorType, duration, timeUnit, not(ExpectedConditions.visibilityOfElementLocated(by)));
+        until(duration, timeUnit, not(ExpectedConditions.visibilityOfElementLocated(by)));
     }
 
-    public static void until(@NotNull String selector, @NotNull SelectorType selectorType, long duration, TimeUnit timeUnit, ExpectedCondition<?> expectedCondition) {
+    public static void until(long duration, TimeUnit timeUnit, ExpectedCondition<?> expectedCondition) {
 
         Wait<WebDriver> wait = new FluentWait<>(getDriver())
                 .withTimeout(duration, timeUnit)
@@ -694,15 +694,13 @@ public abstract class BasePage {
     }
 
     public static WebElement findElement(@NotNull String selector, @NotNull SelectorType selectorType, long timeOutInSeconds) {
-        until(selector, selectorType, timeOutInSeconds, TimeUnit.SECONDS, ExpectedConditions.presenceOfElementLocated(by(selector, selectorType)));
+        until(timeOutInSeconds, TimeUnit.SECONDS, ExpectedConditions.presenceOfElementLocated(by(selector, selectorType)));
 
         return find(selector, selectorType);
     }
 
     public static boolean waitUntilElementIsEnabled(@NotNull String selector, @NotNull SelectorType selectorType, long duration, TimeUnit timeUnit) {
         until(
-                selector,
-                selectorType,
                 duration,
                 timeUnit,
                 ElementCondition.isEnabled(find(selector, selectorType))
@@ -733,18 +731,9 @@ public abstract class BasePage {
     }
 
     public static void waitAndClick(@NotNull String selector, @NotNull SelectorType selectorType) {
-        FluentWait<WebDriver> wait = new FluentWait<>(getDriver())
-                .withTimeout(120, SECONDS)
-                .pollingEvery(2, SECONDS)
-                .ignoring(NoSuchElementException.class);
-
-        WebElement element = wait.until(new Function<WebDriver, WebElement>() {
-            public WebElement apply(WebDriver driver) {
-                WebElement submit = wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(by(selector, selectorType))));
-                submit.click();
-                return submit;
-            }
-        });
+        WebElement element = find(selector, selectorType);
+        until(120, SECONDS, ExpectedConditions.elementToBeClickable(element));
+        element.click();
     }
 
     public static void waitForTextToBePresent(@NotNull String selector) {
