@@ -2,8 +2,11 @@ package org.dvsa.testing.lib.pages;
 
 import activesupport.system.out.Output;
 import activesupport.url.URL;
+import com.google.common.base.Function;
+import org.apache.commons.lang3.StringUtils;
 import org.dvsa.testing.lib.browser.Browser;
 import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
+import org.dvsa.testing.lib.pages.conditions.ElementCondition;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
 import org.dvsa.testing.lib.pages.exception.ElementDidNotAppearWithinSpecifiedTimeException;
 import org.dvsa.testing.lib.pages.exception.ElementDidNotDisappearWithinSpecifiedTimeException;
@@ -20,8 +23,6 @@ import java.util.concurrent.TimeUnit;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.openqa.selenium.support.ui.ExpectedConditions.not;
-
-import com.google.common.base.Function;
 
 public abstract class BasePage {
 
@@ -104,14 +105,8 @@ public abstract class BasePage {
         return optionValues;
     }
 
-    /**
-     * Enters text in the specified text input/textarea field found using the specified selector.
-     *
-     * @param selector The text input field/textarea that's to have text entered in it.
-     * @param text The text to be entered.
-     */
     protected static void enterField(@NotNull String selector, @NotNull String text) {
-        enterField(selector, text, false);
+        enterField(selector, SelectorType.CSS, text);
     }
 
     /**
@@ -119,10 +114,21 @@ public abstract class BasePage {
      *
      * @param selector The text input field/textarea that's to have text entered in it.
      * @param text The text to be entered.
+     */
+    protected static void enterField(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String text) {
+        enterField(selector, selectorType, text, false);
+    }
+
+    /**
+     * Enters text in the specified text input/textarea field found using the specified selector.
+     *
+     * @param selector The text input field/textarea that's to have text entered in it.
+     * @param selectorType The type of selector being used to identify the element in the DOM.
+     * @param text The text to be entered.
      * @param append Specified weather the input field/textarea should be cleared before entering the text.
      */
-    protected static void enterField(@NotNull String selector, @NotNull String text, boolean append) {
-        WebElement element = find(selector);
+    protected static void enterField(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String text, boolean append) {
+        WebElement element = find(selector, selectorType);
 
         if (!append) {
             element.clear();
@@ -491,16 +497,16 @@ public abstract class BasePage {
     public static void untilVisible(@NotNull String selector, @NotNull SelectorType selectorType, long duration, TimeUnit timeUnit) {
         By by = by(selector, selectorType);
 
-        until(selector, selectorType, duration, timeUnit, ExpectedConditions.visibilityOfElementLocated(by));
+        until(duration, timeUnit, ExpectedConditions.visibilityOfElementLocated(by));
     }
 
     public static void untilNotVisible(@NotNull String selector, @NotNull SelectorType selectorType, long duration, TimeUnit timeUnit) {
         By by = by(selector, selectorType);
 
-        until(selector, selectorType, duration, timeUnit, not(ExpectedConditions.visibilityOfElementLocated(by)));
+        until(duration, timeUnit, not(ExpectedConditions.visibilityOfElementLocated(by)));
     }
 
-    public static void until(@NotNull String selector, @NotNull SelectorType selectorType, long duration, TimeUnit timeUnit, ExpectedCondition<?> expectedCondition) {
+    public static void until(long duration, TimeUnit timeUnit, ExpectedCondition<?> expectedCondition) {
 
         Wait<WebDriver> wait = new FluentWait<>(getDriver())
                 .withTimeout(duration, timeUnit)
@@ -690,18 +696,27 @@ public abstract class BasePage {
     }
 
     public static String getElementValueByText(@NotNull String selector, @NotNull SelectorType selectorType) {
-        return getDriver().findElement(by(selector, selectorType)).getText();
+        return getText(selector, selectorType);
     }
 
     public static WebElement findElement(@NotNull String selector, @NotNull SelectorType selectorType, long timeOutInSeconds) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), timeOutInSeconds);
-        wait.until(ExpectedConditions.presenceOfElementLocated(by(selector, selectorType)));
+        until(timeOutInSeconds, TimeUnit.SECONDS, ExpectedConditions.presenceOfElementLocated(by(selector, selectorType)));
 
-        return getDriver().findElement(by(selector, selectorType));
+        return find(selector, selectorType);
+    }
+
+    public static boolean waitUntilElementIsEnabled(@NotNull String selector, @NotNull SelectorType selectorType, long duration, TimeUnit timeUnit) {
+        until(
+                duration,
+                timeUnit,
+                ElementCondition.isEnabled(find(selector, selectorType))
+        );
+
+        return find(selector, selectorType).isEnabled();
     }
 
     public static boolean waitUntilElementIsEnabled(@NotNull String selector, @NotNull SelectorType selectorType) {
-        return getDriver().findElement(by(selector, selectorType)).isEnabled();
+        return waitUntilElementIsEnabled(selector, selectorType, 10L, SECONDS );
     }
 
     public static void waitAndSelectByIndex(@NotNull String textWait, @NotNull String selector, @NotNull SelectorType selectorType, @NotNull int listValue) {
@@ -722,18 +737,9 @@ public abstract class BasePage {
     }
 
     public static void waitAndClick(@NotNull String selector, @NotNull SelectorType selectorType) {
-        FluentWait<WebDriver> wait = new FluentWait<>(getDriver())
-                .withTimeout(120, SECONDS)
-                .pollingEvery(2, SECONDS)
-                .ignoring(NoSuchElementException.class);
-
-        WebElement element = wait.until(new Function<WebDriver, WebElement>() {
-            public WebElement apply(WebDriver driver) {
-                WebElement submit = wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(by(selector, selectorType))));
-                submit.click();
-                return submit;
-            }
-        });
+        WebElement element = find(selector, selectorType);
+        until(120, SECONDS, ExpectedConditions.elementToBeClickable(element));
+        element.click();
     }
 
     public static void waitForTextToBePresent(@NotNull String selector) {
@@ -752,24 +758,23 @@ public abstract class BasePage {
         });
     }
 
+    public static void waitAndEnterText(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String textValue, long duration, @NotNull TimeUnit timeUnit) {
+        WebElement element = find(selector, selectorType);
+        until(duration, timeUnit, ExpectedConditions.elementToBeClickable(element));
+        element.sendKeys(textValue);
+    }
+
     public static void waitAndEnterText(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String textValue) {
-        final FluentWait<WebDriver> wait = (new FluentWait(getDriver())).withTimeout(120L, TimeUnit.SECONDS).pollingEvery(2L, TimeUnit.SECONDS).ignoring(NoSuchElementException.class);
-        WebElement element = (WebElement)wait.until(new Function<WebDriver, WebElement>() {
-            public WebElement apply(WebDriver driver) {
-                WebElement sendText = wait.until(ExpectedConditions.elementToBeClickable(by(selector,selectorType)));
-                sendText.sendKeys(textValue);
-                return sendText;
-            }
-        });
+        waitAndEnterText(selector, selectorType, textValue, 120, SECONDS);
     }
 
     public static void uploadFile(@NotNull String inputBoxSelector, @NotNull String file, String jScript, @NotNull SelectorType selectorType) {
-        if (jScript != null) {
+        if (!StringUtils.isEmpty(jScript)) {
             // making the file input element visible
             javaScriptExecutor(jScript);
         }
-        WebElement element = getDriver().findElement(by(inputBoxSelector, selectorType));
-        element.sendKeys(file);
+
+        enterField(inputBoxSelector, selectorType, file);
     }
 
     public static Object javaScriptExecutor(String jsScript) {
@@ -777,53 +782,119 @@ public abstract class BasePage {
     }
 
     public static void enterText(@NotNull String selector, @NotNull String textValue, @NotNull SelectorType selectorType) {
-        getDriver().findElement(by(selector,selectorType)).sendKeys(textValue);
+        enterField(selector, selectorType, textValue);
     }
 
+    /**
+     * @deprecated
+     * This method functionality is not related to interacting with a web page. A better place to define this method
+     * would be in vol-active-support in a Time or Date class. Doing this means that this class can have a
+     * single responsibility, which is providing methods for interacting with web pages in general.
+     */
     public static int getCurrentDayOfMonth() {
         return LocalDate.now().getDayOfMonth();
     }
 
+    /**
+     * @deprecated
+     * This method functionality is not related to interacting with a web page. A better place to define this method
+     * would be in vol-active-support in a Time or Date class. Doing this means that this class can have a
+     * single responsibility, which is providing methods for interacting with web pages in general.
+     */
     public static int getCurrentMonth() {
         return LocalDate.now().getMonthOfYear();
     }
 
+    /**
+     * @deprecated
+     * This method functionality is not related to interacting with a web page. A better place to define this method
+     * would be in vol-active-support in a Time or Date class. Doing this means that this class can have a
+     * single responsibility, which is providing methods for interacting with web pages in general.
+     */
     public static int getCurrentYear() {
         return LocalDate.now().getYear();
     }
 
+    /**
+     * @deprecated
+     * This method functionality is not related to interacting with a web page. A better place to define this method
+     * would be in vol-active-support in a Time or Date class. Doing this means that this class can have a
+     * single responsibility, which is providing methods for interacting with web pages in general.
+     */
     public static int getFutureDayOfMonth(@NotNull int days) {
         return LocalDate.now().plusDays(days).getDayOfMonth();
     }
 
+    /**
+     * @deprecated
+     * This method functionality is not related to interacting with a web page. A better place to define this method
+     * would be in vol-active-support in a Time or Date class. Doing this means that this class can have a
+     * single responsibility, which is providing methods for interacting with web pages in general.
+     */
     public static int getFutureMonth(@NotNull int months) {
         return LocalDate.now().plusMonths(months).getMonthOfYear();
     }
 
+    /**
+     * @deprecated
+     * This method functionality is not related to interacting with a web page. A better place to define this method
+     * would be in vol-active-support in a Time or Date class. Doing this means that this class can have a
+     * single responsibility, which is providing methods for interacting with web pages in general.
+     */
     public static int getFutureYear(@NotNull int years) {
         return LocalDate.now().plusYears(years).getYear();
     }
 
+    /**
+     * @deprecated
+     * This method functionality is not related to interacting with a web page. A better place to define this method
+     * would be in vol-active-support in a Time or Date class. Doing this means that this class can have a
+     * single responsibility, which is providing methods for interacting with web pages in general.
+     */
     public static int getPastDayOfMonth(@NotNull int days) {
         return LocalDate.now().minusDays(days).getDayOfMonth();
     }
 
+    /**
+     * @deprecated
+     * This method functionality is not related to interacting with a web page. A better place to define this method
+     * would be in vol-active-support in a Time or Date class. Doing this means that this class can have a
+     * single responsibility, which is providing methods for interacting with web pages in general.
+     */
     public static int getPastMonth(@NotNull int months) {
         return LocalDate.now().minusMonths(months).getMonthOfYear();
     }
 
+    /**
+     * @deprecated
+     * This method functionality is not related to interacting with a web page. A better place to define this method
+     * would be in vol-active-support in a Time or Date class. Doing this means that this class can have a
+     * single responsibility, which is providing methods for interacting with web pages in general.
+     */
     public static int getPastYear(@NotNull int years) {
         return LocalDate.now().minusYears(years).getYear();
     }
 
+    /**
+     * @deprecated
+     * This method should be defined within the specific page object where the functionality being defined here
+     * exists, as is this is just a multi scroll and click. Not all pages have the functionality being expressed
+     * here so this should be moved to pages where this applies.
+     */
     public static void selectServiceType(@NotNull String inputBoxSelector, @NotNull String listValueSelector, @NotNull SelectorType selectorType) {
-        WebElement element = getDriver().findElement(by(inputBoxSelector, selectorType));
-        new Actions(getDriver()).moveToElement(element).click().perform();
-        WebElement dropDownValueByIndex = getDriver().findElement(by(inputBoxSelector, selectorType));
-        new Actions(getDriver()).moveToElement(dropDownValueByIndex).click().perform();
+        scrollAndClick(inputBoxSelector, selectorType);
+        scrollAndClick(listValueSelector, selectorType);
     }
 
+    /**
+     * @deprecated
+     * This method should be defined in the specific page object with the table as not all pages have a table
+     * and therefore should not be in the base page. Doing so also allows for context to be added such as
+     * field selectors that correspond to the element/selectors used to count the number of rows, as is
+     * this method just returns the number of elements found.
+     */
     public static int returnTableRows(@NotNull String selector, @NotNull SelectorType selectorType){
-        return getDriver().findElements(by(selector,selectorType)).size();
+        return size(selector, selectorType);
     }
+
 }
