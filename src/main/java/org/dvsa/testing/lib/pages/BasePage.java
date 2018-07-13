@@ -828,8 +828,15 @@ public abstract class BasePage {
         new Actions(getDriver()).moveToElement(dropDownValueByIndex).click().perform();
     }
 
+    /**
+     * @deprecated
+     * This method should be defined in the specific page object with the table as not all pages have a table
+     * and therefore should not be in the base page. Doing so also allows for context to be added such as
+     * field selectors that correspond to the element/selectors used to count the number of rows, as is
+     * this method just returns the number of elements found.
+     */
     public static int returnTableRows(@NotNull String selector, @NotNull SelectorType selectorType){
-        return getDriver().findElements(by(selector,selectorType)).size();
+        return numberOfElements(selector, selectorType);
     }
 
     protected static int numberOfElements(@NotNull String selector, @NotNull SelectorType selectorType) {
