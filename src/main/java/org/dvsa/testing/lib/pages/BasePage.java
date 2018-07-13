@@ -782,7 +782,7 @@ public abstract class BasePage {
     }
 
     public static void enterText(@NotNull String selector, @NotNull String textValue, @NotNull SelectorType selectorType) {
-        getDriver().findElement(by(selector,selectorType)).sendKeys(textValue);
+        enterField(selector, selectorType, textValue);
     }
 
     public static int getCurrentDayOfMonth() {
