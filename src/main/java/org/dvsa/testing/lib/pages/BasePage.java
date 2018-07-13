@@ -821,11 +821,15 @@ public abstract class BasePage {
         return LocalDate.now().minusYears(years).getYear();
     }
 
+    /**
+     * @deprecated
+     * This method should be defined within the specific page object where the functionality being defined here
+     * exists, as is this is just a multi scroll and click. Not all pages have the functionality being expressed
+     * here so this should be moved to pages where this applies.
+     */
     public static void selectServiceType(@NotNull String inputBoxSelector, @NotNull String listValueSelector, @NotNull SelectorType selectorType) {
-        WebElement element = getDriver().findElement(by(inputBoxSelector, selectorType));
-        new Actions(getDriver()).moveToElement(element).click().perform();
-        WebElement dropDownValueByIndex = getDriver().findElement(by(inputBoxSelector, selectorType));
-        new Actions(getDriver()).moveToElement(dropDownValueByIndex).click().perform();
+        scrollAndClick(inputBoxSelector, selectorType);
+        scrollAndClick(listValueSelector, selectorType);
     }
 
     /**
