@@ -152,6 +152,14 @@ public abstract class BasePage {
         getDriver().findElement(By.partialLinkText(selector)).click();
     }
 
+    protected static void checkTextisPresent(@NotNull String selector){
+     getDriver().findElement(By.partialLinkText(selector)).isDisplayed();
+    }
+
+    protected static String colourChecker(@NotNull String selector, @NotNull String cssValue) {
+       return getDriver().findElement(By.cssSelector(selector)).getCssValue(cssValue);
+    }
+
     protected static void clickByName(@NotNull String selector) {
         getDriver().findElement(By.id(selector)).click();
     }
@@ -298,6 +306,12 @@ public abstract class BasePage {
                 break;
             case XPATH:
                 bySelector = By.xpath(selector);
+                break;
+            case NAME:
+                bySelector = By.name(selector);
+                break;
+            case ID:
+                bySelector = By.id(selector);
                 break;
             default:
                 throw new IllegalArgumentException("Only CSS and XPATH selector types are allowed");
@@ -734,6 +748,17 @@ public abstract class BasePage {
                 WebElement submit = wait.until(ExpectedConditions.visibilityOf(getDriver().findElement(By.xpath(
                         String.format("//*[contains(text(),'%s')]", selector)))));
                 return submit;
+            }
+        });
+    }
+
+    public static void waitAndEnterText(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String textValue) {
+        final FluentWait<WebDriver> wait = (new FluentWait(getDriver())).withTimeout(120L, TimeUnit.SECONDS).pollingEvery(2L, TimeUnit.SECONDS).ignoring(NoSuchElementException.class);
+        WebElement element = (WebElement)wait.until(new Function<WebDriver, WebElement>() {
+            public WebElement apply(WebDriver driver) {
+                WebElement sendText = wait.until(ExpectedConditions.elementToBeClickable(by(selector,selectorType)));
+                sendText.sendKeys(textValue);
+                return sendText;
             }
         });
     }
