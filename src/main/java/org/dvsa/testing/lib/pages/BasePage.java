@@ -105,14 +105,8 @@ public abstract class BasePage {
         return optionValues;
     }
 
-    /**
-     * Enters text in the specified text input/textarea field found using the specified selector.
-     *
-     * @param selector The text input field/textarea that's to have text entered in it.
-     * @param text The text to be entered.
-     */
     protected static void enterField(@NotNull String selector, @NotNull String text) {
-        enterField(selector, text, false);
+        enterField(selector, SelectorType.CSS, text);
     }
 
     /**
@@ -120,10 +114,21 @@ public abstract class BasePage {
      *
      * @param selector The text input field/textarea that's to have text entered in it.
      * @param text The text to be entered.
+     */
+    protected static void enterField(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String text) {
+        enterField(selector, selectorType, text, false);
+    }
+
+    /**
+     * Enters text in the specified text input/textarea field found using the specified selector.
+     *
+     * @param selector The text input field/textarea that's to have text entered in it.
+     * @param selectorType The type of selector being used to identify the element in the DOM.
+     * @param text The text to be entered.
      * @param append Specified weather the input field/textarea should be cleared before entering the text.
      */
-    protected static void enterField(@NotNull String selector, @NotNull String text, boolean append) {
-        WebElement element = find(selector);
+    protected static void enterField(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String text, boolean append) {
+        WebElement element = find(selector, selectorType);
 
         if (!append) {
             element.clear();
