@@ -694,10 +694,9 @@ public abstract class BasePage {
     }
 
     public static WebElement findElement(@NotNull String selector, @NotNull SelectorType selectorType, long timeOutInSeconds) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), timeOutInSeconds);
-        wait.until(ExpectedConditions.presenceOfElementLocated(by(selector, selectorType)));
+        until(selector, selectorType, timeOutInSeconds, TimeUnit.SECONDS, ExpectedConditions.presenceOfElementLocated(by(selector, selectorType)));
 
-        return getDriver().findElement(by(selector, selectorType));
+        return find(selector, selectorType);
     }
 
     public static boolean waitUntilElementIsEnabled(@NotNull String selector, @NotNull SelectorType selectorType) {
