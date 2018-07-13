@@ -791,6 +791,7 @@ public abstract class BasePage {
      * would be in vol-active-support in a Time or Date class. Doing this means that this class can have a
      * single responsibility, which is providing methods for interacting with web pages in general.
      */
+    @Deprecated
     public static int getCurrentDayOfMonth() {
         return LocalDate.now().getDayOfMonth();
     }
@@ -801,6 +802,7 @@ public abstract class BasePage {
      * would be in vol-active-support in a Time or Date class. Doing this means that this class can have a
      * single responsibility, which is providing methods for interacting with web pages in general.
      */
+    @Deprecated
     public static int getCurrentMonth() {
         return LocalDate.now().getMonthOfYear();
     }
@@ -811,6 +813,7 @@ public abstract class BasePage {
      * would be in vol-active-support in a Time or Date class. Doing this means that this class can have a
      * single responsibility, which is providing methods for interacting with web pages in general.
      */
+    @Deprecated
     public static int getCurrentYear() {
         return LocalDate.now().getYear();
     }
@@ -821,6 +824,7 @@ public abstract class BasePage {
      * would be in vol-active-support in a Time or Date class. Doing this means that this class can have a
      * single responsibility, which is providing methods for interacting with web pages in general.
      */
+    @Deprecated
     public static int getFutureDayOfMonth(@NotNull int days) {
         return LocalDate.now().plusDays(days).getDayOfMonth();
     }
@@ -831,6 +835,7 @@ public abstract class BasePage {
      * would be in vol-active-support in a Time or Date class. Doing this means that this class can have a
      * single responsibility, which is providing methods for interacting with web pages in general.
      */
+    @Deprecated
     public static int getFutureMonth(@NotNull int months) {
         return LocalDate.now().plusMonths(months).getMonthOfYear();
     }
@@ -841,6 +846,7 @@ public abstract class BasePage {
      * would be in vol-active-support in a Time or Date class. Doing this means that this class can have a
      * single responsibility, which is providing methods for interacting with web pages in general.
      */
+    @Deprecated
     public static int getFutureYear(@NotNull int years) {
         return LocalDate.now().plusYears(years).getYear();
     }
@@ -851,6 +857,7 @@ public abstract class BasePage {
      * would be in vol-active-support in a Time or Date class. Doing this means that this class can have a
      * single responsibility, which is providing methods for interacting with web pages in general.
      */
+    @Deprecated
     public static int getPastDayOfMonth(@NotNull int days) {
         return LocalDate.now().minusDays(days).getDayOfMonth();
     }
@@ -861,6 +868,7 @@ public abstract class BasePage {
      * would be in vol-active-support in a Time or Date class. Doing this means that this class can have a
      * single responsibility, which is providing methods for interacting with web pages in general.
      */
+    @Deprecated
     public static int getPastMonth(@NotNull int months) {
         return LocalDate.now().minusMonths(months).getMonthOfYear();
     }
@@ -871,6 +879,7 @@ public abstract class BasePage {
      * would be in vol-active-support in a Time or Date class. Doing this means that this class can have a
      * single responsibility, which is providing methods for interacting with web pages in general.
      */
+    @Deprecated
     public static int getPastYear(@NotNull int years) {
         return LocalDate.now().minusYears(years).getYear();
     }
@@ -881,6 +890,7 @@ public abstract class BasePage {
      * exists, as is this is just a multi scroll and click. Not all pages have the functionality being expressed
      * here so this should be moved to pages where this applies.
      */
+    @Deprecated
     public static void selectServiceType(@NotNull String inputBoxSelector, @NotNull String listValueSelector, @NotNull SelectorType selectorType) {
         scrollAndClick(inputBoxSelector, selectorType);
         scrollAndClick(listValueSelector, selectorType);
@@ -893,6 +903,7 @@ public abstract class BasePage {
      * field selectors that correspond to the element/selectors used to count the number of rows, as is
      * this method just returns the number of elements found.
      */
+    @Deprecated
     public static int returnTableRows(@NotNull String selector, @NotNull SelectorType selectorType){
         return size(selector, selectorType);
     }
