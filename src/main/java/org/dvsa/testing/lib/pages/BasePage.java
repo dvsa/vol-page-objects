@@ -767,7 +767,7 @@ public abstract class BasePage {
             // making the file input element visible
             javaScriptExecutor(jScript);
         }
-        WebElement element = getDriver().findElement(by(inputBoxSelector, selectorType));
+        WebElement element = find(inputBoxSelector, selectorType);
         element.sendKeys(file);
     }
 
