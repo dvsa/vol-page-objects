@@ -690,7 +690,7 @@ public abstract class BasePage {
     }
 
     public static String getElementValueByText(@NotNull String selector, @NotNull SelectorType selectorType) {
-        return getDriver().findElement(by(selector, selectorType)).getText();
+        return getText(selector, selectorType);
     }
 
     public static WebElement findElement(@NotNull String selector, @NotNull SelectorType selectorType, long timeOutInSeconds) {
