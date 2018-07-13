@@ -2,8 +2,10 @@ package org.dvsa.testing.lib.pages;
 
 import activesupport.system.out.Output;
 import activesupport.url.URL;
+import com.google.common.base.Function;
 import org.dvsa.testing.lib.browser.Browser;
 import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
+import org.dvsa.testing.lib.pages.conditions.ElementCondition;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
 import org.dvsa.testing.lib.pages.exception.ElementDidNotAppearWithinSpecifiedTimeException;
 import org.dvsa.testing.lib.pages.exception.ElementDidNotDisappearWithinSpecifiedTimeException;
@@ -20,8 +22,6 @@ import java.util.concurrent.TimeUnit;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.openqa.selenium.support.ui.ExpectedConditions.not;
-
-import com.google.common.base.Function;
 
 public abstract class BasePage {
 
@@ -699,8 +699,20 @@ public abstract class BasePage {
         return find(selector, selectorType);
     }
 
+    public static boolean waitUntilElementIsEnabled(@NotNull String selector, @NotNull SelectorType selectorType, long duration, TimeUnit timeUnit) {
+        until(
+                selector,
+                selectorType,
+                duration,
+                timeUnit,
+                ElementCondition.isEnabled(find(selector, selectorType))
+        );
+
+        return find(selector, selectorType).isEnabled();
+    }
+
     public static boolean waitUntilElementIsEnabled(@NotNull String selector, @NotNull SelectorType selectorType) {
-        return getDriver().findElement(by(selector, selectorType)).isEnabled();
+        return waitUntilElementIsEnabled(selector, selectorType, 10L, SECONDS );
     }
 
     public static void waitAndSelectByIndex(@NotNull String textWait, @NotNull String selector, @NotNull SelectorType selectorType, @NotNull int listValue) {
