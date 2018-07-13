@@ -840,10 +840,7 @@ public abstract class BasePage {
      * this method just returns the number of elements found.
      */
     public static int returnTableRows(@NotNull String selector, @NotNull SelectorType selectorType){
-        return numberOfElements(selector, selectorType);
+        return size(selector, selectorType);
     }
 
-    protected static int numberOfElements(@NotNull String selector, @NotNull SelectorType selectorType) {
-        return findAll(selector, selectorType).size();
-    }
 }
