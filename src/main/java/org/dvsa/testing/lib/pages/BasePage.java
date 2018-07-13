@@ -785,38 +785,92 @@ public abstract class BasePage {
         enterField(selector, selectorType, textValue);
     }
 
+    /**
+     * @deprecated
+     * This method functionality is not related to interacting with a web page. A better place to define this method
+     * would be in vol-active-support in a Time or Date class. Doing this means that this class can have a
+     * single responsibility, which is providing methods for interacting with web pages in general.
+     */
     public static int getCurrentDayOfMonth() {
         return LocalDate.now().getDayOfMonth();
     }
 
+    /**
+     * @deprecated
+     * This method functionality is not related to interacting with a web page. A better place to define this method
+     * would be in vol-active-support in a Time or Date class. Doing this means that this class can have a
+     * single responsibility, which is providing methods for interacting with web pages in general.
+     */
     public static int getCurrentMonth() {
         return LocalDate.now().getMonthOfYear();
     }
 
+    /**
+     * @deprecated
+     * This method functionality is not related to interacting with a web page. A better place to define this method
+     * would be in vol-active-support in a Time or Date class. Doing this means that this class can have a
+     * single responsibility, which is providing methods for interacting with web pages in general.
+     */
     public static int getCurrentYear() {
         return LocalDate.now().getYear();
     }
 
+    /**
+     * @deprecated
+     * This method functionality is not related to interacting with a web page. A better place to define this method
+     * would be in vol-active-support in a Time or Date class. Doing this means that this class can have a
+     * single responsibility, which is providing methods for interacting with web pages in general.
+     */
     public static int getFutureDayOfMonth(@NotNull int days) {
         return LocalDate.now().plusDays(days).getDayOfMonth();
     }
 
+    /**
+     * @deprecated
+     * This method functionality is not related to interacting with a web page. A better place to define this method
+     * would be in vol-active-support in a Time or Date class. Doing this means that this class can have a
+     * single responsibility, which is providing methods for interacting with web pages in general.
+     */
     public static int getFutureMonth(@NotNull int months) {
         return LocalDate.now().plusMonths(months).getMonthOfYear();
     }
 
+    /**
+     * @deprecated
+     * This method functionality is not related to interacting with a web page. A better place to define this method
+     * would be in vol-active-support in a Time or Date class. Doing this means that this class can have a
+     * single responsibility, which is providing methods for interacting with web pages in general.
+     */
     public static int getFutureYear(@NotNull int years) {
         return LocalDate.now().plusYears(years).getYear();
     }
 
+    /**
+     * @deprecated
+     * This method functionality is not related to interacting with a web page. A better place to define this method
+     * would be in vol-active-support in a Time or Date class. Doing this means that this class can have a
+     * single responsibility, which is providing methods for interacting with web pages in general.
+     */
     public static int getPastDayOfMonth(@NotNull int days) {
         return LocalDate.now().minusDays(days).getDayOfMonth();
     }
 
+    /**
+     * @deprecated
+     * This method functionality is not related to interacting with a web page. A better place to define this method
+     * would be in vol-active-support in a Time or Date class. Doing this means that this class can have a
+     * single responsibility, which is providing methods for interacting with web pages in general.
+     */
     public static int getPastMonth(@NotNull int months) {
         return LocalDate.now().minusMonths(months).getMonthOfYear();
     }
 
+    /**
+     * @deprecated
+     * This method functionality is not related to interacting with a web page. A better place to define this method
+     * would be in vol-active-support in a Time or Date class. Doing this means that this class can have a
+     * single responsibility, which is providing methods for interacting with web pages in general.
+     */
     public static int getPastYear(@NotNull int years) {
         return LocalDate.now().minusYears(years).getYear();
     }
