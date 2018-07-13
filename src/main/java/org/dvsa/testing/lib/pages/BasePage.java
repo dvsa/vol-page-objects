@@ -831,4 +831,8 @@ public abstract class BasePage {
     public static int returnTableRows(@NotNull String selector, @NotNull SelectorType selectorType){
         return getDriver().findElements(by(selector,selectorType)).size();
     }
+
+    protected static int numberOfElements(@NotNull String selector, @NotNull SelectorType selectorType) {
+        return findAll(selector, selectorType).size();
+    }
 }
