@@ -3,6 +3,7 @@ package org.dvsa.testing.lib.pages;
 import activesupport.system.out.Output;
 import activesupport.url.URL;
 import com.google.common.base.Function;
+import org.apache.commons.lang3.StringUtils;
 import org.dvsa.testing.lib.browser.Browser;
 import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
 import org.dvsa.testing.lib.pages.conditions.ElementCondition;
@@ -763,7 +764,7 @@ public abstract class BasePage {
     }
 
     public static void uploadFile(@NotNull String inputBoxSelector, @NotNull String file, String jScript, @NotNull SelectorType selectorType) {
-        if (jScript != null) {
+        if (!StringUtils.isEmpty(jScript)) {
             // making the file input element visible
             javaScriptExecutor(jScript);
         }
