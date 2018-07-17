@@ -24,23 +24,34 @@ public class ChangeYourPasswordPage extends BasePage{
 
     // Behaviour
     public static void setCurrentPasswordField(@NotNull String currentPasswordField) throws UninitialisedDriverException {
-        enterField(CURRENT_PASSWORD_FIELD, currentPasswordField);
+        scrollAndEnterField(CURRENT_PASSWORD_FIELD, currentPasswordField);
     }
 
     public static void setNewPasswordField(@NotNull String newPasswordField) throws UninitialisedDriverException {
-        enterField(NEW_PASSWORD_FIELD, newPasswordField);
+        scrollAndEnterField(NEW_PASSWORD_FIELD, newPasswordField);
     }
 
     public static void setConfirmPasswordField(@NotNull String confirmPasswordField) throws UninitialisedDriverException {
-        enterField(CONFIRM_PASSWORD_FIELD, confirmPasswordField);
+        scrollAndEnterField(CONFIRM_PASSWORD_FIELD, confirmPasswordField);
     }
 
     public static void submit() throws UninitialisedDriverException {
-        click(SUBMIT_BUTTON);
+        scrollAndClick(SUBMIT_BUTTON);
+    }
+
+    public static void update(@NotNull String currentPassword, @NotNull String newPassword) {
+        setCurrentPasswordField(currentPassword);
+        setNewPasswordField(newPassword);
+        setConfirmPasswordField(newPassword);
+        submit();
     }
 
     public static void untilOnPage() throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException {
         untilElementPresent(SUBMIT_BUTTON);
+    }
+
+    public static boolean onPage() {
+        return getURI().contains(RESOURCE_PATH);
     }
 
 }

@@ -44,6 +44,11 @@ public abstract class BasePage {
         return DOMAIN;
     }
 
+    protected static String getURI() {
+        initialiseURLSectionsOnFirstCall();
+        return URI;
+    }
+
     private static void initialiseURLSectionsOnFirstCall() {
         if(URI == null){
             updateURLSections();
