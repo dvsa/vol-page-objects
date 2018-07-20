@@ -1,6 +1,6 @@
 package org.dvsa.testing.lib.pages.internal;
 
-import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
+import activesupport.MissingDriverException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
 
@@ -23,7 +23,7 @@ public class SearchNavBar extends NavigationBar {
     private static String NO_RESULTS_SEARCH = "//*[contains(text(), 'There were no results for your search')]";
     private static String SEARCH_BUTTON = nameAttribute("input", "submit");
 
-    public static void search(String search) throws UninitialisedDriverException {
+    public static void search(String search) throws MissingDriverException {
         enterField(SEARCH, search);
         click(SEARCH_BUTTON);
     }
@@ -32,48 +32,48 @@ public class SearchNavBar extends NavigationBar {
         return Boolean.valueOf(NO_RESULTS_SEARCH);
     }
 
-    public static void licence() throws UninitialisedDriverException {
+    public static void licence() throws MissingDriverException {
         click(LICENCE);
     }
 
-    public static void applications() throws UninitialisedDriverException {
+    public static void applications() throws MissingDriverException {
         click(APPLICATIONS);
 
     }
 
-    public static void cases() throws UninitialisedDriverException {
+    public static void cases() throws MissingDriverException {
         click(CASE);
     }
 
-    public static void psvdisc() throws UninitialisedDriverException {
+    public static void psvdisc() throws MissingDriverException {
         click(PSVDISC);
     }
 
-    public static void vehicle() throws UninitialisedDriverException {
+    public static void vehicle() throws MissingDriverException {
         click(VEHICLE);
     }
 
-    public static void address() throws UninitialisedDriverException {
+    public static void address() throws MissingDriverException {
         click(ADDRESS);
     }
 
-    public static void busRegistrations() throws UninitialisedDriverException {
+    public static void busRegistrations() throws MissingDriverException {
         click(BUSREGISTRATIONS);
     }
 
-    public static void people() throws UninitialisedDriverException {
+    public static void people() throws MissingDriverException {
         click(PEOPLE);
     }
 
-    public static void users() throws UninitialisedDriverException {
+    public static void users() throws MissingDriverException {
         click(USERS);
     }
 
-    public static void publication() throws UninitialisedDriverException {
+    public static void publication() throws MissingDriverException {
         click(PUBLICATION);
     }
 
-    public static void irfo() throws UninitialisedDriverException {
+    public static void irfo() throws MissingDriverException {
         click(IRFO);
     }
 

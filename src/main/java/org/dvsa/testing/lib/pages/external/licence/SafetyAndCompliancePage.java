@@ -1,6 +1,6 @@
 package org.dvsa.testing.lib.pages.external.licence;
 
-import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
+import activesupport.MissingDriverException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
 import org.dvsa.testing.lib.pages.external.licence.enums.AnalysisMethod;
@@ -22,24 +22,24 @@ public class SafetyAndCompliancePage extends BasePage {
     private static String SAVE_AND_RETURN_TO_OVERVIEW = "button[name='form-actions[save]']";
 
     // Behaviour
-    public static void weeksBeforeSafetyInspectionOnVehicles(int numberOfWeeks) throws UninitialisedDriverException {
+    public static void weeksBeforeSafetyInspectionOnVehicles(int numberOfWeeks) throws MissingDriverException {
         enterField(WEEKS_BEFORE_SAFETY_INSPECTION_ON_VEHICLES, String.valueOf(numberOfWeeks));
     }
 
-    public static void weeksBeforeSafetyInspectionOnTrailers(int numberOfWeeks) throws UninitialisedDriverException {
+    public static void weeksBeforeSafetyInspectionOnTrailers(int numberOfWeeks) throws MissingDriverException {
         enterField(WEEKS_BEFORE_SAFETY_INSPECTION_ON_TRAILERS, String.valueOf(numberOfWeeks));
     }
 
-    public static void isInspectedMoreOften(boolean isInspectedMore) throws UninitialisedDriverException {
+    public static void isInspectedMoreOften(boolean isInspectedMore) throws MissingDriverException {
         int position = isInspectedMore ? 1 : 2;
         click(String.format(IS_INSPECTED_MORE_OFTEN_TEMPLATE, position));
     }
 
-    public static void tachographAnalysisMethod(@NotNull AnalysisMethod analysisMethod) throws UninitialisedDriverException {
+    public static void tachographAnalysisMethod(@NotNull AnalysisMethod analysisMethod) throws MissingDriverException {
         click(String.format(TACHOGRAPH_ANALYSIS_METHOD, analysisMethod.ordinal() + 1));
     }
 
-    public static void madeArrangementsForVehicles(boolean madeArrangements) throws UninitialisedDriverException {
+    public static void madeArrangementsForVehicles(boolean madeArrangements) throws MissingDriverException {
         if (madeArrangements && !isMadeArrangementsForVehiclesSelected()) {
             click(MADE_ARRANGEMENTS_FOR_VEHICLES, SelectorType.XPATH);
         } else if (madeArrangements == false && isMadeArrangementsForVehiclesSelected()) {
@@ -47,15 +47,15 @@ public class SafetyAndCompliancePage extends BasePage {
         }
     }
 
-    private static boolean isMadeArrangementsForVehiclesSelected() throws UninitialisedDriverException {
+    private static boolean isMadeArrangementsForVehiclesSelected() throws MissingDriverException {
         return isElementPresent(MADE_ARRANGEMENTS_FOR_VEHICLES_SELECTED_LABEL, SelectorType.XPATH);
     }
 
-    public static void saveAndContinue() throws UninitialisedDriverException {
+    public static void saveAndContinue() throws MissingDriverException {
         click(SAVE_AND_CONTINUE_BUTTON);
     }
 
-    public static void saveAndReturnToOverview() throws UninitialisedDriverException {
+    public static void saveAndReturnToOverview() throws MissingDriverException {
         click(SAVE_AND_RETURN_TO_OVERVIEW);
     }
 

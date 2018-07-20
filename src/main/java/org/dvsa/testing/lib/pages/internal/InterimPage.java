@@ -1,6 +1,6 @@
 package org.dvsa.testing.lib.pages.internal;
 
-import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
+import activesupport.MissingDriverException;
 import org.dvsa.testing.lib.pages.BasePage;
 
 public class InterimPage extends BasePage{
@@ -22,48 +22,48 @@ public class InterimPage extends BasePage{
     private static String GRANT = nameAttribute("button", "form-actions[grant]");
 
     //Behaviour
-    public static void addInterim() throws UninitialisedDriverException {
+    public static void addInterim() throws MissingDriverException {
         click(ADD_INTERIM_RADIO_YES);
     }
 
-    public static void  enterInterimDetail(String interimDetails) throws UninitialisedDriverException {
+    public static void  enterInterimDetail(String interimDetails) throws MissingDriverException {
           enterField(INTERIM_REASON_FIELD, interimDetails);
     }
 
-    public static void startDate(int day, int month, int year) throws UninitialisedDriverException {
+    public static void startDate(int day, int month, int year) throws MissingDriverException {
         enterField(START_DATE_DAY_FIELD, String.valueOf(day));
         enterField(START_DATE_MONTH_FIELD, String.valueOf(month));
         enterField(START_DATE_YEAR_FIELD, String.valueOf(year));
     }
 
-    public static void endDate(int day, int month, int year) throws UninitialisedDriverException {
+    public static void endDate(int day, int month, int year) throws MissingDriverException {
         enterField(END_DATE_DAY_FIELD, String.valueOf(day));
         enterField(END_DATE_MONTH_FIELD, String.valueOf(month));
         enterField(END_DATE_YEAR_FIELD, String.valueOf(year));
     }
 
-    public static void vehicleAuthority(int vehicles) throws UninitialisedDriverException {
+    public static void vehicleAuthority(int vehicles) throws MissingDriverException {
         enterField(VEHICLE_FIELD, String.valueOf(vehicles));
     }
 
-    public static void trailerAuthority(int trailer) throws UninitialisedDriverException {
+    public static void trailerAuthority(int trailer) throws MissingDriverException {
         enterField(TRAILERS_FIELD, String.valueOf(trailer));
     }
 
-    public static void operatingCentre() throws UninitialisedDriverException {
+    public static void operatingCentre() throws MissingDriverException {
         click(OPERATING_CENTRE_FIELD);
     }
 
 
-    public static void vehicleSelect() throws UninitialisedDriverException {
+    public static void vehicleSelect() throws MissingDriverException {
         click(VEHICLE_SELECT_FIELD);
     }
 
-    public static void save() throws UninitialisedDriverException {
+    public static void save() throws MissingDriverException {
         click(SAVE);
     }
 
-    public static void grant() throws UninitialisedDriverException {
+    public static void grant() throws MissingDriverException {
         click(GRANT);
     }
 }

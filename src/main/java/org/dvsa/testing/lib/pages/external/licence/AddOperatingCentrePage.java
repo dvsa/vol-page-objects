@@ -1,6 +1,6 @@
 package org.dvsa.testing.lib.pages.external.licence;
 
-import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
+import activesupport.MissingDriverException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
 import org.dvsa.testing.lib.pages.external.licence.enums.DeliveryMethod;
@@ -24,28 +24,28 @@ public class AddOperatingCentrePage extends BasePage {
     // Attributes
 
     // Behaviour
-    public static void findAddress(@NotNull String postCode) throws UninitialisedDriverException {
+    public static void findAddress(@NotNull String postCode) throws MissingDriverException {
         postCodeSearch(postCode);
         findAddress();
     }
 
-    public static void postCodeSearch(@NotNull String postCode) throws UninitialisedDriverException {
+    public static void postCodeSearch(@NotNull String postCode) throws MissingDriverException {
         enterField(POST_CODE_SEARCH, postCode);
     }
 
-    public static void findAddress() throws UninitialisedDriverException {
+    public static void findAddress() throws MissingDriverException {
         click(FIND_ADDRESS_BUTTON);
     }
 
-    public static void vehicles(int numberOfVehicles) throws UninitialisedDriverException {
+    public static void vehicles(int numberOfVehicles) throws MissingDriverException {
         enterField(TOTAL_NUMBER_OF_VEHICLES, String.valueOf(numberOfVehicles));
     }
 
-    public static void trailers(int numberOfTrailers) throws UninitialisedDriverException {
+    public static void trailers(int numberOfTrailers) throws MissingDriverException {
         enterField(TOTAL_NUMBER_OF_TRAILERS, String.valueOf(numberOfTrailers));
     }
 
-    public static void acknowledgement(boolean acknowledge) throws UninitialisedDriverException {
+    public static void acknowledgement(boolean acknowledge) throws MissingDriverException {
         if (acknowledge && !acknowledgementIsSelected()) {
             click(ACKNOWLEDGEMENT);
         } else if (acknowledgementIsSelected()) {
@@ -53,19 +53,19 @@ public class AddOperatingCentrePage extends BasePage {
         }
     }
 
-    private static boolean acknowledgementIsSelected() throws UninitialisedDriverException {
+    private static boolean acknowledgementIsSelected() throws MissingDriverException {
         return isElementPresent(SELECTED_ACKNOWLEDGEMENT_LABEL);
     }
 
-    public static void advertSubmission(@NotNull DeliveryMethod advert) throws UninitialisedDriverException {
+    public static void advertSubmission(@NotNull DeliveryMethod advert) throws MissingDriverException {
         click(String.format(ADVERT_CHOICE_TEMPLATE, advert.ordinal()), SelectorType.XPATH);
     }
 
-    public static void save() throws UninitialisedDriverException {
+    public static void save() throws MissingDriverException {
         click(SAVE_BUTTON);
     }
 
-    public static void cancel() throws UninitialisedDriverException {
+    public static void cancel() throws MissingDriverException {
         click(CANCEL_BUTTON);
     }
 }

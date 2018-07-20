@@ -1,7 +1,7 @@
 package org.dvsa.testing.lib.pages.internal.dataretention;
 
 import activesupport.system.out.Output;
-import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
+import activesupport.MissingDriverException;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
 import org.dvsa.testing.lib.pages.enums.dataretention.ActionType;
 import org.dvsa.testing.lib.pages.enums.dataretention.DataRetentionRule;
@@ -37,7 +37,7 @@ public class RuleAdminPage extends DataRetentionPage {
         // Attributes
         public static String MAIN_TITLE = "Edit Data retention rule";
 
-        public static void enable(boolean enable) throws UninitialisedDriverException {
+        public static void enable(boolean enable) throws MissingDriverException {
             if (enable) {
                 EditModel.enable();
             } else {
@@ -45,7 +45,7 @@ public class RuleAdminPage extends DataRetentionPage {
             }
         }
 
-        public static void actionType(@NotNull ActionType actionType) throws UninitialisedDriverException {
+        public static void actionType(@NotNull ActionType actionType) throws MissingDriverException {
             switch (actionType) {
                 case AUTOMATE:
                     if (isElementNotPresent(String.format(ACTION_TYPE_AUTOMATE_TEMPLATE, "[selected]"),SelectorType.CSS)); {
@@ -68,49 +68,49 @@ public class RuleAdminPage extends DataRetentionPage {
             }
         }
 
-        public static void disable() throws UninitialisedDriverException {
+        public static void disable() throws MissingDriverException {
             if (!isElementPresent(String.format(IS_ENABLED_NO_TEMPLATE, SELECTED))) {
                 click(String.format(IS_ENABLED_YES_TEMPLATE, ""));
             }
         }
 
-        public static void enable() throws UninitialisedDriverException {
+        public static void enable() throws MissingDriverException {
             if (!isElementPresent(String.format(IS_ENABLED_YES_TEMPLATE, SELECTED))) {
                 click(String.format(IS_ENABLED_YES_TEMPLATE, ""));
             }
         }
 
-        public static void save() throws UninitialisedDriverException {
+        public static void save() throws MissingDriverException {
             click(SAVE, SelectorType.XPATH);
         }
 
-        public static void cancel() throws UninitialisedDriverException {
+        public static void cancel() throws MissingDriverException {
             click(CANCEL, SelectorType.XPATH);
         }
 
-        public static String extractRuleID() throws UninitialisedDriverException {
+        public static String extractRuleID() throws MissingDriverException {
             return getAttribute(RULE_ID, "value");
         }
 
-        public static void untilOnModel() throws UninitialisedDriverException {
+        public static void untilOnModel() throws MissingDriverException {
             RuleAdminPage.untilExpectedTextInElement("h1", RuleAdminPage.EditModel.MAIN_TITLE, 5);
         }
 
     }
 
-    public static String getActionType(@NotNull DataRetentionRule dataRetentionRule) throws UninitialisedDriverException {
+    public static String getActionType(@NotNull DataRetentionRule dataRetentionRule) throws MissingDriverException {
         return getRelativeRuleCell(ACTION_TYPE_TEMPLATE_ROW, dataRetentionRule);
     }
 
-    public static String getIsEnabled(@NotNull DataRetentionRule dataRetentionRule) throws UninitialisedDriverException {
+    public static String getIsEnabled(@NotNull DataRetentionRule dataRetentionRule) throws MissingDriverException {
         return getRelativeRuleCell(IS_ENABLED_TEMPLATE_ROW, dataRetentionRule);
     }
 
-    public static String getRelativeRuleCell(@NotNull String selector, @NotNull DataRetentionRule dataRetentionRule) throws UninitialisedDriverException {
+    public static String getRelativeRuleCell(@NotNull String selector, @NotNull DataRetentionRule dataRetentionRule) throws MissingDriverException {
         return getText(String.format(selector, dataRetentionRule), SelectorType.XPATH);
     }
 
-    public static void untilOnPage() throws UninitialisedDriverException {
+    public static void untilOnPage() throws MissingDriverException {
         untilExpectedTextInElement(MAIN_TITLE_SELECTOR, MAIN_TITLE, 5);
     }
 

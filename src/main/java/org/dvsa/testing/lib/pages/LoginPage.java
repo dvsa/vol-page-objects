@@ -1,6 +1,6 @@
 package org.dvsa.testing.lib.pages;
 
-import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
+import activesupport.MissingDriverException;
 import org.jetbrains.annotations.NotNull;
 
 public class LoginPage extends BasePage {
@@ -18,24 +18,24 @@ public class LoginPage extends BasePage {
     }
 
     // Behaviour
-    public static void email(@NotNull String email) throws UninitialisedDriverException {
+    public static void email(@NotNull String email) throws MissingDriverException {
         enterField(EMAIL_FIELD_LOCATOR, email);
     }
 
-    public static void password(@NotNull String password) throws UninitialisedDriverException {
+    public static void password(@NotNull String password) throws MissingDriverException {
         enterField(PASSWORD_FIELD_LOCATOR, password);
     }
 
-    public static void submit() throws UninitialisedDriverException {
+    public static void submit() throws MissingDriverException {
         click(SUBMIT_BUTTON);
     }
 
-    public static void untilNotOnPage() throws UninitialisedDriverException {
+    public static void untilNotOnPage() throws MissingDriverException {
         int seconds = 30;
         untilNotOnPage(seconds);
     }
 
-    public static void untilNotOnPage(int seconds) throws UninitialisedDriverException {
+    public static void untilNotOnPage(int seconds) throws MissingDriverException {
         untilNotInDOM(SUBMIT_BUTTON, seconds);
     }
 

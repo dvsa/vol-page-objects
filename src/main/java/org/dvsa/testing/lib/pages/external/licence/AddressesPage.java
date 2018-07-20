@@ -1,6 +1,6 @@
 package org.dvsa.testing.lib.pages.external.licence;
 
-import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
+import activesupport.MissingDriverException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
 import org.dvsa.testing.lib.pages.external.licence.enums.Phone;
@@ -27,43 +27,43 @@ public class AddressesPage extends BasePage {
     private static String PAGE_TITLE_TEXT = "Addresses";
     private static String RESOURCE_PATH = "application/\\d{7}/addresses/";
     // Behaviour
-    public static void attentionOf(@NotNull String name) throws UninitialisedDriverException {
+    public static void attentionOf(@NotNull String name) throws MissingDriverException {
         enterField(ATTENTION_OF_FIELD, name);
     }
 
-    public static void findAddressForCorrespondence(@NotNull String postCode) throws UninitialisedDriverException {
+    public static void findAddressForCorrespondence(@NotNull String postCode) throws MissingDriverException {
         enterField(CORRESPONDENCE_POST_CODE_SEARCH, postCode);
         click(CORRESPONDENCE_FIND_ADDRESS_BUTTON, SelectorType.XPATH);
     }
 
-    public static void contactNumber(@NotNull String number, @NotNull Phone phone) throws UninitialisedDriverException {
+    public static void contactNumber(@NotNull String number, @NotNull Phone phone) throws MissingDriverException {
         String selector = phone.equals(Phone.PRIMARY) ? PRIMARY_CONTACT_NUMBER_FIELD : SECONDARY_CONTACT_NUMBER_FIELD;
         enterField(selector, number);
     }
 
-    public static void contactNumber(@NotNull String primaryNumber) throws UninitialisedDriverException {
+    public static void contactNumber(@NotNull String primaryNumber) throws MissingDriverException {
         contactNumber(primaryNumber, Phone.PRIMARY);
     }
 
-    public static void contactNumber(@NotNull String primaryNumber, @NotNull String secondaryNumber) throws UninitialisedDriverException {
+    public static void contactNumber(@NotNull String primaryNumber, @NotNull String secondaryNumber) throws MissingDriverException {
         contactNumber(primaryNumber, Phone.PRIMARY);
         contactNumber(secondaryNumber, Phone.SECONDARY);
     }
 
-    public static void emailAddress(@NotNull String emailAddress) throws UninitialisedDriverException {
+    public static void emailAddress(@NotNull String emailAddress) throws MissingDriverException {
         enterField(EMAIL_ADDRESS_FIELD, emailAddress);
     }
 
-    public static void findAddressForEstablishment(@NotNull String postCode) throws UninitialisedDriverException {
+    public static void findAddressForEstablishment(@NotNull String postCode) throws MissingDriverException {
         enterField(ESTABLISHMENT_POST_CODE_SEARCH, postCode);
         click(ESTABLISHMENT_FIND_ADDRESS_BUTTON, SelectorType.XPATH);
     }
 
-    public static void saveAndContinueButton() throws UninitialisedDriverException {
+    public static void saveAndContinueButton() throws MissingDriverException {
         click(SAVE_AND_CONTINUE_BUTTON, SelectorType.XPATH);
     }
 
-    public static void saveAndReturnToOverview() throws UninitialisedDriverException {
+    public static void saveAndReturnToOverview() throws MissingDriverException {
         click(SAVE_AND_RETURN_TO_OVERVIEW, SelectorType.XPATH);
     }
 

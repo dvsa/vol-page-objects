@@ -1,6 +1,6 @@
 package org.dvsa.testing.lib.pages.external;
 
-import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
+import activesupport.MissingDriverException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.exception.ElementDidNotAppearWithinSpecifiedTimeException;
 import org.dvsa.testing.lib.pages.exception.IncorrectPageTitleException;
@@ -23,23 +23,23 @@ public class ChangeYourPasswordPage extends BasePage{
     }
 
     // Behaviour
-    public static void setCurrentPasswordField(@NotNull String currentPasswordField) throws UninitialisedDriverException {
+    public static void setCurrentPasswordField(@NotNull String currentPasswordField) throws MissingDriverException {
         enterField(CURRENT_PASSWORD_FIELD, currentPasswordField);
     }
 
-    public static void setNewPasswordField(@NotNull String newPasswordField) throws UninitialisedDriverException {
+    public static void setNewPasswordField(@NotNull String newPasswordField) throws MissingDriverException {
         enterField(NEW_PASSWORD_FIELD, newPasswordField);
     }
 
-    public static void setConfirmPasswordField(@NotNull String confirmPasswordField) throws UninitialisedDriverException {
+    public static void setConfirmPasswordField(@NotNull String confirmPasswordField) throws MissingDriverException {
         enterField(CONFIRM_PASSWORD_FIELD, confirmPasswordField);
     }
 
-    public static void submit() throws UninitialisedDriverException {
+    public static void submit() throws MissingDriverException {
         click(SUBMIT_BUTTON);
     }
 
-    public static void untilOnPage() throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException {
+    public static void untilOnPage() throws MissingDriverException, ElementDidNotAppearWithinSpecifiedTimeException {
         untilElementPresent(SUBMIT_BUTTON);
     }
 

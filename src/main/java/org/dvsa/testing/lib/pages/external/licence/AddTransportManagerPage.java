@@ -1,6 +1,6 @@
 package org.dvsa.testing.lib.pages.external.licence;
 
-import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
+import activesupport.MissingDriverException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
 import org.jetbrains.annotations.NotNull;
@@ -15,17 +15,17 @@ public class AddTransportManagerPage extends BasePage {
     /**
      * Selects from a list of already registered users, which includes the operator registered during account creation.
      * @param fullName The full name of a registered user already in the system.
-     * @throws UninitialisedDriverException
+     * @throws MissingDriverException
      */
-    public static void registeredUser(@NotNull String fullName) throws UninitialisedDriverException {
+    public static void registeredUser(@NotNull String fullName) throws MissingDriverException {
         list(REGISTERED_USER, fullName);
     }
 
-    public static void continueButton() throws UninitialisedDriverException {
+    public static void continueButton() throws MissingDriverException {
         click(CONTINUE_BUTTON, SelectorType.XPATH);
     }
 
-    public static void cancelButton() throws UninitialisedDriverException {
+    public static void cancelButton() throws MissingDriverException {
         click(CANCEL_BUTTON, SelectorType.XPATH);
     }
 }

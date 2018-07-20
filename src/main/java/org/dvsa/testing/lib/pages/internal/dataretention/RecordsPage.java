@@ -2,7 +2,7 @@ package org.dvsa.testing.lib.pages.internal.dataretention;
 
 import activesupport.string.Str;
 import activesupport.system.out.Output;
-import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
+import activesupport.MissingDriverException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.dataretention.DataRetentionAction;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
@@ -63,9 +63,9 @@ public class RecordsPage extends BasePage {
      * @param numRecordsToSelect This is the number of records to be selected.
      * @throws InsufficientExistingDataException Is thrown in the event that the number of selects specified
      * for selection is greater than the amount of records present.
-     * @throws UninitialisedDriverException Is thrown if the driver has not been initialised or has been closed.
+     * @throws MissingDriverException Is thrown if the driver has not been initialised or has been closed.
      */
-    public static void select(@NotNull DataRetentionAction dataRetentionAction, int numRecordsToSelect) throws InsufficientExistingDataException, UninitialisedDriverException {
+    public static void select(@NotNull DataRetentionAction dataRetentionAction, int numRecordsToSelect) throws InsufficientExistingDataException, MissingDriverException {
         if (isEmpty()) {
             throw new InsufficientExistingDataException();
         }
@@ -99,12 +99,12 @@ public class RecordsPage extends BasePage {
         } while (recordsLeftToSelect > 0);
     }
 
-    private static int getNumberOfRecords() throws UninitialisedDriverException {
+    private static int getNumberOfRecords() throws MissingDriverException {
         String numberOfRecordsText = getText(NUMBER_OF_RECORDS_TEXT, SelectorType.CSS);
         return Integer.valueOf(Str.find("\\d+", numberOfRecordsText));
     }
 
-    public static void selectAll(@NotNull DataRetentionAction dataRetentionAction) throws UninitialisedDriverException, InsufficientExistingDataException {
+    public static void selectAll(@NotNull DataRetentionAction dataRetentionAction) throws MissingDriverException, InsufficientExistingDataException {
         if (isEmpty()) {
             throw new InsufficientExistingDataException();
         }
@@ -118,7 +118,7 @@ public class RecordsPage extends BasePage {
         } while (isElementPresent(NEXT_BUTTON, SelectorType.XPATH));
     }
 
-    public static void mark(@NotNull DataRetentionAction dataRetentionAction) throws UninitialisedDriverException {
+    public static void mark(@NotNull DataRetentionAction dataRetentionAction) throws MissingDriverException {
         switch (dataRetentionAction) {
             case MARK_AS_DELETE:
                 click(MARK_FOR_DELETE_BUTTON);
@@ -131,19 +131,19 @@ public class RecordsPage extends BasePage {
         }
     }
 
-    public static void tickAll() throws UninitialisedDriverException {
+    public static void tickAll() throws MissingDriverException {
         click(TICK_ALL);
     }
 
-    public static boolean isEmpty() throws UninitialisedDriverException {
+    public static boolean isEmpty() throws MissingDriverException {
         return isElementPresent(EMPTY_TABLE, SelectorType.XPATH);
     }
 
-    public static boolean isNotEmpty() throws UninitialisedDriverException {
+    public static boolean isNotEmpty() throws MissingDriverException {
         return !isEmpty();
     }
 
-    public static List<DREntity> extractRecordIdentifiers() throws UninitialisedDriverException {
+    public static List<DREntity> extractRecordIdentifiers() throws MissingDriverException {
         List<DREntity> DREntities = new ArrayList<>();
         int numRecords = size(RECORD_ROWS);
 
@@ -153,7 +153,7 @@ public class RecordsPage extends BasePage {
         return DREntities;
     }
 
-    public static DREntity extractRecordIdentifier(int index) throws UninitialisedDriverException {
+    public static DREntity extractRecordIdentifier(int index) throws MissingDriverException {
         String entityText = getText(String.format(ENTITY_TEMPLATE, index), SelectorType.XPATH);
 
         Pattern p = Pattern.compile("(?<entityName>\\w+) (?<entityPK>\\w+)");
@@ -164,7 +164,7 @@ public class RecordsPage extends BasePage {
         return new DREntity(m.group("entityName"), m.group("entityPK"));
     }
 
-    public static void untilOnPage() throws UninitialisedDriverException {
+    public static void untilOnPage() throws MissingDriverException {
         untilExpectedTextInElement(TABLE_HEADER_SELECTOR, TABLE_HEADER, 5);
     }
 

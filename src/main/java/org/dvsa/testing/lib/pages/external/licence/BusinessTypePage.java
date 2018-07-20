@@ -1,6 +1,6 @@
 package org.dvsa.testing.lib.pages.external.licence;
 
-import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
+import activesupport.MissingDriverException;
 import org.dvsa.testing.lib.pages.enums.BusinessType;
 import org.jetbrains.annotations.NotNull;
 
@@ -14,7 +14,7 @@ public class BusinessTypePage extends LicenceBasePage {
     private static String RESOURCE_PATH = "application/\\d{7}/business-type/";
 
     // Behaviour
-    public static void businessType(@NotNull BusinessType businessType) throws UninitialisedDriverException {
+    public static void businessType(@NotNull BusinessType businessType) throws MissingDriverException {
         click(String.format(BUSINESS_TYPE_TEMPLATE, businessType.ordinal()));
     }
 

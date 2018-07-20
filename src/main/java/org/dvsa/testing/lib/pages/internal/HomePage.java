@@ -1,6 +1,6 @@
 package org.dvsa.testing.lib.pages.internal;
 
-import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
+import activesupport.MissingDriverException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.exception.IncorrectPageTitleException;
 

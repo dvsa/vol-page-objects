@@ -1,6 +1,6 @@
 package org.dvsa.testing.lib.pages.external.licence;
 
-import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
+import activesupport.MissingDriverException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.Util;
 
@@ -24,46 +24,46 @@ public class LicenceHistoryPage extends BasePage {
     private static String SAVE_AND_CONTINUE_BUTTON = "button[name='form-actions[saveAndContinue]']";
     private static String SAVE_AND_RETURN_TO_OVERVIEW_BUTTON = "button[name='form-actions[save]']";
 
-    public static void trafficAreasQ1(boolean answer) throws UninitialisedDriverException {
+    public static void trafficAreasQ1(boolean answer) throws MissingDriverException {
         int position = Util.radioPosition(answer);
         click(String.format(QUESTION_1, position));
     }
 
-    public static void trafficAreasQ2(boolean answer) throws UninitialisedDriverException {
+    public static void trafficAreasQ2(boolean answer) throws MissingDriverException {
         int position = Util.radioPosition(answer);
         click(String.format(QUESTION_2, position));
     }
 
-    public static void trafficAreasQ3(boolean answer) throws UninitialisedDriverException {
+    public static void trafficAreasQ3(boolean answer) throws MissingDriverException {
         int position = Util.radioPosition(answer);
         click(String.format(QUESTION_3, position));
     }
 
-    public static void EUQ1(boolean answer) throws UninitialisedDriverException {
+    public static void EUQ1(boolean answer) throws MissingDriverException {
         int position = Util.radioPosition(answer);
         click(String.format(QUESTION_4, position));
     }
 
-    public static void EUQ2(boolean answer) throws UninitialisedDriverException {
+    public static void EUQ2(boolean answer) throws MissingDriverException {
         int position = Util.radioPosition(answer);
         click(String.format(QUESTION_5, position));
     }
 
-    public static void publicInquiriesQ1(boolean answer) throws UninitialisedDriverException {
+    public static void publicInquiriesQ1(boolean answer) throws MissingDriverException {
         int position = Util.radioPosition(answer);
         click(String.format(QUESTION_6, position));
     }
 
-    public static void assetsAndSharesQ1(boolean answer) throws UninitialisedDriverException {
+    public static void assetsAndSharesQ1(boolean answer) throws MissingDriverException {
         int position = Util.radioPosition(answer);
         click(String.format(QUESTION_7, position));
     }
 
-    public static void saveAndContinue() throws UninitialisedDriverException {
+    public static void saveAndContinue() throws MissingDriverException {
         click(SAVE_AND_CONTINUE_BUTTON);
     }
 
-    public static void saveAndReturnToOverview() throws UninitialisedDriverException {
+    public static void saveAndReturnToOverview() throws MissingDriverException {
         click(SAVE_AND_RETURN_TO_OVERVIEW_BUTTON);
     }
 

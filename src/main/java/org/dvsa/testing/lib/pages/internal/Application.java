@@ -1,9 +1,9 @@
 package org.dvsa.testing.lib.pages.internal;
 
-import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
+import activesupport.MissingDriverException;
 import org.dvsa.testing.lib.pages.BasePage;
 import activesupport.string.Str;
-import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
+import activesupport.MissingDriverException;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
 
 public class Application extends BasePage {
@@ -12,7 +12,7 @@ public class Application extends BasePage {
 
     public static String SAVE_BUTTON = nameAttribute("input","\"form-actions[save]\"");
 
-        public static void interimLink() throws UninitialisedDriverException {
+        public static void interimLink() throws MissingDriverException {
             click(INTERIM_LINK, SelectorType.XPATH);
         }
 

@@ -1,6 +1,6 @@
 package org.dvsa.testing.lib.pages.external.licence;
 
-import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
+import activesupport.MissingDriverException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.exception.ElementDidNotAppearWithinSpecifiedTimeException;
 import org.dvsa.testing.lib.pages.external.licence.enums.InspectorType;
@@ -18,22 +18,22 @@ public class AddSafetyInspectorPage extends BasePage {
     private static String ADDRESS_SELECTOR = "select[name='address[searchPostcode][addresses]']";
 
     // Behaviour
-    public static void inspectorType(@NotNull InspectorType inspectorType) throws UninitialisedDriverException {
+    public static void inspectorType(@NotNull InspectorType inspectorType) throws MissingDriverException {
         click(String.format(INSPECTOR_TYPE_TEMPLATE, inspectorType.ordinal() + 1));
     }
 
-    public static void nameOfInspector(@NotNull String nameOfInspector) throws UninitialisedDriverException {
+    public static void nameOfInspector(@NotNull String nameOfInspector) throws MissingDriverException {
         enterField(NAME_OF_INSPECTOR, nameOfInspector);
     }
 
-    public static List<String> postcodeSearch(@NotNull String postcode) throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException {
+    public static List<String> postcodeSearch(@NotNull String postcode) throws MissingDriverException, ElementDidNotAppearWithinSpecifiedTimeException {
         enterField(POSTCODE_SEARCH_FIELD, postcode);
         AddSafetyInspectorPage.findAddress();
         untilElementPresentWithin(ADDRESS_SELECTOR, 5000);
         return getListValues(ADDRESS_SELECTOR);
     }
 
-    public static void findAddress() throws UninitialisedDriverException {
+    public static void findAddress() throws MissingDriverException {
         click(FIND_ADDRESS_BUTTON);
     }
 
