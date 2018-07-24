@@ -1,6 +1,6 @@
 package org.dvsa.testing.lib.pages.external.licence;
 
-import activesupport.MissingDriverException;
+import activesupport.IllegalBrowserException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
 import org.dvsa.testing.lib.pages.external.licence.enums.DeliveryMethod;
@@ -14,15 +14,15 @@ public class FinancialEvidencePage extends BasePage {
     private static String SAVE_AND_RETURN_TO_OVERVIEW_BUTTON = "//*/button[contains(text(), 'Save and return to overview')]";
 
     // Behaviour
-    public static void submitEvidence(@NotNull DeliveryMethod deliveryMethod) throws MissingDriverException {
+    public static void submitEvidence(@NotNull DeliveryMethod deliveryMethod) throws IllegalBrowserException {
         click(String.format(DELIVERY_METHOD_TEMPLATE, deliveryMethod.ordinal() + 1), SelectorType.XPATH);
     }
 
-    public static void saveAndContinue() throws MissingDriverException {
+    public static void saveAndContinue() throws IllegalBrowserException {
         click(SAVE_AND_CONTINUE_BUTTON, SelectorType.XPATH);
     }
 
-    public static void saveAndReturnToOverview() throws MissingDriverException {
+    public static void saveAndReturnToOverview() throws IllegalBrowserException {
         click(SAVE_AND_RETURN_TO_OVERVIEW_BUTTON, SelectorType.XPATH);
     }
 }

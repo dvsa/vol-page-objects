@@ -1,6 +1,6 @@
 package org.dvsa.testing.lib.pages.external.licence;
 
-import activesupport.MissingDriverException;
+import activesupport.IllegalBrowserException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
 import org.jetbrains.annotations.NotNull;
@@ -15,17 +15,17 @@ public class AddTransportManagerPage extends BasePage {
     /**
      * Selects from a list of already registered users, which includes the operator registered during account creation.
      * @param fullName The full name of a registered user already in the system.
-     * @throws MissingDriverException
+     * @throws IllegalBrowserException
      */
-    public static void registeredUser(@NotNull String fullName) throws MissingDriverException {
+    public static void registeredUser(@NotNull String fullName) throws IllegalBrowserException {
         list(REGISTERED_USER, fullName);
     }
 
-    public static void continueButton() throws MissingDriverException {
+    public static void continueButton() throws IllegalBrowserException {
         click(CONTINUE_BUTTON, SelectorType.XPATH);
     }
 
-    public static void cancelButton() throws MissingDriverException {
+    public static void cancelButton() throws IllegalBrowserException {
         click(CANCEL_BUTTON, SelectorType.XPATH);
     }
 }

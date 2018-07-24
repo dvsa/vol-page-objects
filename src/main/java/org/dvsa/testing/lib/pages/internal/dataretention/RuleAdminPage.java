@@ -1,7 +1,7 @@
 package org.dvsa.testing.lib.pages.internal.dataretention;
 
 import activesupport.system.out.Output;
-import activesupport.MissingDriverException;
+import activesupport.IllegalBrowserException;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
 import org.dvsa.testing.lib.pages.enums.dataretention.ActionType;
 import org.dvsa.testing.lib.pages.enums.dataretention.DataRetentionRule;
@@ -37,7 +37,7 @@ public class RuleAdminPage extends DataRetentionPage {
         // Attributes
         public static String MAIN_TITLE = "Edit Data retention rule";
 
-        public static void enable(boolean enable) throws MissingDriverException {
+        public static void enable(boolean enable) throws IllegalBrowserException {
             if (enable) {
                 EditModel.enable();
             } else {
@@ -45,7 +45,7 @@ public class RuleAdminPage extends DataRetentionPage {
             }
         }
 
-        public static void actionType(@NotNull ActionType actionType) throws MissingDriverException {
+        public static void actionType(@NotNull ActionType actionType) throws IllegalBrowserException {
             switch (actionType) {
                 case AUTOMATE:
                     if (isElementNotPresent(String.format(ACTION_TYPE_AUTOMATE_TEMPLATE, "[selected]"),SelectorType.CSS)); {
@@ -68,49 +68,49 @@ public class RuleAdminPage extends DataRetentionPage {
             }
         }
 
-        public static void disable() throws MissingDriverException {
+        public static void disable() throws IllegalBrowserException {
             if (!isElementPresent(String.format(IS_ENABLED_NO_TEMPLATE, SELECTED))) {
                 click(String.format(IS_ENABLED_YES_TEMPLATE, ""));
             }
         }
 
-        public static void enable() throws MissingDriverException {
+        public static void enable() throws IllegalBrowserException {
             if (!isElementPresent(String.format(IS_ENABLED_YES_TEMPLATE, SELECTED))) {
                 click(String.format(IS_ENABLED_YES_TEMPLATE, ""));
             }
         }
 
-        public static void save() throws MissingDriverException {
+        public static void save() throws IllegalBrowserException {
             click(SAVE, SelectorType.XPATH);
         }
 
-        public static void cancel() throws MissingDriverException {
+        public static void cancel() throws IllegalBrowserException {
             click(CANCEL, SelectorType.XPATH);
         }
 
-        public static String extractRuleID() throws MissingDriverException {
+        public static String extractRuleID() throws IllegalBrowserException {
             return getAttribute(RULE_ID, "value");
         }
 
-        public static void untilOnModel() throws MissingDriverException {
+        public static void untilOnModel() throws IllegalBrowserException {
             RuleAdminPage.untilExpectedTextInElement("h1", RuleAdminPage.EditModel.MAIN_TITLE, 5);
         }
 
     }
 
-    public static String getActionType(@NotNull DataRetentionRule dataRetentionRule) throws MissingDriverException {
+    public static String getActionType(@NotNull DataRetentionRule dataRetentionRule) throws IllegalBrowserException {
         return getRelativeRuleCell(ACTION_TYPE_TEMPLATE_ROW, dataRetentionRule);
     }
 
-    public static String getIsEnabled(@NotNull DataRetentionRule dataRetentionRule) throws MissingDriverException {
+    public static String getIsEnabled(@NotNull DataRetentionRule dataRetentionRule) throws IllegalBrowserException {
         return getRelativeRuleCell(IS_ENABLED_TEMPLATE_ROW, dataRetentionRule);
     }
 
-    public static String getRelativeRuleCell(@NotNull String selector, @NotNull DataRetentionRule dataRetentionRule) throws MissingDriverException {
+    public static String getRelativeRuleCell(@NotNull String selector, @NotNull DataRetentionRule dataRetentionRule) throws IllegalBrowserException {
         return getText(String.format(selector, dataRetentionRule), SelectorType.XPATH);
     }
 
-    public static void untilOnPage() throws MissingDriverException {
+    public static void untilOnPage() throws IllegalBrowserException {
         untilExpectedTextInElement(MAIN_TITLE_SELECTOR, MAIN_TITLE, 5);
     }
 

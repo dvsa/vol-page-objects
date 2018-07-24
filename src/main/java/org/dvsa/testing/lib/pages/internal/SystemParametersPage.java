@@ -1,6 +1,6 @@
 package org.dvsa.testing.lib.pages.internal;
 
-import activesupport.MissingDriverException;
+import activesupport.IllegalBrowserException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
 import org.dvsa.testing.lib.pages.enums.dataretention.SystemParameter;
@@ -26,26 +26,26 @@ public class SystemParametersPage extends BasePage {
         // Attributes
         private static String PAGE_TITLE_TEXT = "Edit system parameter";
 
-        public static void parameterValue(@NotNull String systemParameter) throws MissingDriverException, ElementDidNotAppearWithinSpecifiedTimeException {
+        public static void parameterValue(@NotNull String systemParameter) throws IllegalBrowserException, ElementDidNotAppearWithinSpecifiedTimeException {
             untilElementPresentWithin(PARAMETER_VALUE, 3);
             enterField(PARAMETER_VALUE, systemParameter);
             save();
             untilNotExpectedTextInElement("h1", PAGE_TITLE_TEXT, 3);
         }
 
-        public static void save() throws MissingDriverException {
+        public static void save() throws IllegalBrowserException {
             click(SAVE_BUTTON);
         }
     }
 
     // Behaviour
-    public static void set(@NotNull SystemParameter systemParameter, @NotNull String value) throws MissingDriverException, ElementDidNotAppearWithinSpecifiedTimeException, UnableToFindSystemParameter, ElementDidNotDisappearWithinSpecifiedTimeException {
+    public static void set(@NotNull SystemParameter systemParameter, @NotNull String value) throws IllegalBrowserException, ElementDidNotAppearWithinSpecifiedTimeException, UnableToFindSystemParameter, ElementDidNotDisappearWithinSpecifiedTimeException {
         paginateToSystemParameter(systemParameter);
         click(String.format(ROW_KEY_TEMPLATE, systemParameter.getName()), SelectorType.XPATH);
         EditModel.parameterValue(value);
     }
 
-    private static void paginateToSystemParameter(@NotNull SystemParameter systemParameter) throws MissingDriverException, UnableToFindSystemParameter {
+    private static void paginateToSystemParameter(@NotNull SystemParameter systemParameter) throws IllegalBrowserException, UnableToFindSystemParameter {
         String keyToPress = String.format(ROW_KEY_TEMPLATE, systemParameter.getName());
 
         while (!isElementPresent(keyToPress, SelectorType.XPATH) && isElementPresent(NEXT_BUTTON, SelectorType.XPATH)) {

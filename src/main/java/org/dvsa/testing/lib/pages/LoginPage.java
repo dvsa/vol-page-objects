@@ -1,6 +1,6 @@
 package org.dvsa.testing.lib.pages;
 
-import activesupport.MissingDriverException;
+import activesupport.IllegalBrowserException;
 import org.jetbrains.annotations.NotNull;
 
 public class LoginPage extends BasePage {
@@ -18,24 +18,24 @@ public class LoginPage extends BasePage {
     }
 
     // Behaviour
-    public static void email(@NotNull String email) throws MissingDriverException {
+    public static void email(@NotNull String email) throws IllegalBrowserException {
         enterField(EMAIL_FIELD_LOCATOR, email);
     }
 
-    public static void password(@NotNull String password) throws MissingDriverException {
+    public static void password(@NotNull String password) throws IllegalBrowserException {
         enterField(PASSWORD_FIELD_LOCATOR, password);
     }
 
-    public static void submit() throws MissingDriverException {
+    public static void submit() throws IllegalBrowserException {
         click(SUBMIT_BUTTON);
     }
 
-    public static void untilNotOnPage() throws MissingDriverException {
+    public static void untilNotOnPage() throws IllegalBrowserException {
         int seconds = 30;
         untilNotOnPage(seconds);
     }
 
-    public static void untilNotOnPage(int seconds) throws MissingDriverException {
+    public static void untilNotOnPage(int seconds) throws IllegalBrowserException {
         untilNotInDOM(SUBMIT_BUTTON, seconds);
     }
 

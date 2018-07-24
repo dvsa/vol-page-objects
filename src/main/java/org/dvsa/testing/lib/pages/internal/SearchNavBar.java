@@ -1,6 +1,6 @@
 package org.dvsa.testing.lib.pages.internal;
 
-import activesupport.MissingDriverException;
+import activesupport.IllegalBrowserException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
 
@@ -23,7 +23,7 @@ public class SearchNavBar extends NavigationBar {
     private static String NO_RESULTS_SEARCH = "//*[contains(text(), 'There were no results for your search')]";
     private static String SEARCH_BUTTON = nameAttribute("input", "submit");
 
-    public static void search(String search) throws MissingDriverException {
+    public static void search(String search) throws IllegalBrowserException {
         enterField(SEARCH, search);
         click(SEARCH_BUTTON);
     }
@@ -32,48 +32,48 @@ public class SearchNavBar extends NavigationBar {
         return Boolean.valueOf(NO_RESULTS_SEARCH);
     }
 
-    public static void licence() throws MissingDriverException {
+    public static void licence() throws IllegalBrowserException {
         click(LICENCE);
     }
 
-    public static void applications() throws MissingDriverException {
+    public static void applications() throws IllegalBrowserException {
         click(APPLICATIONS);
 
     }
 
-    public static void cases() throws MissingDriverException {
+    public static void cases() throws IllegalBrowserException {
         click(CASE);
     }
 
-    public static void psvdisc() throws MissingDriverException {
+    public static void psvdisc() throws IllegalBrowserException {
         click(PSVDISC);
     }
 
-    public static void vehicle() throws MissingDriverException {
+    public static void vehicle() throws IllegalBrowserException {
         click(VEHICLE);
     }
 
-    public static void address() throws MissingDriverException {
+    public static void address() throws IllegalBrowserException {
         click(ADDRESS);
     }
 
-    public static void busRegistrations() throws MissingDriverException {
+    public static void busRegistrations() throws IllegalBrowserException {
         click(BUSREGISTRATIONS);
     }
 
-    public static void people() throws MissingDriverException {
+    public static void people() throws IllegalBrowserException {
         click(PEOPLE);
     }
 
-    public static void users() throws MissingDriverException {
+    public static void users() throws IllegalBrowserException {
         click(USERS);
     }
 
-    public static void publication() throws MissingDriverException {
+    public static void publication() throws IllegalBrowserException {
         click(PUBLICATION);
     }
 
-    public static void irfo() throws MissingDriverException {
+    public static void irfo() throws IllegalBrowserException {
         click(IRFO);
     }
 

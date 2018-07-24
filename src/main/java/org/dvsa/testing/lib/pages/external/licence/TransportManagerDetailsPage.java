@@ -1,6 +1,6 @@
 package org.dvsa.testing.lib.pages.external.licence;
 
-import activesupport.MissingDriverException;
+import activesupport.IllegalBrowserException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.exception.ElementDidNotAppearWithinSpecifiedTimeException;
 import org.dvsa.testing.lib.pages.external.licence.enums.Calendar;
@@ -37,70 +37,70 @@ public class TransportManagerDetailsPage extends BasePage {
     private static String SAVE_AND_RETURN_TO_TRANSPORT_MANAGERS = "button[name='form-actions[save]']";
 
     // Behaviour
-    public static void dateOfBirth(@NotNull Calendar field, @NotNull String date) throws MissingDriverException {
+    public static void dateOfBirth(@NotNull Calendar field, @NotNull String date) throws IllegalBrowserException {
         enterField(String.format(DATE_OF_BIRTH_TEMPLATE, field.ordinal() + 1), date);
     }
 
-    public static void emailAddress(@NotNull String emailAddress) throws MissingDriverException {
+    public static void emailAddress(@NotNull String emailAddress) throws IllegalBrowserException {
         enterField(EMAIL_ADDRESS, emailAddress);
     }
 
-    public static void placeOfBirth(@NotNull String place) throws MissingDriverException {
+    public static void placeOfBirth(@NotNull String place) throws IllegalBrowserException {
         enterField(PLACE_OF_BIRTH, place);
     }
 
-    public static List<String> homeAddressSearch(@NotNull String postCode) throws MissingDriverException, ElementDidNotAppearWithinSpecifiedTimeException {
+    public static List<String> homeAddressSearch(@NotNull String postCode) throws IllegalBrowserException, ElementDidNotAppearWithinSpecifiedTimeException {
         enterField(HOME_ADDRESS_SEARCH, postCode);
         TransportManagerDetailsPage.findHomeAddressButton();
         untilElementPresentWithin(FOUND_HOME_ADDRESSES_LIST, 5000);
         return getListValues(FOUND_HOME_ADDRESSES_LIST);
     }
 
-    private static void findHomeAddressButton() throws MissingDriverException {
+    private static void findHomeAddressButton() throws IllegalBrowserException {
         click(FIND_HOME_ADDRESS_BUTTON);
     }
 
-    public static void homeAddress(@NotNull String optionValue) throws MissingDriverException {
+    public static void homeAddress(@NotNull String optionValue) throws IllegalBrowserException {
         list(FOUND_HOME_ADDRESSES_LIST, optionValue);
     }
 
-    public static List<String> workAddressSearch(@NotNull String postCode) throws MissingDriverException, ElementDidNotAppearWithinSpecifiedTimeException {
+    public static List<String> workAddressSearch(@NotNull String postCode) throws IllegalBrowserException, ElementDidNotAppearWithinSpecifiedTimeException {
         enterField(WORK_ADDRESS_SEARCH, postCode);
         TransportManagerDetailsPage.findWorkAddressButton();
         untilElementPresentWithin(FOUND_WORK_ADDRESSES_LIST, 5000);
         return getListValues(FOUND_WORK_ADDRESSES_LIST);
     }
 
-    private static void findWorkAddressButton() throws MissingDriverException {
+    private static void findWorkAddressButton() throws IllegalBrowserException {
         click(FIND_WORK_ADDRESS_BUTTON);
     }
 
-    public static void workAddress(@NotNull String optionValue) throws MissingDriverException {
+    public static void workAddress(@NotNull String optionValue) throws IllegalBrowserException {
         list(FOUND_WORK_ADDRESSES_LIST, optionValue);
     }
 
-    public static void typeOfManager(@NotNull TypeOfManager typeOfManager) throws MissingDriverException {
+    public static void typeOfManager(@NotNull TypeOfManager typeOfManager) throws IllegalBrowserException {
         click(String.format(TYPE_OF_MANAGER, typeOfManager.ordinal() + 1));
     }
 
-    public static void isOwnerOrDirector(boolean isOwnerOrDirector) throws MissingDriverException {
+    public static void isOwnerOrDirector(boolean isOwnerOrDirector) throws IllegalBrowserException {
         int elementPosition = isOwnerOrDirector ? 1 : 2;
         click(String.format(OWNER_OR_DIRECTOR, elementPosition));
     }
 
-    public static void transportManagerTimeAllocation(@NotNull DayOfWeek dayOfWeek, float hours) throws MissingDriverException {
+    public static void transportManagerTimeAllocation(@NotNull DayOfWeek dayOfWeek, float hours) throws IllegalBrowserException {
         enterField(String.format(TRANSPORT_MANAGER_TIME_ALLOCATION, dayOfWeek.getValue()), String.valueOf(hours));
     }
 
-    public static void reason(@NotNull String reason) throws MissingDriverException {
+    public static void reason(@NotNull String reason) throws IllegalBrowserException {
         enterField(REASON, reason);
     }
 
-    public static void saveAndContinue() throws MissingDriverException {
+    public static void saveAndContinue() throws IllegalBrowserException {
         click(SAVE_AND_CONTINUE);
     }
 
-    public static void saveAndReturnToTransportManagers() throws MissingDriverException {
+    public static void saveAndReturnToTransportManagers() throws IllegalBrowserException {
         click(SAVE_AND_RETURN_TO_TRANSPORT_MANAGERS);
     }
 }

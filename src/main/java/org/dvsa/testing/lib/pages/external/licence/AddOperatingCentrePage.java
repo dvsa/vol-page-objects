@@ -1,6 +1,6 @@
 package org.dvsa.testing.lib.pages.external.licence;
 
-import activesupport.MissingDriverException;
+import activesupport.IllegalBrowserException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
 import org.dvsa.testing.lib.pages.external.licence.enums.DeliveryMethod;
@@ -24,28 +24,28 @@ public class AddOperatingCentrePage extends BasePage {
     // Attributes
 
     // Behaviour
-    public static void findAddress(@NotNull String postCode) throws MissingDriverException {
+    public static void findAddress(@NotNull String postCode) throws IllegalBrowserException {
         postCodeSearch(postCode);
         findAddress();
     }
 
-    public static void postCodeSearch(@NotNull String postCode) throws MissingDriverException {
+    public static void postCodeSearch(@NotNull String postCode) throws IllegalBrowserException {
         enterField(POST_CODE_SEARCH, postCode);
     }
 
-    public static void findAddress() throws MissingDriverException {
+    public static void findAddress() throws IllegalBrowserException {
         click(FIND_ADDRESS_BUTTON);
     }
 
-    public static void vehicles(int numberOfVehicles) throws MissingDriverException {
+    public static void vehicles(int numberOfVehicles) throws IllegalBrowserException {
         enterField(TOTAL_NUMBER_OF_VEHICLES, String.valueOf(numberOfVehicles));
     }
 
-    public static void trailers(int numberOfTrailers) throws MissingDriverException {
+    public static void trailers(int numberOfTrailers) throws IllegalBrowserException {
         enterField(TOTAL_NUMBER_OF_TRAILERS, String.valueOf(numberOfTrailers));
     }
 
-    public static void acknowledgement(boolean acknowledge) throws MissingDriverException {
+    public static void acknowledgement(boolean acknowledge) throws IllegalBrowserException {
         if (acknowledge && !acknowledgementIsSelected()) {
             click(ACKNOWLEDGEMENT);
         } else if (acknowledgementIsSelected()) {
@@ -53,19 +53,19 @@ public class AddOperatingCentrePage extends BasePage {
         }
     }
 
-    private static boolean acknowledgementIsSelected() throws MissingDriverException {
+    private static boolean acknowledgementIsSelected() throws IllegalBrowserException {
         return isElementPresent(SELECTED_ACKNOWLEDGEMENT_LABEL);
     }
 
-    public static void advertSubmission(@NotNull DeliveryMethod advert) throws MissingDriverException {
+    public static void advertSubmission(@NotNull DeliveryMethod advert) throws IllegalBrowserException {
         click(String.format(ADVERT_CHOICE_TEMPLATE, advert.ordinal()), SelectorType.XPATH);
     }
 
-    public static void save() throws MissingDriverException {
+    public static void save() throws IllegalBrowserException {
         click(SAVE_BUTTON);
     }
 
-    public static void cancel() throws MissingDriverException {
+    public static void cancel() throws IllegalBrowserException {
         click(CANCEL_BUTTON);
     }
 }

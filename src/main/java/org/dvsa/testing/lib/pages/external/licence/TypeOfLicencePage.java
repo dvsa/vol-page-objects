@@ -1,6 +1,6 @@
 package org.dvsa.testing.lib.pages.external.licence;
 
-import activesupport.MissingDriverException;
+import activesupport.IllegalBrowserException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.Region;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
@@ -25,7 +25,7 @@ public class TypeOfLicencePage extends BasePage {
     private static String RESOURCE_PATH = "application/create/";
 
     // Behaviour
-    public static void region(@NotNull Region region) throws MissingDriverException {
+    public static void region(@NotNull Region region) throws IllegalBrowserException {
         int position;
 
         switch (region) {
@@ -42,7 +42,7 @@ public class TypeOfLicencePage extends BasePage {
         click(String.format(REGION_BUTTON_TEMPLATE, position), SelectorType.XPATH);
     }
 
-    public static void typeOfVehicle(@NotNull TypeOfVehicle typeOfVehicle) throws MissingDriverException {
+    public static void typeOfVehicle(@NotNull TypeOfVehicle typeOfVehicle) throws IllegalBrowserException {
         int position;
 
         switch (typeOfVehicle) {
@@ -59,7 +59,7 @@ public class TypeOfLicencePage extends BasePage {
         click(String.format(VEHICLE_TYPE_TEMPLATE, position), SelectorType.XPATH);
     }
 
-    public static void typeOfLicence(@NotNull TypeOfLicence typeOfLicence) throws MissingDriverException {
+    public static void typeOfLicence(@NotNull TypeOfLicence typeOfLicence) throws IllegalBrowserException {
         int position;
 
         switch (typeOfLicence) {
@@ -79,11 +79,11 @@ public class TypeOfLicencePage extends BasePage {
         click(String.format(TYPE_OF_LICENCE_TEMPLATE, position), SelectorType.XPATH);
     }
 
-    public static void saveAndContinue() throws MissingDriverException {
+    public static void saveAndContinue() throws IllegalBrowserException {
         click(SAVE_AND_CONTINUE_BUTTON, SelectorType.XPATH);
     }
 
-    public static void cancel() throws MissingDriverException {
+    public static void cancel() throws IllegalBrowserException {
         click(CANCEL_BUTTON, SelectorType.XPATH);
     }
 

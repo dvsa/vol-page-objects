@@ -2,7 +2,7 @@ package org.dvsa.testing.lib.pages.internal.dataretention;
 
 import activesupport.string.Str;
 import activesupport.system.out.Output;
-import activesupport.MissingDriverException;
+import activesupport.IllegalBrowserException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.dataretention.DataRetentionAction;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
@@ -63,9 +63,9 @@ public class RecordsPage extends BasePage {
      * @param numRecordsToSelect This is the number of records to be selected.
      * @throws InsufficientExistingDataException Is thrown in the event that the number of selects specified
      * for selection is greater than the amount of records present.
-     * @throws MissingDriverException Is thrown if the driver has not been initialised or has been closed.
+     * @throws IllegalBrowserException Is thrown if the driver has not been initialised or has been closed.
      */
-    public static void select(@NotNull DataRetentionAction dataRetentionAction, int numRecordsToSelect) throws InsufficientExistingDataException, MissingDriverException {
+    public static void select(@NotNull DataRetentionAction dataRetentionAction, int numRecordsToSelect) throws InsufficientExistingDataException, IllegalBrowserException {
         if (isEmpty()) {
             throw new InsufficientExistingDataException();
         }
@@ -99,12 +99,12 @@ public class RecordsPage extends BasePage {
         } while (recordsLeftToSelect > 0);
     }
 
-    private static int getNumberOfRecords() throws MissingDriverException {
+    private static int getNumberOfRecords() throws IllegalBrowserException {
         String numberOfRecordsText = getText(NUMBER_OF_RECORDS_TEXT, SelectorType.CSS);
         return Integer.valueOf(Str.find("\\d+", numberOfRecordsText));
     }
 
-    public static void selectAll(@NotNull DataRetentionAction dataRetentionAction) throws MissingDriverException, InsufficientExistingDataException {
+    public static void selectAll(@NotNull DataRetentionAction dataRetentionAction) throws IllegalBrowserException, InsufficientExistingDataException {
         if (isEmpty()) {
             throw new InsufficientExistingDataException();
         }
@@ -118,7 +118,7 @@ public class RecordsPage extends BasePage {
         } while (isElementPresent(NEXT_BUTTON, SelectorType.XPATH));
     }
 
-    public static void mark(@NotNull DataRetentionAction dataRetentionAction) throws MissingDriverException {
+    public static void mark(@NotNull DataRetentionAction dataRetentionAction) throws IllegalBrowserException {
         switch (dataRetentionAction) {
             case MARK_AS_DELETE:
                 click(MARK_FOR_DELETE_BUTTON);
@@ -131,19 +131,19 @@ public class RecordsPage extends BasePage {
         }
     }
 
-    public static void tickAll() throws MissingDriverException {
+    public static void tickAll() throws IllegalBrowserException {
         click(TICK_ALL);
     }
 
-    public static boolean isEmpty() throws MissingDriverException {
+    public static boolean isEmpty() throws IllegalBrowserException {
         return isElementPresent(EMPTY_TABLE, SelectorType.XPATH);
     }
 
-    public static boolean isNotEmpty() throws MissingDriverException {
+    public static boolean isNotEmpty() throws IllegalBrowserException {
         return !isEmpty();
     }
 
-    public static List<DREntity> extractRecordIdentifiers() throws MissingDriverException {
+    public static List<DREntity> extractRecordIdentifiers() throws IllegalBrowserException {
         List<DREntity> DREntities = new ArrayList<>();
         int numRecords = size(RECORD_ROWS);
 
@@ -153,7 +153,7 @@ public class RecordsPage extends BasePage {
         return DREntities;
     }
 
-    public static DREntity extractRecordIdentifier(int index) throws MissingDriverException {
+    public static DREntity extractRecordIdentifier(int index) throws IllegalBrowserException {
         String entityText = getText(String.format(ENTITY_TEMPLATE, index), SelectorType.XPATH);
 
         Pattern p = Pattern.compile("(?<entityName>\\w+) (?<entityPK>\\w+)");
@@ -164,7 +164,7 @@ public class RecordsPage extends BasePage {
         return new DREntity(m.group("entityName"), m.group("entityPK"));
     }
 
-    public static void untilOnPage() throws MissingDriverException {
+    public static void untilOnPage() throws IllegalBrowserException {
         untilExpectedTextInElement(TABLE_HEADER_SELECTOR, TABLE_HEADER, 5);
     }
 

@@ -1,6 +1,6 @@
 package org.dvsa.testing.lib.pages.external.licence;
 
-import activesupport.MissingDriverException;
+import activesupport.IllegalBrowserException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
 
@@ -16,15 +16,15 @@ public class DirectorsPage extends BasePage {
     private static String RESOURCE_PATH = "application/\\d{7}/people/";
 
     // Behaviour
-    public static void addDirectorButton() throws MissingDriverException {
+    public static void addDirectorButton() throws IllegalBrowserException {
         click(ADD_DIRECTOR_BUTTON);
     }
 
-    public static void saveAndContinueButton() throws MissingDriverException {
+    public static void saveAndContinueButton() throws IllegalBrowserException {
         click(SAVE_AND_CONTINUE_BUTTON, SelectorType.XPATH);
     }
 
-    public static void saveAndReturnToOverview() throws MissingDriverException {
+    public static void saveAndReturnToOverview() throws IllegalBrowserException {
         click(SAVE_AND_RETURN_TO_OVERVIEW, SelectorType.XPATH);
     }
 }
