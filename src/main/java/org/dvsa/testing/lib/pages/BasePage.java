@@ -520,6 +520,14 @@ public abstract class BasePage {
         wait.until(expectedCondition);
     }
 
+    public static void untilElementIsPresent(@NotNull String selector, SelectorType selectorType, long duration, TimeUnit timeUnit){
+        until(duration, timeUnit, ExpectedConditions.presenceOfElementLocated(by(selector, selectorType)));
+    }
+
+    public static void untilElementIsPresent(@NotNull String selector, long duration, TimeUnit timeUnit){
+        untilElementIsPresent(selector, SelectorType.CSS, duration, timeUnit);
+    }
+
     @Deprecated
     protected static boolean isNotInDOM(@NotNull String selector, int seconds) {
         return isNotInDOM(selector, SelectorType.CSS, seconds);
