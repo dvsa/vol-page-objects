@@ -42,12 +42,12 @@ public class HomePage extends BasePage {
         untilElementPresent(APPLY_FOR_LICENCE_BUTTON, SelectorType.XPATH);
     }
 
-    public static void tabIsDisplayed(Tab tab){
+    public static void tabIsPresent(Tab tab){
         String selector = String.format(TAB_TEMPLATE, tab.toString());
         untilElementIsPresent(selector, 30, TimeUnit.SECONDS);
     }
 
-    public static void tabIsNotDisplayed(Tab tab){
+    public static void tabIsNotPresent(Tab tab){
         String selector = String.format(TAB_TEMPLATE, tab.toString());
         elementIsNotPresent(selector);
     }
