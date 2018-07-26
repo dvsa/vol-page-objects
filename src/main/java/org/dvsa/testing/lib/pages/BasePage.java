@@ -10,6 +10,7 @@ import org.dvsa.testing.lib.pages.conditions.ElementCondition;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
 import org.dvsa.testing.lib.pages.exception.ElementDidNotAppearWithinSpecifiedTimeException;
 import org.dvsa.testing.lib.pages.exception.ElementDidNotDisappearWithinSpecifiedTimeException;
+import org.dvsa.testing.lib.pages.exception.FoundElementException;
 import org.dvsa.testing.lib.pages.exception.IncorrectPageTitleException;
 import org.jetbrains.annotations.NotNull;
 import org.joda.time.LocalDate;
@@ -518,6 +519,23 @@ public abstract class BasePage {
                 .ignoring(NoSuchElementException.class);
 
         wait.until(expectedCondition);
+    }
+
+    public static void untilElementIsPresent(@NotNull String selector, SelectorType selectorType, long duration, TimeUnit timeUnit){
+        until(duration, timeUnit, ExpectedConditions.presenceOfElementLocated(by(selector, selectorType)));
+    }
+
+    public static void untilElementIsPresent(@NotNull String selector, long duration, TimeUnit timeUnit){
+        untilElementIsPresent(selector, SelectorType.CSS, duration, timeUnit);
+    }
+
+    public static void elementIsNotPresent(@NotNull String selector, SelectorType selectorType){
+        if (isElementPresent(selector, selectorType))
+            throw new FoundElementException("Element should not be present");
+    }
+
+    public static void elementIsNotPresent(@NotNull String selector){
+        elementIsNotPresent(selector, SelectorType.CSS);
     }
 
     @Deprecated

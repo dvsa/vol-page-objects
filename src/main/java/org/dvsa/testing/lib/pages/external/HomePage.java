@@ -6,6 +6,8 @@ import org.dvsa.testing.lib.pages.enums.SelectorType;
 import org.dvsa.testing.lib.pages.enums.external.home.Tab;
 import org.dvsa.testing.lib.pages.exception.ElementDidNotAppearWithinSpecifiedTimeException;
 
+import java.util.concurrent.TimeUnit;
+
 public class HomePage extends BasePage {
     // Selectors
     private static String APPLY_FOR_LICENCE_BUTTON = "//*/a[contains(text(), 'Apply for a permit')]";
@@ -35,8 +37,19 @@ public class HomePage extends BasePage {
         scrollAndClick(APPLY_FOR_LICENCE_BUTTON, SelectorType.XPATH);
     }
 
+    // Validations
     public static void untilOnPage() throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException {
         untilElementPresent(APPLY_FOR_LICENCE_BUTTON, SelectorType.XPATH);
+    }
+
+    public static void tabIsPresent(Tab tab){
+        String selector = String.format(TAB_TEMPLATE, tab.toString());
+        untilElementIsPresent(selector, 30, TimeUnit.SECONDS);
+    }
+
+    public static void tabIsNotPresent(Tab tab){
+        String selector = String.format(TAB_TEMPLATE, tab.toString());
+        elementIsNotPresent(selector);
     }
 
 }
