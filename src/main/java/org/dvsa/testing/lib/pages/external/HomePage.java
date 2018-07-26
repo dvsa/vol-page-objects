@@ -47,4 +47,9 @@ public class HomePage extends BasePage {
         untilElementIsPresent(selector, 30, TimeUnit.SECONDS);
     }
 
+    public static void tabIsNotDisplayed(Tab tab){
+        String selector = String.format(TAB_TEMPLATE, tab.toString());
+        elementIsNotPresent(selector);
+    }
+
 }
