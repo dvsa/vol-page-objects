@@ -44,12 +44,12 @@ public class HomePage extends BasePage {
 
     public static void tabIsPresent(Tab tab){
         String selector = String.format(TAB_TEMPLATE, tab.toString());
-        untilElementIsPresent(selector, 30, TimeUnit.SECONDS);
+        untilElementIsPresent(selector, SelectorType.XPATH, 30, TimeUnit.SECONDS);
     }
 
     public static void tabIsNotPresent(Tab tab){
         String selector = String.format(TAB_TEMPLATE, tab.toString());
-        elementIsNotPresent(selector);
+        elementIsNotPresent(selector, SelectorType.XPATH);
     }
 
 }
