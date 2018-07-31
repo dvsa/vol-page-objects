@@ -3,8 +3,10 @@ package org.dvsa.testing.lib.pages.external;
 import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
+import org.dvsa.testing.lib.pages.enums.external.home.PermitMessage;
 import org.dvsa.testing.lib.pages.enums.external.home.Tab;
 import org.dvsa.testing.lib.pages.exception.ElementDidNotAppearWithinSpecifiedTimeException;
+import org.dvsa.testing.lib.pages.exception.FoundElementException;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,13 +17,20 @@ public class HomePage extends BasePage {
 
     private static String TAB_TEMPLATE = "//*/ul[@class='tab-list']//a[contains(text(), '%s')]";
 
-    private static class PermitsTab {
+    public static class PermitsTab {
         // Attributes
         private String RESOURCE_PATH = "permits/";
 
         public void apply() {
             click(APPLY);
         }
+
+        public static void isPermitMessagePresent(PermitMessage permitMessage){
+            if (!BasePage.isElementPresent(String.format("//*[]contains(text(),'%s')", permitMessage.toString()))){
+                throw new FoundElementException("Permit message '" + permitMessage.toString() + "' should be present");
+            }
+        }
+
     }
 
     // Attributes
