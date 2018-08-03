@@ -18,10 +18,8 @@ import org.openqa.selenium.support.ui.*;
 
 import java.util.LinkedList;
 import java.util.List;
-//import java.util.PrimitiveIterator;
-//import java.util.concurrent.TimeUnit;
-//
-//import static java.util.concurrent.TimeUnit.SECONDS;
+import java.util.concurrent.TimeUnit;
+
 import static org.openqa.selenium.support.ui.ExpectedConditions.not;
 
 import com.google.common.base.Function;
@@ -132,24 +130,23 @@ protected static String getMainTitleSelector() {
         element.sendKeys(text);
     }
 
-    protected static void clickByLinkText(@NotNull String selector) throws IllegalBrowserException {
-        browser.navigate().findElement(By.partialLinkText(selector)).click();
+    protected static void clickByLinkText(@NotNull String selector) throws IllegalBrowserException { getDriver().findElement(By.partialLinkText(selector)).click();
     }
 
     protected static void checkTextisPresent(@NotNull String selector) throws IllegalBrowserException {
-        browser.navigate().findElement(By.partialLinkText(selector)).isDisplayed();
+       getDriver().findElement(By.partialLinkText(selector)).isDisplayed();
     }
 
     protected static String colourChecker(@NotNull String selector, @NotNull String cssValue) throws IllegalBrowserException {
-        return browser.navigate().findElement(By.cssSelector(selector)).getCssValue(cssValue);
+        return getDriver().findElement(By.cssSelector(selector)).getCssValue(cssValue);
     }
 
     protected static void clickByName(@NotNull String selector) throws IllegalBrowserException {
-        browser.navigate().findElement(By.id(selector)).click();
+        getDriver().findElement(By.id(selector)).click();
     }
 
     protected static void selectValueFromDropDown(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String listValue) throws IllegalBrowserException {
-        Select selectItem = new Select(browser.navigate().findElement(by(selector, selectorType)));
+        Select selectItem = new Select(getDriver().findElement(by(selector, selectorType)));
         selectItem.selectByVisibleText(listValue);
     }
 
@@ -622,28 +619,30 @@ protected static String getMainTitleSelector() {
         return getDriver().findElement(by(selector, selectorType)).isEnabled();
     }
 
-//    public static void waitAndSelectByIndex(@NotNull String textWait, @NotNull String selector, @NotNull SelectorType selectorType, @NotNull int listValue) throws IllegalBrowserException {
-//        FluentWait<WebDriver> wait = new FluentWait<>(getDriver())
-//                .withTimeout(java.time.Duration.ofSeconds(120))
-//                .pollingEvery(java.time.Duration.ofSeconds(2))
-//                .ignoring(NoSuchElementException.class);
-//
-//        WebElement element = wait.until(new Function<WebDriver, WebElement>()  {
-//            public WebElement apply(WebDriver driver) {
-//                WebElement foundIt = wait.until(ExpectedConditions.visibilityOf(
-////                        getDriver().findElements((By.xpath(
-//                        String.format("//*[contains(text(),'%s')]", textWait))))));
-//                Select selectItem = new Select(driver.findElement(By.xpath(selector)));
-//                selectItem.selectByIndex(listValue);
-//                return foundIt;
-//            }
-//        });
-//    }
+    public static void waitAndSelectByIndex(@NotNull String textWait, @NotNull String selector, @NotNull SelectorType selectorType, @NotNull int listValue) throws IllegalBrowserException {
+        FluentWait<WebDriver> wait = new FluentWait<>(getDriver())
+                .withTimeout(120, TimeUnit.SECONDS)
+                .pollingEvery(2, TimeUnit.SECONDS)
+                .ignoring(NoSuchElementException.class);
+
+        WebElement element = wait.until(new Function<WebDriver, WebElement>()  {
+            public WebElement apply(WebDriver driver) {
+
+                WebElement foundIt = null;
+                    foundIt = wait.until(ExpectedConditions.visibilityOf(
+                                    driver.findElement(By.xpath(
+                            String.format("//*[contains(text(),'%s')]", textWait)))));
+                Select selectItem = new Select(driver.findElement(By.xpath(selector)));
+                selectItem.selectByIndex(listValue);
+                return foundIt;
+            }
+        });
+    }
 
     public static void waitAndClick(@NotNull String selector, @NotNull SelectorType selectorType) throws  IllegalBrowserException {
         FluentWait<WebDriver> wait = new FluentWait<>(getDriver())
-                .withTimeout(java.time.Duration.ofSeconds(120))
-                .pollingEvery(java.time.Duration.ofSeconds(2))
+                .withTimeout(120, TimeUnit.SECONDS)
+                .pollingEvery(2, TimeUnit.SECONDS)
                 .ignoring(NoSuchElementException.class);
 
         WebElement element = wait.until(new Function<WebDriver, WebElement>() {
@@ -657,8 +656,8 @@ protected static String getMainTitleSelector() {
 
     public static void waitForTextToBePresent(@NotNull String selector) throws IllegalBrowserException  {
         FluentWait<WebDriver> wait = new FluentWait<>(getDriver())
-                .withTimeout(java.time.Duration.ofSeconds(60))
-                .pollingEvery(java.time.Duration.ofSeconds(2))
+                .withTimeout(60, TimeUnit.SECONDS)
+                .pollingEvery(2, TimeUnit.SECONDS)
                 .ignoring(NoSuchElementException.class);
 
         WebElement element = wait.until(new Function<WebDriver, WebElement>() {
@@ -679,8 +678,8 @@ protected static String getMainTitleSelector() {
 
     public static void waitAndEnterText(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String textValue) throws  IllegalBrowserException {
         final FluentWait<WebDriver> wait = (new FluentWait(getDriver()))
-                .withTimeout(java.time.Duration.ofSeconds(120))
-                .pollingEvery(java.time.Duration.ofSeconds(2))
+                .withTimeout(120, TimeUnit.SECONDS)
+                .pollingEvery(2, TimeUnit.SECONDS)
                 .ignoring(NoSuchElementException.class);
         WebElement element = (WebElement) wait.until(new Function<WebDriver, WebElement>() {
             public WebElement apply(WebDriver driver) {
