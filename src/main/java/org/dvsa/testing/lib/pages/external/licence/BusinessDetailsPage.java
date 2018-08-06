@@ -1,6 +1,6 @@
 package org.dvsa.testing.lib.pages.external.licence;
 
-import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
+import activesupport.IllegalBrowserException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
 import org.jetbrains.annotations.NotNull;
@@ -28,12 +28,12 @@ public class BusinessDetailsPage extends BasePage {
     private static String RESOURCE_PATH = "application/\\d{7}/business-details/";
 
     // Behaviour
-    public static void companyLookup(@NotNull String name) throws UninitialisedDriverException {
+    public static void companyLookup(@NotNull String name) throws IllegalBrowserException {
         enterField(COMPANY_LOOKUP_FIELD, name);
         click(FIND_COMPANY_BUTTON);
     }
 
-    public static void tradingName(@NotNull String... names) throws UninitialisedDriverException {
+    public static void tradingName(@NotNull String... names) throws IllegalBrowserException {
         for (int pos = 0; pos <= names.length; pos++) {
             enterField(String.format(TRADING_NAME_FIELD_TEMPLATE, pos), names[pos]);
 
@@ -44,23 +44,23 @@ public class BusinessDetailsPage extends BasePage {
         }
     }
 
-    public static void natureOfBusiness(@NotNull String natureOfBusiness) throws UninitialisedDriverException {
+    public static void natureOfBusiness(@NotNull String natureOfBusiness) throws IllegalBrowserException {
         enterField(NATURE_OF_BUSINESS_FIELD, natureOfBusiness);
     }
 
-    public static void address(@NotNull AddressLine addressLine, @NotNull String text) throws UninitialisedDriverException {
+    public static void address(@NotNull AddressLine addressLine, @NotNull String text) throws IllegalBrowserException {
         enterField(String.format(REGISTERED_ADDRESS_TEMPLATE, addressLine.ordinal()), text);
     }
 
-    public static void addSubsidiary() throws UninitialisedDriverException {
+    public static void addSubsidiary() throws IllegalBrowserException {
         click(ADD_SUBSIDIARY, SelectorType.XPATH);
     }
 
-    public static void saveAndContinueButton() throws UninitialisedDriverException {
+    public static void saveAndContinueButton() throws IllegalBrowserException {
         click(SAVE_AND_CONTINUE_BUTTON, SelectorType.XPATH);
     }
 
-    public static void saveAndReturnToOverview() throws UninitialisedDriverException {
+    public static void saveAndReturnToOverview() throws IllegalBrowserException {
         click(SAVE_AND_RETURN_TO_OVERVIEW, SelectorType.XPATH);
     }
 }

@@ -1,6 +1,6 @@
 package org.dvsa.testing.lib.pages.external.licence;
 
-import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
+import activesupport.IllegalBrowserException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
 
@@ -11,15 +11,15 @@ public class TransportManagersPage extends BasePage {
     private static String SAVE_AND_CONTINUE_BUTTON = "//*/button[contains(text(), 'Save and continue')]";
     private static String SAVE_AND_RETURN_TO_OVERVIEW_BUTTON = "//*/button[contains(text(), 'Save and return to overview')]";
 
-    public static void addTransportManager() throws UninitialisedDriverException {
+    public static void addTransportManager() throws IllegalBrowserException {
         click(ADD_TRANSPORT_MANAGER_BUTTON, SelectorType.XPATH);
     }
 
-    public static void saveAndContinue() throws UninitialisedDriverException {
+    public static void saveAndContinue() throws IllegalBrowserException {
         click(SAVE_AND_CONTINUE_BUTTON, SelectorType.XPATH);
     }
 
-    public static void saveAndReturnToOverview() throws UninitialisedDriverException {
+    public static void saveAndReturnToOverview() throws IllegalBrowserException {
         click(SAVE_AND_RETURN_TO_OVERVIEW_BUTTON, SelectorType.XPATH);
     }
 }

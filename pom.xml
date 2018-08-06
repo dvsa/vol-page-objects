@@ -6,17 +6,17 @@
 
     <groupId>org.dvsa.testing.lib</groupId>
     <artifactId>page-objects</artifactId>
-    <version>0.6.7.9</version>
+    <version>0.6.7.11</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <uri-constructor.version>1.4.4</uri-constructor.version>
-        <selenium.version>3.12.0</selenium.version>
+        <selenium.version>3.13.0</selenium.version>
         <webdriver-manager.version>1.7.2</webdriver-manager.version>
         <browser.version>0.6.1</browser.version>
         <junit.version>4.12</junit.version>
         <annotations.version>13.0</annotations.version>
-        <active-support.version>1.1.0.1</active-support.version>
+        <active-support.version>1.2.7</active-support.version>
         <aws-maven.version>5.0.0.RELEASE</aws-maven.version>
         <slf4j-nop.version>1.7.25</slf4j-nop.version>
         <guava.version>23.6-jre</guava.version>
@@ -124,11 +124,7 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
         </dependency>
-        <dependency>
-            <groupId>org.dvsa.testing.lib</groupId>
-            <artifactId>active-support</artifactId>
-            <version>0.8.2</version>
-        </dependency>
+
         <dependency>
             <groupId>org.dvsa.testing.lib</groupId>
             <artifactId>uri-constructor</artifactId>

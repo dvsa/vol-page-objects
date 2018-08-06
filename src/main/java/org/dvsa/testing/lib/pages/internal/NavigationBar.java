@@ -3,7 +3,7 @@ package org.dvsa.testing.lib.pages.internal;
 import activesupport.system.out.Output;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.primitives.Ints;
-import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
+import activesupport.IllegalBrowserException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.Action;
 import org.dvsa.testing.lib.pages.enums.AdminOption;
@@ -41,7 +41,7 @@ public class NavigationBar extends BasePage {
             .build();
 
     // Behaviour
-    public static void adminPanel(@NotNull Action action) throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException, ElementDidNotDisappearWithinSpecifiedTimeException {
+    public static void adminPanel(@NotNull Action action) throws IllegalBrowserException, ElementDidNotAppearWithinSpecifiedTimeException, ElementDidNotDisappearWithinSpecifiedTimeException {
         switch (action) {
             case OPEN:
                 openAdminPanel();
@@ -54,33 +54,33 @@ public class NavigationBar extends BasePage {
         }
     }
 
-    public static void openAdminPanel() throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException {
+    public static void openAdminPanel() throws IllegalBrowserException, ElementDidNotAppearWithinSpecifiedTimeException {
         if (isAdminPanelClosed()) {
             administratorButton();
             untilElementPresentWithin(OPEN_ADMIN_MENU, 1000);
         }
     }
 
-    public static void closeAdminPanel() throws UninitialisedDriverException, ElementDidNotDisappearWithinSpecifiedTimeException {
+    public static void closeAdminPanel() throws IllegalBrowserException, ElementDidNotDisappearWithinSpecifiedTimeException {
         if (isAdminPanelOpen()) {
             administratorButton();
             untilElementNotPresentWithin(OPEN_ADMIN_MENU, 1000);
         }
     }
 
-    private static boolean isAdminPanelOpen() throws UninitialisedDriverException {
+    private static boolean isAdminPanelOpen() throws IllegalBrowserException {
         return isElementPresent(OPEN_ADMIN_MENU);
     }
 
-    private static boolean isAdminPanelClosed() throws UninitialisedDriverException {
+    private static boolean isAdminPanelClosed() throws IllegalBrowserException {
         return !isAdminPanelOpen();
     }
 
-    public static void administratorButton() throws UninitialisedDriverException {
+    public static void administratorButton() throws IllegalBrowserException {
         click(ADMIN_BUTTON);
     }
 
-    public static void administratorList(@NotNull AdminOption option) throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException {
+    public static void administratorList(@NotNull AdminOption option) throws IllegalBrowserException, ElementDidNotAppearWithinSpecifiedTimeException {
         int listPosition = adminListMapper.get(option).get(0);
         int listItemPosition = adminListMapper.get(option).get(1);
 

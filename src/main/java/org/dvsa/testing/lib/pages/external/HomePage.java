@@ -1,6 +1,6 @@
 package org.dvsa.testing.lib.pages.external;
 
-import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
+import activesupport.IllegalBrowserException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
 import org.dvsa.testing.lib.pages.exception.ElementDidNotAppearWithinSpecifiedTimeException;
@@ -15,11 +15,11 @@ public class HomePage extends BasePage {
     private static String RESOURCE_PATH = "dashboard/";
 
     // Behaviour
-    public static void applyForLicenceButton() throws UninitialisedDriverException {
+    public static void applyForLicenceButton() throws IllegalBrowserException {
         click(APPLY_FOR_LICENCE_BUTTON, SelectorType.XPATH);
     }
 
-    public static void untilOnPage() throws UninitialisedDriverException, ElementDidNotAppearWithinSpecifiedTimeException {
+    public static void untilOnPage() throws IllegalBrowserException, ElementDidNotAppearWithinSpecifiedTimeException {
         untilElementPresent(APPLY_FOR_LICENCE_BUTTON, SelectorType.XPATH);
     }
 

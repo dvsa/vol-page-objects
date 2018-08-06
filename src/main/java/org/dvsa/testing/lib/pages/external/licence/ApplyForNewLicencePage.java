@@ -1,6 +1,6 @@
 package org.dvsa.testing.lib.pages.external.licence;
 
-import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
+import activesupport.IllegalBrowserException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.jetbrains.annotations.NotNull;
 
@@ -13,7 +13,7 @@ public class ApplyForNewLicencePage extends BasePage {
     private static String RESOURCE_PATH = "application/\\d{7}/";
 
     // Behaviour
-    public static void section(@NotNull ApplicationSection applicationSection) throws UninitialisedDriverException {
+    public static void section(@NotNull ApplicationSection applicationSection) throws IllegalBrowserException {
         click(String.format(OVERVIEW_LIST_ITEM_TEMPLATE, applicationSection.ordinal() + 1));
     }
 }

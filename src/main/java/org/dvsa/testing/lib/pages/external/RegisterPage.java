@@ -1,6 +1,6 @@
 package org.dvsa.testing.lib.pages.external;
 
-import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
+import activesupport.IllegalBrowserException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.BusinessType;
 import org.jetbrains.annotations.NotNull;
@@ -30,47 +30,47 @@ public class RegisterPage extends BasePage {
     }
 
     // Behaviour
-    public static void username(@NotNull String username) throws UninitialisedDriverException {
+    public static void username(@NotNull String username) throws IllegalBrowserException {
         enterField(USERNAME_FIELD_LOCATOR, username);
     }
 
-    public static void firstName(@NotNull String firstName) throws UninitialisedDriverException {
+    public static void firstName(@NotNull String firstName) throws IllegalBrowserException {
         enterField(FIRST_NAME_FIELD, firstName);
     }
 
-    public static void lastName(@NotNull String lastName) throws UninitialisedDriverException {
+    public static void lastName(@NotNull String lastName) throws IllegalBrowserException {
         enterField(LAST_NAME_FIELD, lastName);
     }
 
-    public static void email(@NotNull String emailAddress) throws UninitialisedDriverException {
+    public static void email(@NotNull String emailAddress) throws IllegalBrowserException {
         enterField(EMAIL_FIELD, emailAddress);
     }
 
-    public static void emailConfirmation(@NotNull String email) throws UninitialisedDriverException {
+    public static void emailConfirmation(@NotNull String email) throws IllegalBrowserException {
         enterField(EMAIL_CONFIRM_FIELD, email);
     }
 
-    public static void possessVOL(boolean status) throws UninitialisedDriverException {
+    public static void possessVOL(boolean status) throws IllegalBrowserException {
         int nthTypeSelector = (status) ?  2 : 1;
         String selector = String.format("%s label:nth-of-type(%d) input[type=\"radio\"]", POSSESS_VOL_FIELDSET, nthTypeSelector);
 
         click(selector);
     }
 
-    public static void organisationName(@NotNull String name) throws UninitialisedDriverException {
+    public static void organisationName(@NotNull String name) throws IllegalBrowserException {
         enterField(ORGANISATION_NAME_FIELD, name);
     }
 
-    public static void businessType(@NotNull String businessType) throws UninitialisedDriverException {
+    public static void businessType(@NotNull String businessType) throws IllegalBrowserException {
         businessType = businessType.trim().toLowerCase();
         businessType(BusinessType.getEnum(businessType));
     }
 
-    public static void businessType(@NotNull BusinessType businessType) throws UninitialisedDriverException {
+    public static void businessType(@NotNull BusinessType businessType) throws IllegalBrowserException {
         click(String.format(BUSINESS_TYPE_BUTTON_TEMPLATE, businessType.ordinal() + 1 ));
     }
 
-    public static void welshCorrespondence(boolean choice) throws UninitialisedDriverException {
+    public static void welshCorrespondence(boolean choice) throws IllegalBrowserException {
         if ((choice)) {
             selectWelshCorrespondence();
         } else {
@@ -78,15 +78,15 @@ public class RegisterPage extends BasePage {
         }
     }
 
-    public static void selectWelshCorrespondence() throws UninitialisedDriverException {
+    public static void selectWelshCorrespondence() throws IllegalBrowserException {
         select(WELSH_CORRESPONDENCE_CHECKBOX);
     }
 
-    public static void deselectWelshCorrespondence() throws UninitialisedDriverException {
+    public static void deselectWelshCorrespondence() throws IllegalBrowserException {
         deselect(WELSH_CORRESPONDENCE_CHECKBOX);
     }
 
-    public static void termsAndCondition(boolean choice) throws UninitialisedDriverException {
+    public static void termsAndCondition(boolean choice) throws IllegalBrowserException {
         if ((choice)) {
             selectTermsAndCondition();
         } else {
@@ -94,15 +94,15 @@ public class RegisterPage extends BasePage {
         }
     }
 
-    public static void selectTermsAndCondition() throws UninitialisedDriverException {
+    public static void selectTermsAndCondition() throws IllegalBrowserException {
         select(TERMS_AND_CONDITIONS_CHECKBOX);
     }
 
-    public static void deselectTermsAndCondition() throws UninitialisedDriverException {
+    public static void deselectTermsAndCondition() throws IllegalBrowserException {
         deselect(TERMS_AND_CONDITIONS_CHECKBOX);
     }
 
-    public static void submit() throws UninitialisedDriverException {
+    public static void submit() throws IllegalBrowserException {
         click(CREATE_ACCOUNT_BUTTON);
     }
 

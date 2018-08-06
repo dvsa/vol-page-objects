@@ -1,6 +1,6 @@
 package org.dvsa.testing.lib.pages.internal.dataretention;
 
-import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
+import activesupport.IllegalBrowserException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
 import org.dvsa.testing.lib.pages.enums.dataretention.DataRetentionRule;
@@ -24,19 +24,19 @@ public class DataRetentionPage extends BasePage {
     private static String PAGE_TITLE_TEXT = "Data retention";
 
     // Behaviour
-    public static boolean isEmpty() throws UninitialisedDriverException {
+    public static boolean isEmpty() throws IllegalBrowserException {
         return isElementPresent(EMPTY_TABLE, SelectorType.XPATH);
     }
 
-    public static void review() throws UninitialisedDriverException {
+    public static void review() throws IllegalBrowserException {
         click(REVIEW, SelectorType.XPATH);
     }
 
-    public static void export() throws UninitialisedDriverException {
+    public static void export() throws IllegalBrowserException {
         click(EXPORT, SelectorType.XPATH);
     }
 
-    public static void ruleAdmin() throws UninitialisedDriverException {
+    public static void ruleAdmin() throws IllegalBrowserException {
         click(RULE_ADMIN, SelectorType.XPATH);
     }
 
@@ -57,11 +57,11 @@ public class DataRetentionPage extends BasePage {
      * unable to find it on the current page.
      * @param dataRetentionRule is the data retention rule we'd like to view the results of, the records that met its
      *                          criteria when the job was ran.
-     * @throws UninitialisedDriverException
+     * @throws IllegalBrowserException
      * @throws UnableToFindDataRetentionRule is thrown in the event that the rule specified as not been activated and
      * as a result was not found.
      */
-    public static void selectRule(@NotNull DataRetentionRule dataRetentionRule) throws UninitialisedDriverException, UnableToFindDataRetentionRule {
+    public static void selectRule(@NotNull DataRetentionRule dataRetentionRule) throws IllegalBrowserException, UnableToFindDataRetentionRule {
         String ruleSelector = String.format(RULE_DESCRIPTION_LINK_TEMPLATE, dataRetentionRule.toString());
 
         pagenateToRule(ruleSelector, SelectorType.XPATH, 2);
@@ -70,13 +70,13 @@ public class DataRetentionPage extends BasePage {
         click(ruleSelector, SelectorType.XPATH);
     }
 
-    public static void selectRule(@NotNull String dataRetentionRule) throws UninitialisedDriverException, UnableToFindDataRetentionRule {
+    public static void selectRule(@NotNull String dataRetentionRule) throws IllegalBrowserException, UnableToFindDataRetentionRule {
         DataRetentionRule rule = DataRetentionRule.getEnum(dataRetentionRule);
 
         selectRule(rule);
     }
 
-    protected static void pagenateToRule(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws UninitialisedDriverException, UnableToFindDataRetentionRule {
+    protected static void pagenateToRule(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws IllegalBrowserException, UnableToFindDataRetentionRule {
         boolean foundDataRetentionRule = false;
 
         do {
