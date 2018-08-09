@@ -1,7 +1,6 @@
 package org.dvsa.testing.lib.pages;
 
 import activesupport.IllegalBrowserException;
-import activesupport.MissingDriverException;
 import activesupport.driver.Browser;
 import activesupport.system.out.Output;
 import activesupport.url.URL;
@@ -10,7 +9,6 @@ import org.dvsa.testing.lib.pages.exception.ElementDidNotAppearWithinSpecifiedTi
 import org.dvsa.testing.lib.pages.exception.ElementDidNotDisappearWithinSpecifiedTimeException;
 import org.dvsa.testing.lib.pages.exception.IncorrectPageTitleException;
 import org.jetbrains.annotations.NotNull;
-import org.joda.time.Duration;
 import org.joda.time.LocalDate;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -752,5 +750,9 @@ protected static String getMainTitleSelector() {
 
     public static int returnTableRows(@NotNull String selector, @NotNull SelectorType selectorType) throws IllegalBrowserException {
         return browser.navigate().findElements(by(selector, selectorType)).size();
+    }
+
+    public static List<WebElement> listOfWebElements(@NotNull String selector, @NotNull SelectorType selectorType) throws IllegalBrowserException {
+        return Browser.navigate().findElements(by(selector, selectorType));
     }
 }
