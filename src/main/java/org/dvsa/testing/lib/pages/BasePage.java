@@ -70,7 +70,7 @@ public abstract class BasePage {
         boolean present = true;
 
         try{
-            find("//*[contains(text(), '%s')]", SelectorType.XPATH);
+            find(String.format("//*[contains(text(), '%s')]", text), SelectorType.XPATH);
         } catch (org.openqa.selenium.NoSuchElementException e){
             present = false;
         }
