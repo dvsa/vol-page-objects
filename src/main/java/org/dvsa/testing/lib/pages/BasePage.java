@@ -17,7 +17,6 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
 
-import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -64,6 +63,18 @@ public abstract class BasePage {
     protected static boolean hasText(@NotNull String selector, @NotNull String text) {
         SelectorType selectorType = SelectorType.CSS;
         return hasText(selector, selectorType, text);
+    }
+
+    protected static boolean isTextPresent(@NotNull String text){
+        boolean present = true;
+
+        try{
+            find("//*[contains(text(), '%s')]", SelectorType.XPATH);
+        } catch (org.openqa.selenium.NoSuchElementException e){
+            present = false;
+        }
+
+        return present;
     }
 
     protected static List<String> getListValues(@NotNull String listSelector) {
