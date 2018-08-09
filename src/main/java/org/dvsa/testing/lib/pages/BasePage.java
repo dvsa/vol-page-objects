@@ -78,7 +78,7 @@ public abstract class BasePage {
         return present;
     }
 
-    protected static boolean hasErrorMessagePresent(){
+    public static boolean hasErrorMessagePresent(){
         return isTextPresent(ERROR_MESSAGE_HEADING);
     }
 
