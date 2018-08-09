@@ -1,9 +1,9 @@
 package org.dvsa.testing.lib.pages.external;
 
+import org.dvsa.testing.lib.browser.Browser;
 import org.dvsa.testing.lib.browser.exceptions.UninitialisedDriverException;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.exception.ElementDidNotAppearWithinSpecifiedTimeException;
-import org.dvsa.testing.lib.pages.exception.IncorrectPageTitleException;
 import org.jetbrains.annotations.NotNull;
 
 public class ChangeYourPasswordPage extends BasePage{
@@ -51,7 +51,7 @@ public class ChangeYourPasswordPage extends BasePage{
     }
 
     public static boolean onPage() {
-        return getURI().contains(RESOURCE_PATH);
+        return Browser.isPath(RESOURCE_PATH);
     }
 
 }
