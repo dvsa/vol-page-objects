@@ -6,14 +6,14 @@
 
     <groupId>org.dvsa.testing.lib</groupId>
     <artifactId>page-objects</artifactId>
-    <version>0.6.8.EUPA</version>
+    <version>0.6.9.EUPA</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <uri-constructor.version>1.4.4</uri-constructor.version>
         <selenium.version>3.12.0</selenium.version>
         <webdriver-manager.version>1.7.2</webdriver-manager.version>
-        <browser.version>0.6.6</browser.version>
+        <browser.version>0.6.7</browser.version>
         <junit.version>4.12</junit.version>
         <annotations.version>13.0</annotations.version>
         <active-support.version>1.2.5</active-support.version>
