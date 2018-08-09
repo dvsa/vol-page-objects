@@ -1,7 +1,6 @@
 package org.dvsa.testing.lib.pages;
 
 import activesupport.system.out.Output;
-import activesupport.url.URL;
 import com.google.common.base.Function;
 import org.apache.commons.lang3.StringUtils;
 import org.dvsa.testing.lib.browser.Browser;
@@ -18,6 +17,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
 
+import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -27,42 +27,8 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.not;
 
 public abstract class BasePage {
 
-    protected static final int WAIT_TIME_SECONDS =  10;
-
-    private static String URI;
-    private static String SCHEME;
-    private static String DOMAIN;
-
     protected static String MAIN_TITLE_SELECTOR = "h1";
-
-    protected static String getScheme() {
-        initialiseURLSectionsOnFirstCall();
-        return SCHEME;
-    }
-
-    protected static String getDomain() {
-        initialiseURLSectionsOnFirstCall();
-        return DOMAIN;
-    }
-
-    protected static String getURI() {
-        initialiseURLSectionsOnFirstCall();
-        return URI;
-    }
-
-    private static void initialiseURLSectionsOnFirstCall() {
-        if(URI == null){
-            updateURLSections();
-        }
-    }
-
-    private static void updateURLSections() {
-        if (Browser.isInitialised()) {
-            URI = Browser.getURL();
-            SCHEME = URL.extractScheme(URI);
-            DOMAIN = URL.extractDomain(URI);
-        }
-    }
+    protected static final int WAIT_TIME_SECONDS =  10;
 
     protected static String getMainTitleSelector() {
         return MAIN_TITLE_SELECTOR;
@@ -267,7 +233,7 @@ public abstract class BasePage {
         untilVisible(selector, selectorType, duration, timeUnit);
     }
 
-    private static WebDriver getDriver() {
+    protected static WebDriver getDriver() {
         return Browser.getDriver();
     }
 
