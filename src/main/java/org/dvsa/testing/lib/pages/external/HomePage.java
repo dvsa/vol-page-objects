@@ -19,7 +19,7 @@ public class HomePage extends BasePage {
 
     public static class PermitsTab {
         // Attributes
-        private String RESOURCE_PATH = "permits/";
+        final public static String RESOURCE_PATH = "/permits";
 
         public void apply() {
             click(APPLY);
