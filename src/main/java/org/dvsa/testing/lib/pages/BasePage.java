@@ -17,7 +17,6 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
 
-import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -27,6 +26,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.not;
 
 public abstract class BasePage {
 
+    private static String ERROR_MESSAGE_HEADING = "Please correct the following errors";
     protected static String MAIN_TITLE_SELECTOR = "h1";
     protected static final int WAIT_TIME_SECONDS =  10;
 
@@ -64,6 +64,22 @@ public abstract class BasePage {
     protected static boolean hasText(@NotNull String selector, @NotNull String text) {
         SelectorType selectorType = SelectorType.CSS;
         return hasText(selector, selectorType, text);
+    }
+
+    protected static boolean isTextPresent(@NotNull String text){
+        boolean present = true;
+
+        try{
+            find(String.format("//*[contains(text(), '%s')]", text), SelectorType.XPATH);
+        } catch (org.openqa.selenium.NoSuchElementException e){
+            present = false;
+        }
+
+        return present;
+    }
+
+    public static boolean hasErrorMessagePresent(){
+        return isTextPresent(ERROR_MESSAGE_HEADING);
     }
 
     protected static List<String> getListValues(@NotNull String listSelector) {
