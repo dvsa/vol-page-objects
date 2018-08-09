@@ -2,9 +2,12 @@ package org.dvsa.testing.lib.pages.external.permit;
 
 import activesupport.string.Str;
 import org.dvsa.testing.lib.pages.BasePage;
+import org.dvsa.testing.lib.pages.enums.SelectorType;
 
 public class LicencePage extends BasePermitPage {
     // TODO: Assign selectors when their values are defined
+    private static String CANCEL_BUTTON = "//input[@name='Fields[Cancel]']";
+
     private static String TITLE = "h1";
     private static String LICENCE_INDEX_TEMPLATE = "label:nth-of-type(%d) input[type=radio]";
     private static String NUM_LICENCE = "label input[type=radio]";
@@ -30,6 +33,10 @@ public class LicencePage extends BasePermitPage {
 
     public static void licence(int index){
         scrollAndClick(String.format(LICENCE_INDEX_TEMPLATE, index));
+    }
+
+    public static void cancel(){
+        scrollAndClick(CANCEL_BUTTON, SelectorType.XPATH);
     }
 
 }
