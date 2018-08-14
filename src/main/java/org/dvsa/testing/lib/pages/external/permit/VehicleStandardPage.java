@@ -7,12 +7,20 @@ public class VehicleStandardPage extends BasePermitPage {
 
     public static void isEuro6Compliant(boolean isCompliant) {
         if (isCompliant){
-            if (isElementNotPresent(IS_COMPLIANT)) // Checks to see if the checkbox is already selected
+            if (isCheckboxNotSelected()) // Checks to see if the checkbox is already selected
                 scrollAndClick(CONFIRM_COMPLIANCE);
         }  else {
-            if (isElementPresent(IS_COMPLIANT))
+            if (isCheckboxSelected())
                 scrollAndClick(CONFIRM_COMPLIANCE);
         }
+    }
+
+    private static boolean isCheckboxSelected(){
+        return isElementPresent(IS_COMPLIANT);
+    }
+
+    private static boolean isCheckboxNotSelected(){
+        return !isCheckboxSelected();
     }
 
 }
