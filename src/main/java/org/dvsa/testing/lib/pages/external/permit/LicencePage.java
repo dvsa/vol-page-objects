@@ -1,5 +1,6 @@
 package org.dvsa.testing.lib.pages.external.permit;
 
+import activesupport.number.Int;
 import activesupport.string.Str;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
@@ -14,6 +15,11 @@ public class LicencePage extends BasePermitPage {
     private static String SELECTED_LICENCE = "label[class*='selected'] input[type=radio]";
 
     private static String LICENCE_REGEX = "(?<=Permit application for licence )\\w{9}";
+
+    public static void randomLicnece(){
+        int index = Int.random(1, numOfLicences());
+        licence(index);
+    }
 
     public static boolean hasSelectedLicence(){
         return isElementPresent(SELECTED_LICENCE);
