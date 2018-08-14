@@ -1,25 +1,28 @@
 package org.dvsa.testing.lib.pages.external.permit;
 
-import org.dvsa.testing.lib.pages.BasePage;
+public class CabotagePage extends BasePermitPage {
 
-public class CabotagePage extends BasePage {
+    private static String CABOTAGE = "#WontCabotage";
+    private static String NO_CABOTAGE = "label.selected " + CABOTAGE;
 
-    private static String CARRIES_CABOTAGE_TEMPLATE = "#cabotage label:nth-of-type(%d) input[type='radio']";
-
-    private static String SAVE_AND_CONTINUE = "input[type='submit']";
-    private static String SAVE_AND_RETURN = "//a[contains(text(), 'Save and return to permits')]";
-
-    public static void carryCabotage(boolean cabotage) {
-        int pos = cabotage ? 1 : 2;
-        scrollAndClick(String.format(CARRIES_CABOTAGE_TEMPLATE, pos));
+    public static void wontCarryCabotage(boolean wontCarryCabotage) {
+        if (wontCarryCabotage){
+            if (isCheckboxNotSelected()){
+                scrollAndClick(CABOTAGE);
+            }
+        } else {
+            if (isCheckboxSelected()){
+                scrollAndClick(CABOTAGE);
+            }
+        }
     }
 
-    public static void saveAndContinue() {
-        scrollAndClick(SAVE_AND_CONTINUE);
+    private static boolean isCheckboxSelected() {
+        return isElementPresent(NO_CABOTAGE);
     }
 
-    public static void saveAndReturn() {
-        scrollAndClick(SAVE_AND_RETURN);
+    private static boolean isCheckboxNotSelected() {
+        return !isCheckboxSelected();
     }
 
 }
