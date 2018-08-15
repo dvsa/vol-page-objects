@@ -1,18 +1,32 @@
 package org.dvsa.testing.lib.pages.external.permit;
 
-import org.dvsa.testing.lib.pages.BasePage;
+public class DeclarationPage extends BasePermitPage {
 
-public class DeclarationPage extends BasePage {
+    private static String DECLARATION = "input[type='checkbox']#declaration";
+    private static String ACCEPT_AND_CONTINUE = "#submit-accept-button";
 
-    private static String ACCEPT_AND_CONTINUE = "#submitbutton";
-    private static String SAVE_AND_RETURN = "//a[contains(text(), 'Save and return to permits')]";
+    private static String HAS_DECLARED = "label.selected " + DECLARATION;
 
-    public static void acceptAndContinue() {
+    public static void declare(boolean declaration){
+        if (declaration){
+            if (hasNotDeclared())
+                scrollAndClick(DECLARATION);
+        } else {
+            if (hasDeclared())
+                scrollAndClick(DECLARATION);
+        }
+    }
+
+    public static void saveAndContinue(){
         scrollAndClick(ACCEPT_AND_CONTINUE);
     }
 
-    public static void saveAndReturn() {
-        scrollAndClick(SAVE_AND_RETURN);
+    private static boolean hasDeclared(){
+        return isElementPresent(HAS_DECLARED);
+    }
+
+    private static boolean hasNotDeclared(){
+        return !hasDeclared();
     }
 
 }
