@@ -7,7 +7,7 @@ public class PercentageOfInternationalJourneysPage extends BasePermitPage {
     private static String PROPORTION_TEMPLATE = "label:nth-of-type(%s) input[type=radio]";
 
     public static void proportion(JourneyProportion proportion){
-        scrollAndClick(String.format(PROPORTION_TEMPLATE, proportion.toString()));
+        scrollAndClick(String.format(PROPORTION_TEMPLATE, proportion.ordinal() + 1));
     }
 
 }
