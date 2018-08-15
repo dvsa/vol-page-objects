@@ -15,7 +15,7 @@ public enum JourneyProportion {
     }
 
     public static JourneyProportion random(){
-        int index = Int.random(0, JourneyProportion.values().length);
+        int index = Int.random(0, JourneyProportion.values().length - 1);
         return JourneyProportion.values()[index];
     }
 
