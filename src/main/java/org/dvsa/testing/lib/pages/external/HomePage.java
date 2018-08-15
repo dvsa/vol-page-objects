@@ -7,6 +7,7 @@ import org.dvsa.testing.lib.pages.enums.external.home.PermitMessage;
 import org.dvsa.testing.lib.pages.enums.external.home.Tab;
 import org.dvsa.testing.lib.pages.exception.ElementDidNotAppearWithinSpecifiedTimeException;
 import org.dvsa.testing.lib.pages.exception.FoundElementException;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.TimeUnit;
 
@@ -59,6 +60,10 @@ public class HomePage extends BasePage {
     public static void tabIsNotPresent(Tab tab){
         String selector = String.format(TAB_TEMPLATE, tab.toString());
         elementIsNotPresent(selector, SelectorType.XPATH);
+    }
+
+    public static boolean hasReferenceNumber(@NotNull String referenceNumber){
+        return isTextPresent(referenceNumber);
     }
 
 }
