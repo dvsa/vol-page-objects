@@ -19,7 +19,7 @@ public enum Sector {
     OTHER;
 
     public static Sector random(){
-        return Sector.values()[Int.random(1, Sector.values().length)];
+        return Sector.values()[Int.random(0, Sector.values().length - 1)];
     }
 
 }
