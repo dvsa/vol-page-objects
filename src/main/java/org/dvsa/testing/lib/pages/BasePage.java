@@ -286,7 +286,7 @@ public abstract class BasePage {
         return Browser.getDriver().findElement(bySelector);
     }
 
-    private static List<WebElement> findAll(@NotNull String selector, @NotNull SelectorType selectorType) {
+    protected static List<WebElement> findAll(@NotNull String selector, @NotNull SelectorType selectorType) {
         By bySelector = by(selector, selectorType);
         return Browser.getDriver().findElements(bySelector);
     }
