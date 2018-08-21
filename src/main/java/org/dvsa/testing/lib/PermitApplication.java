@@ -1,5 +1,6 @@
 package org.dvsa.testing.lib;
 
+import activesupport.string.Str;
 import org.dvsa.testing.lib.enums.PermitStatus;
 import org.dvsa.testing.lib.enums.PermitType;
 import org.jetbrains.annotations.NotNull;
@@ -9,6 +10,8 @@ import java.util.Objects;
 public class PermitApplication {
 
     private String referenceNumber;
+    private int id;
+    private String licenceNumber;
     private Integer NoOfPermits;
     private PermitType type;
     private PermitStatus status;
@@ -24,6 +27,8 @@ public class PermitApplication {
 
     public PermitApplication withReferenceNumber(@NotNull String referenceNumber) {
         this.referenceNumber = referenceNumber;
+        this.id = extractPermitId(referenceNumber);
+        this.licenceNumber = extractLicenceNumber(referenceNumber);
         return this;
     }
 
@@ -48,6 +53,38 @@ public class PermitApplication {
 
     public PermitApplication withStatus(@NotNull String status) {
         return withStatus(PermitStatus.getEnum(status));
+    }
+
+    private int extractPermitId(@NotNull String referenceNumber) {
+        return Integer.parseInt(Str.find("(?<=\\w{2}\\d{7} / )\\d+", referenceNumber));
+    }
+
+    private String extractLicenceNumber(@NotNull String referenceNumber) {
+        return Str.find("\\w{2}\\d{7}", referenceNumber);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getLicenceNumber() {
+        return licenceNumber;
+    }
+
+    public String getReferenceNumber() {
+        return referenceNumber;
+    }
+
+    public Integer getNoOfPermits() {
+        return NoOfPermits;
+    }
+
+    public PermitType getType() {
+        return type;
+    }
+
+    public PermitStatus getStatus() {
+        return status;
     }
 
     @Override
