@@ -71,6 +71,22 @@ public class PermitApplication {
         return licenceNumber;
     }
 
+    public String getReferenceNumber() {
+        return referenceNumber;
+    }
+
+    public Integer getNoOfPermits() {
+        return NoOfPermits;
+    }
+
+    public PermitType getType() {
+        return type;
+    }
+
+    public PermitStatus getStatus() {
+        return status;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
