@@ -12,8 +12,6 @@ public enum PermitStatus {
     NOT_STARTED_YET("Not started yet"),
     COMPLETED("Completed");
 
-
-
     private String status;
 
     PermitStatus(String status) {
