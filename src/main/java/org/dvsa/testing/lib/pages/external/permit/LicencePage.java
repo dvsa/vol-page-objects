@@ -51,4 +51,8 @@ public class LicencePage extends BasePermitPage {
         scrollAndClick(CANCEL_BUTTON, SelectorType.XPATH);
     }
 
+    public static boolean hasErrorMessagePresent(){
+        return isElementPresent(".error__text");
+    }
+
 }
