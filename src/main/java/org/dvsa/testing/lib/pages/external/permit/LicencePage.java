@@ -15,6 +15,8 @@ public class LicencePage extends BasePermitPage {
     private static String NUM_LICENCE = "label input[type=radio]";
     private static String SELECTED_LICENCE = "label[class*='selected'] input[type=radio]";
 
+    private static String COMMON_LICENCE_PROP = ".form-control--radio";
+
     private static String LICENCE_REGEX = "(?<=Permit application for licence )\\w{9}";
 
     public static String randomLicnece(){
@@ -53,6 +55,10 @@ public class LicencePage extends BasePermitPage {
 
     public static boolean hasErrorMessagePresent(){
         return isElementPresent(".error__text");
+    }
+
+    public static boolean hasMultipleLicences(){
+        return isElementPresent(COMMON_LICENCE_PROP);
     }
 
 }
