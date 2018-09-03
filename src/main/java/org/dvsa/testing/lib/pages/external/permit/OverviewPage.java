@@ -10,7 +10,7 @@ public class OverviewPage extends BasePermitPage {
 
     private static String SECTION_TEMPLATE = "//a/span[contains(text(), '%s')]/..";
 
-    final public static String RESOURCE = "/permit-overview";
+    final public static String RESOURCE = "/application-overview";
     private static String OVERVIEWPAGE_STATUS_TEMPLATE = "//span[contains(text(), '%s')]/following-sibling::span";
 
     public static void section(@NotNull PermitSection section){
