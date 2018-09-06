@@ -27,6 +27,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.not;
 public abstract class BasePage {
 
     private static String ERROR_MESSAGE_HEADING = "Please correct the following errors";
+    private static String ERROR_CLASS = ".error__text";
     protected static String MAIN_TITLE_SELECTOR = "h1";
     protected static final int WAIT_TIME_SECONDS =  10;
 
@@ -79,7 +80,11 @@ public abstract class BasePage {
     }
 
     public static boolean hasErrorMessagePresent(){
-        return isTextPresent(ERROR_MESSAGE_HEADING);
+        boolean hasError = false;
+
+        if (isTextPresent(ERROR_MESSAGE_HEADING) || isElementPresent(ERROR_CLASS)) hasError = true;
+
+        return hasError;
     }
 
     protected static List<String> getListValues(@NotNull String listSelector) {
