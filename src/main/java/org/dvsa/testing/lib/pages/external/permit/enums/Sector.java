@@ -16,7 +16,7 @@ public enum Sector {
     REFINED_PETROLEUM,
     TEXTILES_AND_LEATHER_PRODUCTS,
     COAL_AND_CRUDE_PETROLEUM,
-    OTHER;
+    NONE;
 
     public static Sector random(){
         return Sector.values()[Int.random(0, Sector.values().length - 1)];
