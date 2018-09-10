@@ -34,10 +34,10 @@ public enum PermitStatus {
             case "awaiting fee":
                 permitStatus = AWAITING_FEE;
                 break;
-            case "Not yet started":
+            case "not yet started":
                 permitStatus = NOT_STARTED_YET;
                 break;
-            case "Completed":
+            case "completed":
                 permitStatus = COMPLETED;
                 break;
             default:
