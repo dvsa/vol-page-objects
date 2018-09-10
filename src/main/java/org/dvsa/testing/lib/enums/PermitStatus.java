@@ -10,7 +10,8 @@ public enum PermitStatus {
     UNDER_CONSIDERATION("Under Consideration"),
     AWAITING_FEE("Awaiting Fee"),
     NOT_STARTED_YET("Not started yet"),
-    COMPLETED("Completed");
+    COMPLETED("Completed"),
+    CANT_START_YET("Can't start yet");
 
     private String status;
 
@@ -39,6 +40,9 @@ public enum PermitStatus {
                 break;
             case "completed":
                 permitStatus = COMPLETED;
+                break;
+            case "Can't start yet":
+                permitStatus = CANT_START_YET;
                 break;
             default:
                 throw new IllegalArgumentException("Unable to convert to enum, name: ".concat(name));
