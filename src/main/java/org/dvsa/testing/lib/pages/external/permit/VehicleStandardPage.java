@@ -5,6 +5,8 @@ public class VehicleStandardPage extends BasePermitPage {
     private static String CONFIRM_COMPLIANCE = "#MeetsEuro6";
     private static String IS_COMPLIANT = "label.selected " + CONFIRM_COMPLIANCE;
 
+    final public static String RESOURCE = "ecmt-euro6/";
+
     public static void isEuro6Compliant(boolean isCompliant) {
         if (isCompliant){
             if (isCheckboxNotSelected()) // Checks to see if the checkbox is already selected

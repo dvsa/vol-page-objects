@@ -19,6 +19,8 @@ public class LicencePage extends BasePermitPage {
 
     private static String LICENCE_REGEX = "(?<=Permit application for licence )\\w{9}";
 
+    final public static String RESOURCE = "ecmt-licence/";
+
     public static String randomLicnece(){
         int index = Int.random(1, numOfLicences());
         licence(index);

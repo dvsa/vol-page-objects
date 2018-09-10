@@ -8,6 +8,8 @@ public class NumberOfTripsPage extends BasePermitPage {
 
     private static String INFO_FOR_NI = "Please exclude journeys to the republic of Ireland in your calculation of annual trips.";
 
+    final public static String RESOURCE = "ecmt-trips/";
+
     public static void quantity(@NotNull String quantity){
         scrollAndEnterField(TRIPS_ABROAD, quantity);
     }
