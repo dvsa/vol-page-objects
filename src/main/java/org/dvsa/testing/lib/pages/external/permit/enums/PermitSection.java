@@ -2,7 +2,7 @@ package org.dvsa.testing.lib.pages.external.permit.enums;
 
 public enum PermitSection {
 
-    LicenceNumber("Licence Number"),
+    LicenceNumber("Licence number"),
     EuroEmmistionsStandards("Euro emission standards"),
     Cabotage("Cabotage"),
     GoodsToLimitedCountries("Goods to limited countries"),
