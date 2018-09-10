@@ -24,17 +24,12 @@ public class OverviewPage extends BasePermitPage {
     }
 
     public static PermitStatus statusOfSection(@NotNull PermitSection section) {
-        String selector = sectionState(section) == State.ACTIVE ? ACTIVE_SECTION_STATUS_TEMPLATE : DISABLED_SECTION_STATUS_TEMPLATE;
+        String selector = isActive(section) ? ACTIVE_SECTION_STATUS_TEMPLATE : DISABLED_SECTION_STATUS_TEMPLATE;
         String status = getText(String.format(selector, section.toString()), SelectorType.XPATH);
         return PermitStatus.getEnum(status);
     }
 
-    private static State sectionState(@NotNull PermitSection section){
-        return isElementPresent(String.format(ACTIVE_SECTION_STATUS_TEMPLATE, section.toString()), SelectorType.XPATH) ? State.ACTIVE : State.DISABLED;
-    }
-
-    private enum State {
-        ACTIVE,
-        DISABLED
+    public static boolean isActive(@NotNull PermitSection section){
+        return isElementPresent(String.format(ACTIVE_SECTION_STATUS_TEMPLATE, section.toString()), SelectorType.XPATH);
     }
 }
