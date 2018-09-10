@@ -19,7 +19,8 @@ public class OverviewPage extends BasePermitPage {
     }
 
     public static boolean checkStatus(PermitSection section, PermitStatus status){
-        String sectionStatus = getText(String.format(ACTIVE_SECTION_STATUS_TEMPLATE, section.toString()), SelectorType.XPATH);
+        String selector = isActive(section) ? ACTIVE_SECTION_STATUS_TEMPLATE : DISABLED_SECTION_STATUS_TEMPLATE;
+        String sectionStatus = getText(String.format(selector, section.toString()), SelectorType.XPATH);
         return StringUtils.trim(sectionStatus).toLowerCase().contains(StringUtils.trim(status.toString()).toLowerCase());
     }
 
