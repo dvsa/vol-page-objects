@@ -41,7 +41,7 @@ public enum PermitStatus {
             case "completed":
                 permitStatus = COMPLETED;
                 break;
-            case "Can't start yet":
+            case "can't start yet":
                 permitStatus = CANT_START_YET;
                 break;
             default:
