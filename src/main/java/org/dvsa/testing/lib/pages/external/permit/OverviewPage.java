@@ -13,7 +13,9 @@ public class OverviewPage extends BasePermitPage {
     private static String ACTIVE_SECTION_STATUS_TEMPLATE = "//span[contains(text(), '%s')]/following-sibling::span";
     private static String DISABLED_SECTION_STATUS_TEMPLATE = "//div[contains(text(), '%s')]/span";
 
-    private static String PROGRESS_PANEL_COMPLETE_SECTIONS = ".sidebar p:nth-of-type(1) b";
+    private static String PROGRESS_PANEL = ".sidebar";
+    private static String PROGRESS_PANEL_COMPLETE_SECTIONS = PROGRESS_PANEL + " p:nth-of-type(1) b";
+    private static String PROGRESS_PANEL_APPLICATION_FEE = PROGRESS_PANEL + " p:nth-of-type(3)";
 
     final public static String RESOURCE = "/application-overview";
 
@@ -41,4 +43,10 @@ public class OverviewPage extends BasePermitPage {
         String subject = getText(PROGRESS_PANEL_COMPLETE_SECTIONS);
         return Integer.parseInt(Str.find("\\d(?= of \\d{1,2} complete)", subject));
     }
+
+    public static int applicationFee() {
+        String subject = getText(PROGRESS_PANEL_APPLICATION_FEE);
+        return Integer.parseInt(Str.find("(?<=Total application fee: £)(\\d+)", subject));
+    }
+
 }
