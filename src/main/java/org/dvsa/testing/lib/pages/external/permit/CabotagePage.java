@@ -5,6 +5,8 @@ public class CabotagePage extends BasePermitPage {
     private static String CABOTAGE = "#WontCabotage";
     private static String NO_CABOTAGE = "label.selected " + CABOTAGE;
 
+    final public static String RESOURCE = "ecmt-cabotage/";
+
     public static void wontCarryCabotage(boolean wontCarryCabotage) {
         if (wontCarryCabotage){
             if (isCheckboxNotSelected()){
