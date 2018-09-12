@@ -6,8 +6,7 @@ import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
 
 public class LicencePage extends BasePermitPage {
-    // TODO: Assign selectors when their values are defined
-    private static String CANCEL_BUTTON = "//input[@name='Fields[Cancel]']";
+    private static String CANCEL_BUTTON = "//a[contains(text(), 'Cancel')]";
 
     private static String TITLE = "h1";
     private static String LICENCE_NTH_LABEL = "label:nth-of-type(%d) ";
