@@ -20,6 +20,16 @@ public class LicencePage extends BasePermitPage {
 
     final public static String RESOURCE = "ecmt-licence/";
 
+    public static class AppliedAgainstAllPage {
+
+        final public static String TITLE = "You have already applied against all your licences";
+
+        public static String getTitleOnPage() {
+            return getText(LicencePage.TITLE).trim();
+        }
+
+    }
+
     public static String randomLicnece(){
         int index = Int.random(1, numOfLicences());
         licence(index);
