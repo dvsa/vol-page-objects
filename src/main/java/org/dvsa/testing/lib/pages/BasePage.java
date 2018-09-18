@@ -23,7 +23,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.not;
 import com.google.common.base.Function;
 
 public abstract class BasePage {
-        private static Browser browser = new Browser();
+    private static Browser browser = new Browser();
     private static final int WAIT_TIME_SECONDS = 10;
 
     private static String URI;
@@ -32,32 +32,34 @@ public abstract class BasePage {
 
     protected static String MAIN_TITLE_SELECTOR = "h1";
 
-    protected static String getScheme() throws  IllegalBrowserException {
+    protected static String getScheme() throws IllegalBrowserException {
         initialiseURLSectionsOnFirstCall();
         return SCHEME;
     }
 
-    protected static String getDomain() throws  IllegalBrowserException {
+    protected static String getDomain() throws IllegalBrowserException {
         initialiseURLSectionsOnFirstCall();
         return DOMAIN;
     }
 
-    private static void initialiseURLSectionsOnFirstCall() throws  IllegalBrowserException {
+    private static void initialiseURLSectionsOnFirstCall() throws IllegalBrowserException {
         if (URI == null) {
             updateURLSections();
         }
     }
 
-    private static void updateURLSections() throws  IllegalBrowserException {
-        if (browser.isBrowserOpen()); {
+    private static void updateURLSections() throws IllegalBrowserException {
+        if (browser.isBrowserOpen()) ;
+        {
             URI = browser.navigate().getCurrentUrl();
             SCHEME = URL.extractScheme(URI);
             DOMAIN = URL.extractDomain(URI);
         }
     }
-protected static String getMainTitleSelector() {
-    return MAIN_TITLE_SELECTOR;
-}
+
+    protected static String getMainTitleSelector() {
+        return MAIN_TITLE_SELECTOR;
+    }
 
     protected static String getAttribute(@NotNull String selector, @NotNull String attribute) throws IllegalBrowserException {
         return getAttribute(selector, SelectorType.CSS, attribute);
@@ -128,11 +130,12 @@ protected static String getMainTitleSelector() {
         element.sendKeys(text);
     }
 
-    protected static void clickByLinkText(@NotNull String selector) throws IllegalBrowserException { getDriver().findElement(By.partialLinkText(selector)).click();
+    protected static void clickByLinkText(@NotNull String selector) throws IllegalBrowserException {
+        getDriver().findElement(By.partialLinkText(selector)).click();
     }
 
     protected static void checkTextisPresent(@NotNull String selector) throws IllegalBrowserException {
-       getDriver().findElement(By.partialLinkText(selector)).isDisplayed();
+        getDriver().findElement(By.partialLinkText(selector)).isDisplayed();
     }
 
     protected static String colourChecker(@NotNull String selector, @NotNull String cssValue) throws IllegalBrowserException {
@@ -201,17 +204,17 @@ protected static String getMainTitleSelector() {
         find(selector, selectorType).click();
     }
 
-    protected static void scrollTo(@NotNull String selector, @NotNull SelectorType selectorType) throws  IllegalBrowserException {
+    protected static void scrollTo(@NotNull String selector, @NotNull SelectorType selectorType) throws IllegalBrowserException {
         scrollTo(selector, selectorType, WAIT_TIME_SECONDS);
     }
 
-    protected static void scrollTo(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws  IllegalBrowserException {
+    protected static void scrollTo(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws IllegalBrowserException {
         WebElement element = find(selector, selectorType);
         ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
         untilPresent(selector, selectorType, seconds); // This will wait the specified amount of time until the element is in view
     }
 
-    private static WebDriver getDriver() throws  IllegalBrowserException {
+    private static WebDriver getDriver() throws IllegalBrowserException {
         return Browser.navigate();
     }
 
@@ -308,19 +311,19 @@ protected static String getMainTitleSelector() {
         return isElementPresent;
     }
 
-    public static void untilElementPresent(@NotNull String selector) throws  ElementDidNotAppearWithinSpecifiedTimeException, IllegalBrowserException {
+    public static void untilElementPresent(@NotNull String selector) throws ElementDidNotAppearWithinSpecifiedTimeException, IllegalBrowserException {
         untilElementPresentWithin(selector, WAIT_TIME_SECONDS);
     }
 
-    public static void untilElementPresent(@NotNull String selector, @NotNull SelectorType selectorType) throws  ElementDidNotAppearWithinSpecifiedTimeException, IllegalBrowserException {
+    public static void untilElementPresent(@NotNull String selector, @NotNull SelectorType selectorType) throws ElementDidNotAppearWithinSpecifiedTimeException, IllegalBrowserException {
         untilElementPresentWithin(selector, selectorType, WAIT_TIME_SECONDS);
     }
 
-    public static void untilElementPresentWithin(@NotNull String selector, int seconds) throws  ElementDidNotAppearWithinSpecifiedTimeException, IllegalBrowserException {
+    public static void untilElementPresentWithin(@NotNull String selector, int seconds) throws ElementDidNotAppearWithinSpecifiedTimeException, IllegalBrowserException {
         untilElementPresentWithin(selector, SelectorType.CSS, seconds);
     }
 
-    public static void untilElementPresentWithin(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws  ElementDidNotAppearWithinSpecifiedTimeException, IllegalBrowserException {
+    public static void untilElementPresentWithin(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws ElementDidNotAppearWithinSpecifiedTimeException, IllegalBrowserException {
         boolean elementFound = isElementPresentWithin(selector, selectorType, seconds);
         if (!elementFound) {
             throw new ElementDidNotAppearWithinSpecifiedTimeException(
@@ -335,7 +338,7 @@ protected static String getMainTitleSelector() {
         }
     }
 
-    public static void untilElementNotPresentWithin(@NotNull String selector, int seconds) throws ElementDidNotDisappearWithinSpecifiedTimeException,  IllegalBrowserException {
+    public static void untilElementNotPresentWithin(@NotNull String selector, int seconds) throws ElementDidNotDisappearWithinSpecifiedTimeException, IllegalBrowserException {
         boolean elementFound = isElementNotPresentWithin(selector, seconds);
         if (elementFound) {
             throw new ElementDidNotDisappearWithinSpecifiedTimeException(
@@ -359,31 +362,31 @@ protected static String getMainTitleSelector() {
         return isInDOM(selector, selectorType, seconds);
     }
 
-    protected static boolean isElementNotPresentWithin(@NotNull String selector, int seconds) throws  IllegalBrowserException {
+    protected static boolean isElementNotPresentWithin(@NotNull String selector, int seconds) throws IllegalBrowserException {
         return !isElementPresentWithin(selector, seconds);
     }
 
-    protected static boolean isNotSelected(@NotNull String selector) throws  IllegalBrowserException {
+    protected static boolean isNotSelected(@NotNull String selector) throws IllegalBrowserException {
         return !isSelected(selector);
     }
 
-    protected static boolean isSelected(@NotNull String selector) throws  IllegalBrowserException {
+    protected static boolean isSelected(@NotNull String selector) throws IllegalBrowserException {
         return getDriver().findElement(By.cssSelector(selector)).isSelected();
     }
 
-    protected static void select(@NotNull String selector) throws  IllegalBrowserException {
+    protected static void select(@NotNull String selector) throws IllegalBrowserException {
         if (isNotSelected(selector)) {
             click(selector);
         }
     }
 
-    protected static void deselect(@NotNull String selector) throws  IllegalBrowserException {
+    protected static void deselect(@NotNull String selector) throws IllegalBrowserException {
         if (isSelected(selector)) {
             click(selector);
         }
     }
 
-    protected static boolean isNotPresent(@NotNull String selector, int seconds) throws  IllegalBrowserException {
+    protected static boolean isNotPresent(@NotNull String selector, int seconds) throws IllegalBrowserException {
         return isNotPresent(selector, SelectorType.CSS, seconds);
     }
 
@@ -399,15 +402,15 @@ protected static String getMainTitleSelector() {
         return isNotPresent;
     }
 
-    public static void untilNotPresent(@NotNull String selector, int seconds) throws  IllegalBrowserException {
+    public static void untilNotPresent(@NotNull String selector, int seconds) throws IllegalBrowserException {
         untilNotPresent(selector, SelectorType.CSS, seconds);
     }
 
-    public static void untilNotPresent(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws  IllegalBrowserException {
+    public static void untilNotPresent(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws IllegalBrowserException {
         new WebDriverWait(getDriver(), seconds).until(not(ExpectedConditions.visibilityOfAllElementsLocatedBy(by(selector, selectorType))));
     }
 
-    protected static boolean isPresent(@NotNull String selector, int seconds) throws  IllegalBrowserException {
+    protected static boolean isPresent(@NotNull String selector, int seconds) throws IllegalBrowserException {
         return isPresent(selector, SelectorType.CSS, seconds);
     }
 
@@ -423,11 +426,11 @@ protected static String getMainTitleSelector() {
         return isPresent;
     }
 
-    public static void untilPresent(@NotNull String selector, int seconds) throws  IllegalBrowserException {
+    public static void untilPresent(@NotNull String selector, int seconds) throws IllegalBrowserException {
         untilPresent(selector, SelectorType.CSS, seconds);
     }
 
-    public static void untilPresent(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws  IllegalBrowserException {
+    public static void untilPresent(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws IllegalBrowserException {
         By by = by(selector, selectorType);
         new WebDriverWait(getDriver(), seconds).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
     }
@@ -436,11 +439,11 @@ protected static String getMainTitleSelector() {
         return isNotInDOM(selector, SelectorType.CSS, seconds);
     }
 
-    protected static boolean isNotInDOM(@NotNull String selector, @NotNull SelectorType selectorType) throws  IllegalBrowserException {
+    protected static boolean isNotInDOM(@NotNull String selector, @NotNull SelectorType selectorType) throws IllegalBrowserException {
         return isInDOM(selector, selectorType, WAIT_TIME_SECONDS);
     }
 
-    protected static boolean isNotInDOM(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws  IllegalBrowserException {
+    protected static boolean isNotInDOM(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws IllegalBrowserException {
         boolean isNotInDOM = true;
 
         try {
@@ -452,23 +455,23 @@ protected static String getMainTitleSelector() {
         return isNotInDOM;
     }
 
-    public static void untilNotInDOM(@NotNull String selector, int seconds) throws  IllegalBrowserException {
+    public static void untilNotInDOM(@NotNull String selector, int seconds) throws IllegalBrowserException {
         untilNotInDOM(selector, SelectorType.CSS, seconds);
     }
 
-    public static void untilNotInDOM(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws  IllegalBrowserException {
+    public static void untilNotInDOM(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws IllegalBrowserException {
         new WebDriverWait(getDriver(), seconds).until(not(ExpectedConditions.presenceOfAllElementsLocatedBy(by(selector, selectorType))));
     }
 
-    protected static boolean isInDOM(@NotNull String selector, int seconds) throws  IllegalBrowserException {
+    protected static boolean isInDOM(@NotNull String selector, int seconds) throws IllegalBrowserException {
         return isInDOM(selector, SelectorType.CSS, seconds);
     }
 
-    protected static boolean isInDOM(@NotNull String selector, @NotNull SelectorType selectorType) throws  IllegalBrowserException {
+    protected static boolean isInDOM(@NotNull String selector, @NotNull SelectorType selectorType) throws IllegalBrowserException {
         return isInDOM(selector, selectorType, WAIT_TIME_SECONDS);
     }
 
-    protected static boolean isInDOM(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws  IllegalBrowserException {
+    protected static boolean isInDOM(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws IllegalBrowserException {
         boolean isInDOM = true;
 
         try {
@@ -480,11 +483,11 @@ protected static String getMainTitleSelector() {
         return isInDOM;
     }
 
-    public static void untilInDOM(@NotNull String selector, int seconds) throws  IllegalBrowserException {
+    public static void untilInDOM(@NotNull String selector, int seconds) throws IllegalBrowserException {
         untilInDOM(selector, SelectorType.CSS, seconds);
     }
 
-    public static void untilInDOM(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws  IllegalBrowserException {
+    public static void untilInDOM(@NotNull String selector, @NotNull SelectorType selectorType, int seconds) throws IllegalBrowserException {
         By by = by(selector, selectorType);
         new WebDriverWait(getDriver(), seconds).until(ExpectedConditions.presenceOfAllElementsLocatedBy(by));
     }
@@ -505,7 +508,7 @@ protected static String getMainTitleSelector() {
         return isExpectedPageTitle(selector, title, WAIT_TIME_SECONDS);
     }
 
-    protected static boolean isExpectedPageTitle(@NotNull String selector, @NotNull String title, int horizonSeconds) throws  IllegalBrowserException {
+    protected static boolean isExpectedPageTitle(@NotNull String selector, @NotNull String title, int horizonSeconds) throws IllegalBrowserException {
         boolean isCurrentPage = false;
 
         if (isElementPresentWithin(selector, horizonSeconds)) {
@@ -584,29 +587,29 @@ protected static String getMainTitleSelector() {
         return found;
     }
 
-    public static void untilExpectedTextInElement(@NotNull String selector, @NotNull String expectedText, int seconds) throws  IllegalBrowserException {
+    public static void untilExpectedTextInElement(@NotNull String selector, @NotNull String expectedText, int seconds) throws IllegalBrowserException {
         SelectorType selectorType = SelectorType.CSS;
         untilExpectedTextInElement(selector, selectorType, expectedText, seconds);
     }
 
-    public static void untilExpectedTextInElement(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String expectedText, int seconds) throws  IllegalBrowserException {
+    public static void untilExpectedTextInElement(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String expectedText, int seconds) throws IllegalBrowserException {
         (new WebDriverWait(getDriver(), seconds)).until(ExpectedConditions.textToBePresentInElementLocated(by(selector, selectorType), expectedText));
     }
 
-    public static void untilNotExpectedTextInElement(@NotNull String selector, @NotNull String expectedText, int seconds) throws  IllegalBrowserException {
+    public static void untilNotExpectedTextInElement(@NotNull String selector, @NotNull String expectedText, int seconds) throws IllegalBrowserException {
         SelectorType selectorType = SelectorType.CSS;
         untilNotExpectedTextInElement(selector, selectorType, expectedText, seconds);
     }
 
-    public static void untilNotExpectedTextInElement(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String expectedText, int seconds) throws  IllegalBrowserException {
+    public static void untilNotExpectedTextInElement(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String expectedText, int seconds) throws IllegalBrowserException {
         (new WebDriverWait(getDriver(), seconds)).until(not(ExpectedConditions.textToBePresentInElementLocated(by(selector, selectorType), expectedText)));
     }
 
-    public static String getElementValueByText(@NotNull String selector, @NotNull SelectorType selectorType) throws  IllegalBrowserException {
+    public static String getElementValueByText(@NotNull String selector, @NotNull SelectorType selectorType) throws IllegalBrowserException {
         return getDriver().findElement(by(selector, selectorType)).getText();
     }
 
-    public static WebElement findElement(@NotNull String selector, @NotNull SelectorType selectorType, long timeOutInSeconds) throws  IllegalBrowserException {
+    public static WebElement findElement(@NotNull String selector, @NotNull SelectorType selectorType, long timeOutInSeconds) throws IllegalBrowserException {
         WebDriverWait wait = new WebDriverWait(getDriver(), timeOutInSeconds);
         wait.until(ExpectedConditions.presenceOfElementLocated(by(selector, selectorType)));
 
@@ -623,13 +626,13 @@ protected static String getMainTitleSelector() {
                 .pollingEvery(2, TimeUnit.SECONDS)
                 .ignoring(NoSuchElementException.class);
 
-        WebElement element = wait.until(new Function<WebDriver, WebElement>()  {
+        WebElement element = wait.until(new Function<WebDriver, WebElement>() {
             public WebElement apply(WebDriver driver) {
 
                 WebElement foundIt = null;
-                    foundIt = wait.until(ExpectedConditions.visibilityOf(
-                                    driver.findElement(By.xpath(
-                            String.format("//*[contains(text(),'%s')]", textWait)))));
+                foundIt = wait.until(ExpectedConditions.visibilityOf(
+                        driver.findElement(By.xpath(
+                                String.format("//*[contains(text(),'%s')]", textWait)))));
                 Select selectItem = new Select(driver.findElement(By.xpath(selector)));
                 selectItem.selectByIndex(listValue);
                 return foundIt;
@@ -637,7 +640,7 @@ protected static String getMainTitleSelector() {
         });
     }
 
-    public static void waitAndClick(@NotNull String selector, @NotNull SelectorType selectorType) throws  IllegalBrowserException {
+    public static void waitAndClick(@NotNull String selector, @NotNull SelectorType selectorType) throws IllegalBrowserException {
         FluentWait<WebDriver> wait = new FluentWait<>(getDriver())
                 .withTimeout(120, TimeUnit.SECONDS)
                 .pollingEvery(2, TimeUnit.SECONDS)
@@ -652,7 +655,7 @@ protected static String getMainTitleSelector() {
         });
     }
 
-    public static void waitForTextToBePresent(@NotNull String selector) throws IllegalBrowserException  {
+    public static void waitForTextToBePresent(@NotNull String selector) throws IllegalBrowserException {
         FluentWait<WebDriver> wait = new FluentWait<>(getDriver())
                 .withTimeout(60, TimeUnit.SECONDS)
                 .pollingEvery(2, TimeUnit.SECONDS)
@@ -674,7 +677,7 @@ protected static String getMainTitleSelector() {
         });
     }
 
-    public static void waitAndEnterText(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String textValue) throws  IllegalBrowserException {
+    public static void waitAndEnterText(@NotNull String selector, @NotNull SelectorType selectorType, @NotNull String textValue) throws IllegalBrowserException {
         final FluentWait<WebDriver> wait = (new FluentWait(getDriver()))
                 .withTimeout(120, TimeUnit.SECONDS)
                 .pollingEvery(2, TimeUnit.SECONDS)
@@ -688,7 +691,7 @@ protected static String getMainTitleSelector() {
         });
     }
 
-    public static void uploadFile(@NotNull String inputBoxSelector, @NotNull String file, String jScript, @NotNull SelectorType selectorType) throws  IllegalBrowserException {
+    public static void uploadFile(@NotNull String inputBoxSelector, @NotNull String file, String jScript, @NotNull SelectorType selectorType) throws IllegalBrowserException {
         if (jScript != null) {
             // making the file input element visible
             javaScriptExecutor(jScript);
@@ -697,7 +700,7 @@ protected static String getMainTitleSelector() {
         element.sendKeys(file);
     }
 
-    public static Object javaScriptExecutor(String jsScript) throws  IllegalBrowserException {
+    public static Object javaScriptExecutor(String jsScript) throws IllegalBrowserException {
         return ((JavascriptExecutor) Browser.navigate()).executeScript(jsScript);
     }
 
@@ -741,7 +744,7 @@ protected static String getMainTitleSelector() {
         return LocalDate.now().minusYears(years).getYear();
     }
 
-    public static void selectServiceType(@NotNull String inputBoxSelector, @NotNull String listValueSelector, @NotNull SelectorType selectorType) throws  IllegalBrowserException {
+    public static void selectServiceType(@NotNull String inputBoxSelector, @NotNull String listValueSelector, @NotNull SelectorType selectorType) throws IllegalBrowserException {
         WebElement element = browser.navigate().findElement(by(inputBoxSelector, selectorType));
         new Actions(getDriver()).moveToElement(element).click().perform();
         WebElement dropDownValueByIndex = browser.navigate().findElement(by(inputBoxSelector, selectorType));
@@ -754,5 +757,60 @@ protected static String getMainTitleSelector() {
 
     public static List<WebElement> listOfWebElements(@NotNull String selector, @NotNull SelectorType selectorType) throws IllegalBrowserException {
         return Browser.navigate().findElements(by(selector, selectorType));
+    }
+
+    public String checkFieldValue(@NotNull String selector, @NotNull final SelectorType selectorType) throws IllegalBrowserException {
+
+        final String[] fieldText = {null};
+
+        WebDriverWait wait = new WebDriverWait(getDriver(), 60);
+
+        By byObject = by(selector, selectorType);
+
+        wait.until(new ExpectedCondition<String>() {
+            public String apply(WebDriver d) {
+                fieldText[0] = d.findElement(byObject).getText();
+                return fieldText[0];
+            }
+        });
+        return fieldText[0];
+    }
+
+    public void selectAllExternalRadioButtons(String radioButtonValue) throws IllegalBrowserException {
+        List<WebElement> radioButtons = Browser.navigate().findElements(By.xpath("//label[@class='form-control form-control--radio form-control--inline']"));
+        radioButtons.stream().filter(s -> s.getText().equals(radioButtonValue)).forEach(x -> x.click());
+    }
+    public void findSelectAllRadioButtonsByValue(String value) throws IllegalBrowserException {
+        List<WebElement> radioButtons = Browser.navigate().findElements(By.xpath("//*[@type='radio']"));
+        radioButtons.stream().
+                filter(x -> x.getAttribute("value").equals(value)).
+                filter(isChecked -> !isChecked.isSelected()).
+                forEach(x -> x.click());
+    }
+    public void selectFirstValueInList(String selector) throws IllegalBrowserException {
+        Browser.navigate().findElements(By.xpath(selector)).stream().findFirst().get().click();
+    }
+
+    public boolean checkForValuesInTable(String searchTerm) throws IllegalBrowserException {
+        return Browser.navigate().findElements(By.xpath("//table/tbody/tr[*]")).stream().allMatch(w -> w.getText().contains(searchTerm));
+    }
+
+    public boolean retryingFindClick(By by) {
+        boolean result = false;
+        int attempts = 0;
+        while (attempts < 10) {
+            try {
+                Browser.navigate().findElement(by).click();
+                result = true;
+                break;
+            } catch (Exception e) {
+            }
+            attempts++;
+        }
+        return result;
+    }
+
+    public void clickFirstElementFound(String selector, SelectorType selectorType) throws IllegalBrowserException {
+        Browser.navigate().findElements(by(selector,selectorType)).stream().findFirst().get().click();
     }
 }
