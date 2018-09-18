@@ -13,16 +13,14 @@ public class ConfirmationPage extends BasePage {
 
     final public static String DASHBOARD = "permits";
 
-    final public static String PAYMENTPAGE = "payment_receipt.html";
+    final public static String PAYMENT_RECEIPT_PAGE_LINK = "payment_receipt.html";
 
-    public static void finishButton() {
-        scrollAndClick(FINISH, SelectorType.XPATH);
+    public static void finishButton() { scrollAndClick(FINISH, SelectorType.XPATH);
     }
 
     public static void viewReceiptLink()
     {scrollAndClick(VIEWRECEIPT,SelectorType.XPATH);}
 
-    public static void acceptAndContinueButton() {
-        scrollAndClick(ACCEPT_AND_CONTINUE,SelectorType.XPATH);
+    public static void acceptAndContinueButton() { scrollAndClick(ACCEPT_AND_CONTINUE, SelectorType.XPATH);
     }
 }
