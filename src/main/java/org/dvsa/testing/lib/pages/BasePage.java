@@ -696,7 +696,7 @@ public abstract class BasePage {
             // making the file input element visible
             javaScriptExecutor(jScript);
         }
-        WebElement element = Browser.navigate().findElement(by(inputBoxSelector, selectorType));
+        WebElement element = getDriver().findElement(by(inputBoxSelector, selectorType));
         element.sendKeys(file);
     }
 
@@ -705,7 +705,7 @@ public abstract class BasePage {
     }
 
     public static void enterText(@NotNull String selector, @NotNull String textValue, @NotNull SelectorType selectorType) throws IllegalBrowserException {
-        Browser.navigate().findElement(by(selector, selectorType)).sendKeys(textValue);
+        getDriver().findElement(by(selector, selectorType)).sendKeys(textValue);
     }
 
     public static int getCurrentDayOfMonth() {
@@ -747,16 +747,16 @@ public abstract class BasePage {
     public static void selectServiceType(@NotNull String inputBoxSelector, @NotNull String listValueSelector, @NotNull SelectorType selectorType) throws IllegalBrowserException {
         WebElement element = browser.navigate().findElement(by(inputBoxSelector, selectorType));
         new Actions(getDriver()).moveToElement(element).click().perform();
-        WebElement dropDownValueByIndex = browser.navigate().findElement(by(inputBoxSelector, selectorType));
+        WebElement dropDownValueByIndex = getDriver().findElement(by(inputBoxSelector, selectorType));
         new Actions(getDriver()).moveToElement(dropDownValueByIndex).click().perform();
     }
 
     public static int returnTableRows(@NotNull String selector, @NotNull SelectorType selectorType) throws IllegalBrowserException {
-        return browser.navigate().findElements(by(selector, selectorType)).size();
+        return getDriver().findElements(by(selector, selectorType)).size();
     }
 
     public static List<WebElement> listOfWebElements(@NotNull String selector, @NotNull SelectorType selectorType) throws IllegalBrowserException {
-        return Browser.navigate().findElements(by(selector, selectorType));
+        return getDriver().findElements(by(selector, selectorType));
     }
 
     public String checkFieldValue(@NotNull String selector, @NotNull final SelectorType selectorType) throws IllegalBrowserException {
@@ -781,18 +781,18 @@ public abstract class BasePage {
         radioButtons.stream().filter(s -> s.getText().equals(radioButtonValue)).forEach(x -> x.click());
     }
     public void findSelectAllRadioButtonsByValue(String value) throws IllegalBrowserException {
-        List<WebElement> radioButtons = Browser.navigate().findElements(By.xpath("//*[@type='radio']"));
+        List<WebElement> radioButtons = getDriver().findElements(By.xpath("//*[@type='radio']"));
         radioButtons.stream().
                 filter(x -> x.getAttribute("value").equals(value)).
                 filter(isChecked -> !isChecked.isSelected()).
                 forEach(x -> x.click());
     }
     public void selectFirstValueInList(String selector) throws IllegalBrowserException {
-        Browser.navigate().findElements(By.xpath(selector)).stream().findFirst().get().click();
+        getDriver().findElements(By.xpath(selector)).stream().findFirst().get().click();
     }
 
     public boolean checkForValuesInTable(String searchTerm) throws IllegalBrowserException {
-        return Browser.navigate().findElements(By.xpath("//table/tbody/tr[*]")).stream().allMatch(w -> w.getText().contains(searchTerm));
+        return getDriver().findElements(By.xpath("//table/tbody/tr[*]")).stream().allMatch(w -> w.getText().contains(searchTerm));
     }
 
     public boolean retryingFindClick(By by) {
@@ -800,7 +800,7 @@ public abstract class BasePage {
         int attempts = 0;
         while (attempts < 10) {
             try {
-                Browser.navigate().findElement(by).click();
+                getDriver().findElement(by).click();
                 result = true;
                 break;
             } catch (Exception e) {
@@ -811,6 +811,6 @@ public abstract class BasePage {
     }
 
     public void clickFirstElementFound(String selector, SelectorType selectorType) throws IllegalBrowserException {
-        Browser.navigate().findElements(by(selector,selectorType)).stream().findFirst().get().click();
+        getDriver().findElements(by(selector,selectorType)).stream().findFirst().get().click();
     }
 }
