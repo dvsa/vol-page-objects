@@ -813,4 +813,8 @@ public abstract class BasePage {
     public void clickFirstElementFound(String selector, SelectorType selectorType) throws IllegalBrowserException {
         getDriver().findElements(by(selector,selectorType)).stream().findFirst().get().click();
     }
+
+    public void getCssValue(String selector, SelectorType selectorType, String cssAttribute) throws IllegalBrowserException {
+        getDriver().findElement(by(selector,selectorType)).getCssValue(cssAttribute);
+    }
 }
