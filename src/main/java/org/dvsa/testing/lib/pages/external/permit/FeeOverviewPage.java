@@ -27,4 +27,8 @@ public class FeeOverviewPage extends BasePermitPage {
         return Str.find("\\d+(?= x £\\d+ \\(per permit\\))", getSectionValue(FeeSection.PermitsRequired));
     }
 
+    public static String pricePerPermit() {
+        return Str.find("(?<=\\d x £)\\d+", getSectionValue(FeeSection.PermitsRequired));
+    }
+
 }
