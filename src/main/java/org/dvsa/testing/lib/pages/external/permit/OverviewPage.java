@@ -13,6 +13,8 @@ public class OverviewPage extends BasePermitPage {
     private static String ACTIVE_SECTION_STATUS_TEMPLATE = "//span[contains(text(), '%s')]/following-sibling::span";
     private static String DISABLED_SECTION_STATUS_TEMPLATE = "//div[contains(text(), '%s')]/span";
 
+    private static String APPLICATION_REFERENCE = "h3.page-header__subtitle";
+
     private static String PROGRESS_PANEL = ".sidebar";
     private static String PROGRESS_PANEL_COMPLETE_SECTIONS = PROGRESS_PANEL + " p:nth-of-type(1) b";
     private static String PROGRESS_PANEL_APPLICATION_FEE = PROGRESS_PANEL + " p:nth-of-type(3)";
@@ -47,6 +49,18 @@ public class OverviewPage extends BasePermitPage {
     public static int applicationFee() {
         String subject = getText(PROGRESS_PANEL_APPLICATION_FEE);
         return Integer.parseInt(Str.find("(?<=Total application fee: £)(\\d+)", subject));
+    }
+
+    public static String reference() {
+        return getText(APPLICATION_REFERENCE);
+    }
+
+    public static String licenceNumber() {
+        return Str.find("\\w{2}\\d{7}(?= / \\d+)", reference());
+    }
+
+    public static String permitNumber() {
+        return Str.find("(?<=\\w{2}\\d{7} / )\\d+", reference());
     }
 
 }
