@@ -31,4 +31,8 @@ public class FeeOverviewPage extends BasePermitPage {
         return Str.find("(?<=\\d x £)\\d+", getSectionValue(FeeSection.PermitsRequired));
     }
 
+    public static String totalFee() {
+        return Str.find("(?<=£)\\d+", getSectionValue(FeeSection.TotalApplicationFeeToBePaid));
+    }
+
 }
