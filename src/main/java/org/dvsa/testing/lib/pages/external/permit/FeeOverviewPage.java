@@ -1,5 +1,6 @@
 package org.dvsa.testing.lib.pages.external.permit;
 
+import activesupport.string.Str;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
 import org.dvsa.testing.lib.pages.external.permit.enums.FeeSection;
 
@@ -20,6 +21,10 @@ public class FeeOverviewPage extends BasePermitPage {
 
     public static String getSectionValue(FeeSection section) {
         return getText(String.format(TABLE_SECTION_TEMPLATE, section.toString()), SelectorType.XPATH).trim();
+    }
+
+    public static String numberOfPermits() {
+        return Str.find("\\d+(?= x £\\d+ \\(per permit\\))", getSectionValue(FeeSection.PermitsRequired));
     }
 
 }
