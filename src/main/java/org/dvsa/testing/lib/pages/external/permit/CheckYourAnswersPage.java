@@ -20,8 +20,8 @@ public class CheckYourAnswersPage extends BasePermitPage {
         return getText(selector + ANSWER_VALUE_DATA_CELL, SelectorType.CSS);
     }
 
-    public static void acceptAndContinue() {
-        scrollAndClick(CONFIRM_AND_CONTINUE_BUTTON, SelectorType.XPATH);
+    public static void saveAndContinue() {
+        scrollAndClick(CONFIRM_AND_CONTINUE_BUTTON);
     }
 
 }
