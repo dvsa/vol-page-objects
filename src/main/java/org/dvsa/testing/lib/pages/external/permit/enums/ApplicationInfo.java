@@ -1,7 +1,12 @@
 package org.dvsa.testing.lib.pages.external.permit.enums;
 
 public enum ApplicationInfo {
+    Licence,
+    Euro6,
+    Cabotage,
     RestrictedCountries,
-    VehicleStandard,
-    Cabotage;
+    NumberOfPermits,
+    NumberOfTrips,
+    ProportionOfInternationalBusiness,
+    Sector;
 }
