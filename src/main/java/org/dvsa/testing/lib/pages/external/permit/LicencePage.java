@@ -5,6 +5,8 @@ import activesupport.string.Str;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
 
+import java.util.concurrent.TimeUnit;
+
 public class LicencePage extends BasePermitPage {
     private static String CANCEL_BUTTON = "//a[contains(text(), 'Cancel')]";
 
@@ -49,7 +51,10 @@ public class LicencePage extends BasePermitPage {
     }
 
     public static String getLicenceNumber(int index){
-        return Str.find("\\w{2}\\d{7}", getText(String.format(LICENCE_NTH_LABEL, index)));
+        String selector = String.format(LICENCE_NTH_LABEL, index);
+
+        untilElementIsPresent(selector, SelectorType.XPATH, BasePage.WAIT_TIME_SECONDS, TimeUnit.SECONDS);
+        return Str.find("\\w{2}\\d{7}", getText(selector));
     }
 
     public static int numOfLicences(){
