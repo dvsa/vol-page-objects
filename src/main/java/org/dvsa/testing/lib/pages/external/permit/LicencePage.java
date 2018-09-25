@@ -47,6 +47,8 @@ public class LicencePage extends BasePermitPage {
     }
 
     public static String getLicenceNumber(){
+        untilElementIsPresent(TITLE, BasePage.WAIT_TIME_SECONDS, TimeUnit.SECONDS);
+
         return Str.find(LICENCE_REGEX, getText(TITLE));
     }
 
