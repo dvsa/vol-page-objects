@@ -4,19 +4,19 @@ import activesupport.number.Int;
 
 public enum Sector {
 
-    FOOD_PRODUCTS("Beverages and tobacco, products of agriculture, hunting and forests, fish and other fishing products"),
     CHEMICALS("Chemical products, man-made fibres, rubber and plastic products, nuclear fuel"),
-    COKE_AND_REFINED_PETROLEUM_PRODUCTS("Coke and refined petroleum products"),
-    TRANSPORT_EQUIPMENT("Equipment, machinery and equipment not elsewhere categorised, equipment and material utilised in the transport of goods"),
-    COAL("Lignite, crude petroleum and natural gas"),
-    MAIL_AND_PARCELS("Mail, parcels, grouped goods"),
-    METAL("Metal ores and other mining and quarrying products, peat, uranium and thorium, basic metals, fabricated metal products, except machinery and equipment"),
-    RAW_MATERIALS("Municipal wastes and other wastes"),
+    FOOD_PRODUCTS("Beverages and tobacco, products of agriculture, hunting and forests, fish and other fishing products"),
     FURNITURE("Other manufactured goods not elsewhere categorised, goods moved in course of household and office removals"),
-    NON_METALLIC_MINERAL_PRODUCT("Other non metallic mineral products"),
-    WOOD("Products of wood and cork (except furniture), articles of straw and plaiting materials, pulp, paper and paper products, printed matter and recorded media"),
+    METAL("Metal ores and other mining and quarrying products, peat, uranium and thorium, basic metals, fabricated metal products, except machinery and equipment"),
+    MAIL_AND_PARCELS("Mail, parcels, grouped goods"),
+    RAW_MATERIALS("Municipal wastes and other wastes"),
+    REFINED_FUELS("Coke and refined petroleum products"),
+    TRANSPORT_AND_MACHINERY("Equipment, machinery and equipment not elsewhere categorised, equipment and material utilised in the transport of goods"),
     TEXTILES("Textile products, leather and leather products"),
-    NONE("None of these sectors");
+    UNREFINED_FUELS("Lignite, crude petroleum and natural gas"),
+    WOOD("Products of wood and cork (except furniture), articles of straw and plaiting materials, pulp, paper and paper products, printed matter and recorded media"),
+    OTHER_NON_METALLIC_MINERAL_PRODUCT("Other non-metallic mineral products"),
+    NONE_OR_MORE_THAN_ONE_OF_THESE_SECTORS("None/More than one of these sectors");
 
     private String description;
 
