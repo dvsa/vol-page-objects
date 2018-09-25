@@ -1,7 +1,6 @@
 package org.dvsa.testing.lib.pages.external.permit.enums;
 
 import activesupport.number.Int;
-import org.jetbrains.annotations.NotNull;
 
 public enum Sector {
 
