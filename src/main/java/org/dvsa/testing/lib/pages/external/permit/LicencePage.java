@@ -48,7 +48,7 @@ public class LicencePage extends BasePermitPage {
     }
 
     public static String getLicenceNumber(){
-        Browser.Wait.untilUrlIs(RESOURCE, TimeUnit.SECONDS, BasePage.WAIT_TIME_SECONDS);
+        Browser.Wait.untilUrlPathIs(RESOURCE, TimeUnit.SECONDS, BasePage.WAIT_TIME_SECONDS);
         untilElementIsPresent(CANCEL_BUTTON, SelectorType.XPATH, BasePage.WAIT_TIME_SECONDS, TimeUnit.SECONDS);
 
         return Str.find(LICENCE_REGEX, getText(TITLE));
