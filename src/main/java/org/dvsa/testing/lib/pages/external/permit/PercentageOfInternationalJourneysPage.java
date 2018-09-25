@@ -10,7 +10,7 @@ public class PercentageOfInternationalJourneysPage extends BasePermitPage {
 
     private static String PROPORTION_TEMPLATE = "label:nth-of-type(%s) input[type=radio]";
 
-    final public static String RESOURCE = "ecmt-trips/";
+    final public static String RESOURCE = "ecmt-international-journey/";
 
     public static void proportion(JourneyProportion proportion){
         Browser.Wait.untilUrlIs(RESOURCE, TimeUnit.SECONDS, BasePermitPage.WAIT_TIME_SECONDS);
