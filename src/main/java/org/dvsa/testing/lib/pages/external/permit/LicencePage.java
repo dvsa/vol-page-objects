@@ -2,8 +2,11 @@ package org.dvsa.testing.lib.pages.external.permit;
 
 import activesupport.number.Int;
 import activesupport.string.Str;
+import org.dvsa.testing.lib.browser.Browser;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
+
+import java.util.concurrent.TimeUnit;
 
 public class LicencePage extends BasePermitPage {
     private static String CANCEL_BUTTON = "//a[contains(text(), 'Cancel')]";
@@ -18,7 +21,7 @@ public class LicencePage extends BasePermitPage {
 
     private static String LICENCE_REGEX = "(?<=Permit application for licence )\\w{9}";
 
-    final public static String RESOURCE = "ecmt-licence/";
+    final public static String RESOURCE = "ecmt-add-licence/";
 
     public static class AppliedAgainstAllPage {
 
@@ -45,11 +48,17 @@ public class LicencePage extends BasePermitPage {
     }
 
     public static String getLicenceNumber(){
+        Browser.Wait.untilUrlIs(RESOURCE, TimeUnit.SECONDS, BasePage.WAIT_TIME_SECONDS);
+        untilElementIsPresent(CANCEL_BUTTON, SelectorType.XPATH, BasePage.WAIT_TIME_SECONDS, TimeUnit.SECONDS);
+
         return Str.find(LICENCE_REGEX, getText(TITLE));
     }
 
     public static String getLicenceNumber(int index){
-        return Str.find("\\w{2}\\d{7}", getText(String.format(LICENCE_NTH_LABEL, index)));
+        String selector = String.format(LICENCE_NTH_LABEL, index);
+
+        untilElementIsPresent(selector, SelectorType.XPATH, BasePage.WAIT_TIME_SECONDS, TimeUnit.SECONDS);
+        return Str.find("\\w{2}\\d{7}", getText(selector));
     }
 
     public static int numOfLicences(){

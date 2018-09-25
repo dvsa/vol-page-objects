@@ -68,7 +68,10 @@ public class HomePage extends BasePage {
 
     // Behaviour
     public static void selectTab(Tab tab) {
-        click(String.format(TAB_TEMPLATE, tab.toString()), SelectorType.XPATH);
+        String selector = String.format(TAB_TEMPLATE, tab.toString());
+
+        untilElementIsPresent(selector, SelectorType.XPATH, BasePage.WAIT_TIME_SECONDS, TimeUnit.SECONDS);
+        click(selector, SelectorType.XPATH);
     }
 
     public static void applyForLicenceButton() throws UninitialisedDriverException {
