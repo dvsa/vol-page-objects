@@ -1,6 +1,9 @@
 package org.dvsa.testing.lib.pages.external.permit;
 
+import org.dvsa.testing.lib.pages.enums.SelectorType;
 import org.dvsa.testing.lib.pages.external.permit.enums.JourneyProportion;
+
+import java.util.concurrent.TimeUnit;
 
 public class PercentageOfInternationalJourneysPage extends BasePermitPage {
 
@@ -9,6 +12,9 @@ public class PercentageOfInternationalJourneysPage extends BasePermitPage {
     final public static String RESOURCE = "ecmt-international-journey/";
 
     public static void proportion(JourneyProportion proportion){
+        String selector = String.format(PROPORTION_TEMPLATE, proportion.ordinal() + 1);
+
+        untilElementIsPresent(selector, SelectorType.CSS, BasePermitPage.WAIT_TIME_SECONDS, TimeUnit.SECONDS);
         scrollAndClick(String.format(PROPORTION_TEMPLATE, proportion.ordinal() + 1));
     }
 
