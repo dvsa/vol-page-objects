@@ -2,6 +2,7 @@ package org.dvsa.testing.lib.pages.external.permit;
 
 import activesupport.number.Int;
 import activesupport.string.Str;
+import org.dvsa.testing.lib.browser.Browser;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
 
@@ -20,7 +21,7 @@ public class LicencePage extends BasePermitPage {
 
     private static String LICENCE_REGEX = "(?<=Permit application for licence )\\w{9}";
 
-    final public static String RESOURCE = "ecmt-licence/";
+    final public static String RESOURCE = "ecmt-add-licence/";
 
     public static class AppliedAgainstAllPage {
 
@@ -47,7 +48,8 @@ public class LicencePage extends BasePermitPage {
     }
 
     public static String getLicenceNumber(){
-        untilElementIsPresent(TITLE, BasePage.WAIT_TIME_SECONDS, TimeUnit.SECONDS);
+        Browser.Wait.untilUrlIs(RESOURCE, TimeUnit.SECONDS, BasePage.WAIT_TIME_SECONDS);
+        untilElementIsPresent(CANCEL_BUTTON, SelectorType.XPATH, BasePage.WAIT_TIME_SECONDS, TimeUnit.SECONDS);
 
         return Str.find(LICENCE_REGEX, getText(TITLE));
     }
