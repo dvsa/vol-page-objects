@@ -12,7 +12,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <uri-constructor.version>1.4.4</uri-constructor.version>
         <selenium.version>3.12.0</selenium.version>
-        <webdriver-manager.version>1.7.2</webdriver-manager.version>
         <browser.version>0.9.0.EUPA</browser.version>
         <junit.version>4.12</junit.version>
         <annotations.version>13.0</annotations.version>
@@ -62,11 +61,6 @@
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>${selenium.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.bonigarcia</groupId>
-            <artifactId>webdrivermanager</artifactId>
-            <version>${webdriver-manager.version}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
