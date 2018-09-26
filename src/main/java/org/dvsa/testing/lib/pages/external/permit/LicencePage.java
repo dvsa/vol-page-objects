@@ -21,7 +21,7 @@ public class LicencePage extends BasePermitPage {
 
     private static String LICENCE_REGEX = "(?<=Permit application for licence )\\w{9}";
 
-    final public static String RESOURCE = "ecmt-add-licence/";
+    final public static String RESOURCE = "(ecmt-add-licence/|ecmt-licence/)";
 
     public static class AppliedAgainstAllPage {
 
