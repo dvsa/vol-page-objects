@@ -49,7 +49,7 @@ public class LicencePage extends BasePermitPage {
 
     public static String getLicenceNumber(){
         Browser.Wait.untilUrlPathIs(RESOURCE, TimeUnit.SECONDS, BasePage.WAIT_TIME_SECONDS);
-        untilElementIsPresent(CANCEL_BUTTON, SelectorType.XPATH, BasePage.WAIT_TIME_SECONDS, TimeUnit.SECONDS);
+        untilElementIsPresent(TITLE, SelectorType.CSS, BasePage.WAIT_TIME_SECONDS, TimeUnit.SECONDS);
 
         return Str.find(LICENCE_REGEX, getText(TITLE));
     }
