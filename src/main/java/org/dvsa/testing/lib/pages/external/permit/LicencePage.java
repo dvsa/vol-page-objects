@@ -57,7 +57,7 @@ public class LicencePage extends BasePermitPage {
     public static String getLicenceNumber(int index){
         String selector = String.format(LICENCE_NTH_LABEL, index);
 
-        untilElementIsPresent(selector, SelectorType.XPATH, BasePage.WAIT_TIME_SECONDS, TimeUnit.SECONDS);
+        untilElementIsPresent(selector, SelectorType.CSS, BasePage.WAIT_TIME_SECONDS, TimeUnit.SECONDS);
         return Str.find("\\w{2}\\d{7}", getText(selector));
     }
 
