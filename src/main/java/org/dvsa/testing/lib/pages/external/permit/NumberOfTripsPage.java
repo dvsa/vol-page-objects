@@ -10,6 +10,8 @@ public class NumberOfTripsPage extends BasePermitPage {
 
     final public static String RESOURCE = "ecmt-trips/";
 
+    private static String INTENCITY_MESSAGE = "You have stated a high intensity of use of these permits. Please check the details are correct. We may contact you to verify this information";
+
     public static void quantity(@NotNull String quantity){
         scrollAndEnterField(TRIPS_ABROAD, quantity);
     }
@@ -20,6 +22,10 @@ public class NumberOfTripsPage extends BasePermitPage {
 
     public static boolean hasInfoForNIUsers(){
         return isTextPresent(INFO_FOR_NI);
+    }
+
+    public static boolean hasIntensityMessage() {
+        return isTextPresent(INTENCITY_MESSAGE);
     }
 
 }
