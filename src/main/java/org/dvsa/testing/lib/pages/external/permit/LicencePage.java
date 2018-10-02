@@ -3,6 +3,7 @@ package org.dvsa.testing.lib.pages.external.permit;
 import activesupport.number.Int;
 import activesupport.string.Str;
 import org.dvsa.testing.lib.browser.Browser;
+import org.dvsa.testing.lib.enums.Duration;
 import org.dvsa.testing.lib.pages.BasePage;
 import org.dvsa.testing.lib.pages.enums.SelectorType;
 
@@ -33,6 +34,44 @@ public class LicencePage extends BasePermitPage {
 
     }
 
+    public static class Change {
+
+        private static final String CONFIRM_CHECKBOX = "input#ConfirmChange";
+        private static final String SELECTED_CHECKBOX = "label.selected";
+
+        private static final String CONFIRM_LICENCE_CHANGE = "input[type='submit']";
+
+        private static final String CANCEL = "//a[contains(text(), 'Cancel')]";
+
+        public static void confirmChange(boolean confirmation) {
+            if (confirmation && !isCheckboxSelected()){
+                scrollAndClick(CONFIRM_CHECKBOX);
+            } else if (!confirmation && isCheckboxSelected()){
+                scrollAndClick(CONFIRM_CHECKBOX);
+            }
+        }
+
+        private static boolean isCheckboxSelected() {
+            untilOnPage();
+            return isElementPresent(SELECTED_CHECKBOX);
+        }
+
+        public static void confirmLicenceChange() {
+            untilElementIsPresent(CONFIRM_LICENCE_CHANGE, Duration.SHORT, TimeUnit.SECONDS);
+            scrollAndClick(CONFIRM_LICENCE_CHANGE);
+        }
+
+        public static void cancel() {
+            untilElementIsPresent(CONFIRM_LICENCE_CHANGE, Duration.SHORT, TimeUnit.SECONDS);
+            scrollAndClick(CANCEL, SelectorType.XPATH);
+        }
+
+        public static void untilOnPage(){
+            untilElementIsPresent("//h1[contains(text(), 'Change Licence')]", SelectorType.XPATH, Duration.MEDIUM, TimeUnit.SECONDS);
+        }
+
+    }
+
     public static String randomLicnece(){
         int index = Int.random(1, numOfLicences());
         licence(index);
@@ -57,7 +96,7 @@ public class LicencePage extends BasePermitPage {
     public static String getLicenceNumber(int index){
         String selector = String.format(LICENCE_NTH_LABEL, index);
 
-        untilElementIsPresent(selector, SelectorType.XPATH, BasePage.WAIT_TIME_SECONDS, TimeUnit.SECONDS);
+        untilElementIsPresent(selector, SelectorType.CSS, BasePage.WAIT_TIME_SECONDS, TimeUnit.SECONDS);
         return Str.find("\\w{2}\\d{7}", getText(selector));
     }
 
