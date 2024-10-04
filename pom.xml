@@ -12,7 +12,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <uri-constructor.version>1.4.4</uri-constructor.version>
         <selenium.version>3.13.0</selenium.version>
-        <webdriver-manager.version>1.7.2</webdriver-manager.version>
+        <webdriver-manager.version>5.0.0</webdriver-manager.version>
         <junit.version>4.12</junit.version>
         <annotations.version>13.0</annotations.version>
         <active-support.version>1.2.7</active-support.version>
